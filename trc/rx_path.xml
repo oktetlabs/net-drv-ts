@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<test name="rx_path" type="package">
+  <objective>Rx path tests</objective>
+  <notes/>
+  <iter result="PASSED">
+    <notes/>
+    <test name="rx_fcs" type="script">
+      <objective>Check that FCS forwarding can be enabled and disabled.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="rx_fcs">FALSE</arg>
+        <arg name="small_frame"/>
+        <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="rx_fcs">TRUE</arg>
+        <arg name="small_frame"/>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-RX-FCS" notes="igb does not support FCS on Rx">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-FCS" notes="VirtIO net does not support FCS on Rx">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="WONTFIX X3-RX-FCS" notes="xilinx_efct does not support FCS on Rx on EA release: XN-200494-PD-1D/NPT-450">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="rx_coalesce_usecs" type="script">
+      <objective>Check that when rx_coalesce_usecs is set to a specific value, Rx interrupts coalescing works accordingly.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="coalesce_usecs">0</arg>
+        <notes/>
+        <results tags="igb" key="IGB-RX-COALESCE" notes="igb does not handle 0 coalesce properly">
+          <result value="FAILED">
+            <verdict>Too many big delays between packets</verdict>
+          </result>
+        </results>
+        <results tags="sfc_ef100" key="SWNETLINUX-3314" notes="ethtool coalesce ops are not implemented in sfc_ef100">
+          <result value="FAILED">
+            <verdict>Failed to set use_adaptive_rx_coalesce, rc=CS-ENOENT</verdict>
+          </result>
+        </results>
+        <results tags="xilinx-virtio-net" key="NET-48" notes="These iterations are unstable on Xilinx Virtio-Net">
+          <result value="PASSED"/>
+          <result value="FAILED">
+            <verdict>Too many big delays between packets</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="coalesce_usecs">300</arg>
+        <notes/>
+        <results tags="sfc_ef100" key="SWNETLINUX-3314" notes="ethtool coalesce ops are not implemented in sfc_ef100">
+          <result value="FAILED">
+            <verdict>Failed to set use_adaptive_rx_coalesce, rc=CS-ENOENT</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-IRQ-MODER-CONTROL" notes="VirtIO net does not support interrupt moderation control">
+          <result value="SKIPPED">
+            <verdict>rx_coalesce_usecs=300 is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="coalesce_usecs">511</arg>
+        <notes/>
+        <results tags="sfc_ef100" key="SWNETLINUX-3314" notes="ethtool coalesce ops are not implemented in sfc_ef100">
+          <result value="FAILED">
+            <verdict>Failed to set use_adaptive_rx_coalesce, rc=CS-ENOENT</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-IRQ-MODER-CONTROL" notes="VirtIO net does not support interrupt moderation control">
+          <result value="SKIPPED">
+            <verdict>rx_coalesce_usecs=511 is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="coalesce_usecs">800</arg>
+        <notes/>
+        <results tags="sfc_ef100" key="SWNETLINUX-3314" notes="ethtool coalesce ops are not implemented in sfc_ef100">
+          <result value="FAILED">
+            <verdict>Failed to set use_adaptive_rx_coalesce, rc=CS-ENOENT</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-IRQ-MODER-CONTROL" notes="VirtIO net does not support interrupt moderation control">
+          <result value="SKIPPED">
+            <verdict>rx_coalesce_usecs=800 is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+  </iter>
+</test>

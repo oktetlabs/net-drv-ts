@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<test name="ethtool" type="package">
+  <objective>Ethtool tests</objective>
+  <notes/>
+  <iter result="PASSED">
+    <notes/>
+    <test name="dev_properties" type="script">
+      <objective>Check that ethtool shows interface properties.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="statistics" type="script">
+      <objective>Check that ethtool shows interface statistics.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="msglvl" type="script">
+      <objective>Check that changing driver message level affects logs printed by the driver.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-ETHTOOL-MSGLVL" notes="igb does not have logs enabled via msglvl">
+          <result value="FAILED">
+            <verdict>No logs from the driver were detected when all flags in msglvl are switched on</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-MSGLEVEL" notes="VirtIO net does not support message level change via ethtool">
+          <result value="FAILED">
+            <verdict>Failed to enable all flags in msglvl</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="reset_under_traffic" type="script">
+      <objective>Check that NIC can be reset when data is transmitted over it and that data transmission resumes after NIC is reset.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="flags">MAC</arg>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_core does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="flags">DEDICATED</arg>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_core does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="flags">SHARED_MAC|SHARED_PHY</arg>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_core does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="flags">ALL</arg>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_core does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="check_ring" type="script">
+      <objective>Check ring size with ethtool.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+        <results tags="sfc">
+          <result value="PASSED">
+            <verdict>Current ring sizes RX: 1024, TX: 1024</verdict>
+            <verdict>Preset maximums RX: 4096, TX: 2048</verdict>
+          </result>
+        </results>
+        <results tags="sfc_ef100">
+          <result value="PASSED">
+            <verdict>Current ring sizes RX: 1024, TX: 1024</verdict>
+            <verdict>Preset maximums RX: 4096, TX: 4096</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct">
+          <result value="PASSED">
+            <verdict>Current ring sizes RX: 2048, TX: 512</verdict>
+            <verdict>Preset maximums RX: 6144, TX: 512</verdict>
+          </result>
+        </results>
+        <results tags="xilinx-virtio-net">
+          <result value="PASSED">
+            <verdict>Current ring sizes RX: 32768, TX: 32768</verdict>
+            <verdict>Preset maximums RX: 32768, TX: 32768</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci">
+          <result value="PASSED">
+            <verdict>Current ring sizes RX: 256, TX: 256</verdict>
+            <verdict>Preset maximums RX: 256, TX: 256</verdict>
+          </result>
+        </results>
+        <results tags="igb">
+          <result value="PASSED">
+            <verdict>Current ring sizes RX: 256, TX: 256</verdict>
+            <verdict>Preset maximums RX: 4096, TX: 4096</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core">
+          <result value="PASSED">
+            <verdict>Current ring sizes RX: 1024, TX: 1024</verdict>
+            <verdict>Preset maximums RX: 8192, TX: 8192</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="show_pause" type="script">
+      <objective>Check that ethtool can show pause parameters for a tested interface.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+        <results tags="mlx5_core">
+          <result value="PASSED">
+            <verdict>Pause autonegotiation is disabled</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="X3-892">
+          <result value="PASSED">
+            <verdict>Pause autonegotiation is disabled</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="ts_info" type="script">
+      <objective>Check that ethtool provides information about packets timestamping capabilities and PHC device index.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+      </iter>
+    </test>
+  </iter>
+</test>

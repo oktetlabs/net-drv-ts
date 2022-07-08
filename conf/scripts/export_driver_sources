@@ -1,0 +1,126 @@
+# SPDX-License-Identifier: Apache-2.0
+# (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved.
+
+# The script is used to get and export variables related to the network
+# driver repositories. The following repositories are supported:
+# sfc-linux-net, cns-auxiliary-bus and x3-net-linux.
+# The script should be called after ts-conf/env/sfc or ts-conf/env/x3
+# scripts, where the variables TE_ENV_IUT_NET_DRIVER and TE_ENV_TST_NET_DRIVER
+# were exported.
+# The results of the script will be used when processing builder.conf.
+
+#
+# print error to stderr and exit
+#
+fail() {
+    echo "ERROR: $*" >&2
+    exit 1
+}
+
+#
+# Guess the path to repository
+#
+# @param    variable name (SFC_LINUX_NET_SRC, CNS_AUX_BUS_SRC or
+#           X3_NET_LINUX_SRC)
+# @param    the assumed repository name for the variable name
+#
+
+guess_driver_sources() {
+    local var_name=$1 ; shift
+    local repo_name=$1 ; shift
+    local role=$1 ; shift
+
+    if test -z "${!var_name}" ; then
+        local dir="${TE_TS_TOPDIR}/../${repo_name}"
+        if test -d "$dir" ; then
+            pushd "$dir" >/dev/null
+            dir="$(pwd -P)"
+            popd >/dev/null
+            eval "export ${var_name}=$dir"
+            echo "Guessed ${var_name}=${!var_name}"
+        elif test "${role}" = IUT ; then
+            echo "Cannot guess ${var_name} - test kernel driver" >&2
+        fi
+    fi
+}
+
+#
+# Get and export paths to driver sources for IUT/TST1
+#
+# @param    Role: IUT, TST1
+# @param    driver name: sfc, xilinx_efct
+#
+obtain_driver_sources() {
+    local role=$1 ; shift
+    local driver_name=$1 ; shift
+
+    local sfc_linux_net_src=
+    local cns_auxiliary_bus_src=
+    local x3_net_linux_src=
+
+    if test "${driver_name}" = "sfc" -o "${driver_name}" = "sfc_ef100" ; then
+        if test -z "${SFC_LINUX_NET_SRC}" ; then
+            guess_driver_sources SFC_LINUX_NET_SRC sfc-linux-net "${role}"
+        fi
+        sfc_linux_net_src="${SFC_LINUX_NET_SRC}"
+    elif test "${driver_name}" = "xilinx_efct" ; then
+        if test -z "${CNS_AUX_BUS_SRC}" ; then
+            guess_driver_sources CNS_AUX_BUS_SRC cns-auxiliary-bus "${role}"
+        fi
+        cns_auxiliary_bus_src="${CNS_AUX_BUS_SRC}"
+        if test -z "${X3_NET_LINUX_SRC}" ; then
+            guess_driver_sources X3_NET_LINUX_SRC x3-net-linux "${role}"
+        fi
+        x3_net_linux_src="${X3_NET_LINUX_SRC}"
+    else
+        if test -z "$driver_name" ; then
+            if test "$role" = "TST1" -a "$HWSIM" = "true" ; then
+                echo "INFO: driver name is empty, this is acceptable" \
+                     "for HWSIM + TST1" >&2
+            else
+                fail "driver name is not defined"
+            fi
+        fi
+    fi
+
+    test -n "${sfc_linux_net_src}" \
+        && eval "export TE_${role}_SFC_LINUX_NET_SRC=\"${sfc_linux_net_src}\""
+    test -n "${cns_auxiliary_bus_src}" \
+        && eval "export TE_${role}_CNS_AUX_BUS_SRC=\"${cns_auxiliary_bus_src}\""
+    test -n "${x3_net_linux_src}" \
+        && eval "export TE_${role}_X3_NET_LINUX_SRC=\"${x3_net_linux_src}\""
+}
+
+obtain_driver_sources IUT "${TE_ENV_IUT_NET_DRIVER}"
+obtain_driver_sources TST1 "${TE_ENV_TST_NET_DRIVER}"
+
+# If the signatures is the same, then the variables should be combined,
+# e.g. two hosts with the same signature might have different NICs
+if test "${TE_IUT_TA_TYPE}" = "${TE_TST1_TA_TYPE}" ; then
+    if test "${TE_IUT_SFC_LINUX_NET_SRC}" != "${TE_TST1_SFC_LINUX_NET_SRC}" ; then
+        test -z "${TE_IUT_SFC_LINUX_NET_SRC}" \
+            && export TE_IUT_SFC_LINUX_NET_SRC="${TE_TST1_SFC_LINUX_NET_SRC}" \
+            || export TE_TST1_SFC_LINUX_NET_SRC="${TE_IUT_SFC_LINUX_NET_SRC}"
+    fi
+    if test "${TE_IUT_CNS_AUX_BUS_SRC}" != "${TE_TST1_CNS_AUX_BUS_SRC}" ; then
+        test -z "${TE_IUT_CNS_AUX_BUS_SRC}" \
+            && export TE_IUT_CNS_AUX_BUS_SRC="${TE_TST1_CNS_AUX_BUS_SRC}" \
+            || export TE_TST1_CNS_AUX_BUS_SRC="${TE_IUT_CNS_AUX_BUS_SRC}"
+    fi
+    if test "${TE_IUT_X3_NET_LINUX_SRC}" != "${TE_TST1_X3_NET_LINUX_SRC}" ; then
+        test -z "${TE_IUT_X3_NET_LINUX_SRC}" \
+            && export TE_IUT_X3_NET_LINUX_SRC="${TE_TST1_X3_NET_LINUX_SRC}" \
+            || export TE_TST1_X3_NET_LINUX_SRC="${TE_IUT_X3_NET_LINUX_SRC}"
+    fi
+fi
+
+# See ts-conf/scripts/cmod-x3sim
+if [[ -n "$CMOD_KERNEL_PATH" ]] ; then
+    TE_IUT_SFC_MAKE_ARGS+=" KPATH=$CMOD_KERNEL_PATH"
+    TE_IUT_X3_MAKE_ARGS+=" KPATH=$CMOD_KERNEL_PATH"
+fi
+
+export TE_IUT_SFC_MAKE_ARGS="$TE_IUT_SFC_MAKE_ARGS $NET_DRIVER_MAKE_ARGS"
+export TE_IUT_X3_MAKE_ARGS="$TE_IUT_X3_MAKE_ARGS $NET_DRIVER_MAKE_ARGS"
+export TE_TST1_SFC_MAKE_ARGS="$TE_TST1_SFC_MAKE_ARGS $NET_DRIVER_MAKE_ARGS"
+export TE_TST1_X3_MAKE_ARGS="$TE_TST1_X3_MAKE_ARGS $NET_DRIVER_MAKE_ARGS"

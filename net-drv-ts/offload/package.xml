@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<package version="1.0">
+    <description>Offloads tests</description>
+
+    <author mailto="Dmitry.Izbitsky@oktetlabs.ru"/>
+
+    <session track_conf="silent" track_conf_handdown="descendants">
+
+        <run>
+            <script name="simple_csum"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="sock_type" type="sock_stream_dgram"/>
+            <arg name="rx_csum" type="boolean"/>
+        </run>
+
+        <run>
+            <script name="tso">
+                <req id="SOCK_STREAM"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="tso_on" type="boolean"/>
+            <arg name="min_size">
+                <value>2</value>
+            </arg>
+            <arg name="max_size">
+                <value>5</value>
+            </arg>
+            <arg name="send_calls">
+                <value>3</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="receive_offload">
+                <req id="SOCK_STREAM"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="rx_csum_on" type="boolean"/>
+            <arg name="lro_on" type="boolean"/>
+            <arg name="gro_on" type="boolean"/>
+        </run>
+
+    </session>
+</package>

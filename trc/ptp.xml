@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<test name="ptp" type="package">
+  <objective>PTP tests</objective>
+  <notes/>
+  <iter result="PASSED">
+    <notes/>
+    <test name="get_time" type="script">
+      <objective>Check that current time can be obtained from PTP device associated with the tested network interface.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="min_sleep"/>
+        <arg name="max_sleep"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="set_time" type="script">
+      <objective>Check that time can be set for PTP device associated with the tested network interface.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="ts"/>
+        <arg name="min_sleep"/>
+        <arg name="max_sleep"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="adj_setoffset" type="script">
+      <objective>Check that offset can be added to the current time of PTP device associated with the tested network interface.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="time_offset"/>
+        <arg name="min_sleep"/>
+        <arg name="max_sleep"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="adj_frequency" type="script">
+      <objective>Check that frequency can be tuned for PTP device associated with the tested network interface.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="freq"/>
+        <arg name="min_sleep"/>
+        <arg name="max_sleep"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="clock_caps" type="script">
+      <objective>Check that clock cababilities can be obtained for PTP device associated with the tested network interface.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+        <results tags="xilinx_efct" key="X3-893">
+          <result value="PASSED">
+            <verdict>Frequency adjustment range is less than expected</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="sfptpd" type="script">
+      <objective>Check that sfptpd can be used to synchronize clocks across network.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="master_cfg"/>
+        <arg name="slave_cfg"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="sys_offset" type="script">
+      <objective>Check that PTP_SYS_OFFSET ioctl can be used to obtain samples of PTP device time and system time at the same moment.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="n_samples"/>
+        <notes/>
+      </iter>
+    </test>
+  </iter>
+</test>

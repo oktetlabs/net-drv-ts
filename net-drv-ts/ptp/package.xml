@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<package version="1.0">
+    <description>PTP tests</description>
+
+    <author mailto="Yurij.Plotnikov@arknetworks.am"/>
+
+    <session track_conf="silent" track_conf_handdown="descendants">
+
+        <run>
+            <script name="get_time">
+                <req id="X3-PTP002"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="min_sleep">
+                <value>3</value>
+            </arg>
+            <arg name="max_sleep">
+                <value>6</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="set_time">
+                <req id="X3-PTP001"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="ts">
+                <value>0</value>
+                <value>-1</value>
+            </arg>
+            <arg name="min_sleep">
+                <value>3</value>
+            </arg>
+            <arg name="max_sleep">
+                <value>6</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="adj_setoffset">
+                <req id="X3-PTP003"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="time_offset">
+                <value>123.5</value>
+                <value>3600</value>
+            </arg>
+            <arg name="min_sleep">
+                <value>3</value>
+            </arg>
+            <arg name="max_sleep">
+                <value>6</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="adj_frequency">
+                <req id="X3-PTP004"/>
+                <req id="X3-PTP005"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="freq">
+                <!-- X3-892: Use other values for X3 testing -->
+                <value reqs="X3_BROKEN">-100000</value>
+                <value>-49999</value>
+                <value reqs="X3_BROKEN">100000</value>
+                <value>49999</value>
+            </arg>
+            <arg name="min_sleep">
+                <value>5</value>
+            </arg>
+            <arg name="max_sleep">
+                <value>10</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="clock_caps">
+                <req id="X3-PTP007"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </run>
+
+        <run>
+            <script name="sfptpd">
+                <req id="X3-PTP012"/>
+                <!-- This test is run only if TE_ENV_SFPTPD in
+                     environment is set to path to sfptpd -->
+                <req id="SFPTPD"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="master_cfg">
+                <value>sfptpd_ptp_master.cfg</value>
+            </arg>
+            <arg name="slave_cfg">
+                <value>sfptpd_ptp_slave.cfg</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="sys_offset">
+                <req id="X3-PTP006"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="n_samples">
+                <value>5</value>
+                <value>25</value>
+            </arg>
+        </run>
+
+    </session>
+</package>

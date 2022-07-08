@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<test name="offload" type="package">
+  <objective>Offloads tests</objective>
+  <notes/>
+  <iter result="PASSED">
+    <notes/>
+    <test name="simple_csum" type="script">
+      <objective>Check that data can be sent or received after changing checksum offloading settings.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer</arg>
+        <arg name="sock_type"/>
+        <arg name="rx_csum">FALSE</arg>
+        <notes/>
+        <results tags="xilinx_efct" key="WONTFIX X3-TX-CKSUM" notes="TCP/IP checksum offload on transmit will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-checksum-ip-generic' cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer_ipv6</arg>
+        <arg name="sock_type"/>
+        <arg name="rx_csum">FALSE</arg>
+        <notes/>
+        <results tags="xilinx_efct" key="WONTFIX X3-TX-CKSUM" notes="TCP/IP checksum offload on transmit will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-checksum-ip-generic' cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="rx_csum">TRUE</arg>
+        <notes/>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-checksum' cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="tso" type="script">
+      <objective>Check that when TSO is enabled, larger-than-MSS packets are passed to NIC and split into MSS-sized ones by it.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="tso_on">FALSE</arg>
+        <arg name="min_size"/>
+        <arg name="max_size"/>
+        <arg name="send_calls"/>
+        <notes/>
+        <results tags="peer-virtio_pci" key="WONTFIX VIRTIO-RX-GRO-HW" notes="VirtIO net does not support hardware GRO disabling">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is enabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer</arg>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="min_size"/>
+        <arg name="max_size"/>
+        <arg name="send_calls"/>
+        <notes/>
+        <results tags="peer-virtio_pci" key="WONTFIX VIRTIO-RX-GRO-HW" notes="VirtIO net does not support hardware GRO disabling">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is enabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer_ipv6</arg>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="min_size"/>
+        <arg name="max_size"/>
+        <arg name="send_calls"/>
+        <notes/>
+        <results tags="peer-virtio_pci" key="WONTFIX VIRTIO-RX-GRO-HW" notes="VirtIO net does not support hardware GRO disabling">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is enabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="receive_offload" type="script">
+      <objective>Check that when LRO or GRO is enabled, received TCP packets are coalesced into bigger ones before they reach OS.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="rx_csum_on">FALSE</arg>
+        <arg name="lro_on">FALSE</arg>
+        <arg name="gro_on"/>
+        <notes/>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="rx_csum_on">FALSE</arg>
+        <arg name="lro_on">TRUE</arg>
+        <arg name="gro_on"/>
+        <notes/>
+        <results tags="sfc_ef100" key="WONTFIX SWNETLINUX-4593" notes="sfc_ef100 does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="igb" key="WONTFIX IGB-RX-LRO" notes="igb does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="WONTFIX X3-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="rx_csum_on">TRUE</arg>
+        <arg name="lro_on">FALSE</arg>
+        <arg name="gro_on"/>
+        <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="rx_csum_on">TRUE</arg>
+        <arg name="lro_on">TRUE</arg>
+        <arg name="gro_on"/>
+        <notes/>
+        <results tags="sfc_ef100" key="WONTFIX SWNETLINUX-4593" notes="sfc_ef100 does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="igb" key="WONTFIX IGB-RX-LRO" notes="igb does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-LRO" notes="VirtIO net does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="WONTFIX X3-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+  </iter>
+</test>

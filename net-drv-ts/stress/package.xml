@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<package version="1.0">
+    <description>Stress tests</description>
+
+    <author mailto="Dmitry.Izbitsky@oktetlabs.ru"/>
+
+    <session track_conf="silent" track_conf_handdown="descendants">
+
+        <!--- @autogroupprefix stress- -->
+
+        <!--- @autogroup -->
+        <run>
+            <script name="driver_unload" track_conf="nohistory"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="if_status" list="">
+                <value reqs="X3-ST02">down</value>
+                <value reqs="X3-STR04">up</value>
+                <value reqs="X3-STR01">down</value>
+                <value reqs="X3-STR01">up</value>
+                <value reqs="X3-STR05">up_down</value>
+            </arg>
+            <arg name="iters" list="">
+                <value>1</value>
+                <value>1</value>
+                <value>100</value>
+                <value>100</value>
+                <value>100</value>
+            </arg>
+        </run>
+
+        <!--- @autogroup -->
+        <run>
+            <script name="driver_unload_traffic" track_conf="nohistory"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="send_time" list="">
+                <value>10</value>
+                <value>120</value>
+            </arg>
+            <arg name="unload_once" type="boolean" list="">
+                <value reqs="X3-SYS09">TRUE</value>
+                <value reqs="X3-STR13">FALSE</value>
+            </arg>
+            <arg name="conns_num">
+                <value>5</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="if_down_up_loop" track_conf="nohistory"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="duration" list="">
+                <value reqs="X3-SYS06">0</value>
+                <value reqs="X3-STR03">100</value>
+                <value reqs="X3-STR03">100</value>
+            </arg>
+            <arg name="wait_after_if_up" list="">
+                <value>0</value>
+                <value>0</value>
+                <value>500</value>
+            </arg>
+            <arg name="tx_traffic" type="boolean">
+                <value>FALSE</value>
+            </arg>
+            <arg name="rx_traffic" type="boolean">
+                <value>FALSE</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="if_down_up_loop" track_conf="nohistory">
+                <req id="X3-STR12"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="duration" list="duration">
+                <value>0</value>
+                <value>100</value>
+                <value>100</value>
+            </arg>
+            <arg name="wait_after_if_up" list="duration">
+                <value>0</value>
+                <value>0</value>
+                <value>500</value>
+            </arg>
+            <arg name="tx_traffic" type="boolean" list="data">
+                <value>FALSE</value>
+                <value>TRUE</value>
+                <value>TRUE</value>
+            </arg>
+            <arg name="rx_traffic" type="boolean" list="data">
+                <value>TRUE</value>
+                <value>FALSE</value>
+                <value>TRUE</value>
+            </arg>
+        </run>
+
+    </session>
+</package>

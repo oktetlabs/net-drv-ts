@@ -1,0 +1,29 @@
+syntax: glob
+*~
+.reviewboardrc
+te_tmp/
+build/
+build.log
+builder.log.*
+cscope.*
+tags
+TAGS
+GPATH
+GRTAGS
+GTAGS
+
+# Domain-specific files
+
+net-drv-ts/doxygen.warn
+net-drv-ts/doc/generated
+html/
+tmp_raw_log
+log.txt
+log_plain.xml
+log_struct.xml
+ta.LogListener
+ta.NetDrv
+ta.Peer
+ta.list
+trc-report.html
+trc-brief.html

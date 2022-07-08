@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<test name="basic" type="package">
+  <objective>Basic tests</objective>
+  <notes/>
+  <iter result="PASSED">
+    <notes/>
+    <test name="driver_info" type="script">
+      <objective>Check information returned about a driver for an interface.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-VERSION" notes="igb module has no version information">
+          <result value="PASSED">
+            <verdict>Module igb has no version information</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-NET-VERSION" notes="VirtIO net module has no version information">
+          <result value="PASSED">
+            <verdict>Module virtio_net has no version information</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="ethtool_reset_nic" type="script">
+      <objective>Check what happens when NIC is reset with SIOCETHTOOL.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="flag">none</arg>
+        <arg name="sock_type"/>
+        <arg name="if_down"/>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="flag">MAC</arg>
+        <arg name="sock_type"/>
+        <arg name="if_down"/>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="flag">DEDICATED</arg>
+        <arg name="sock_type"/>
+        <arg name="if_down"/>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="flag">SHARED_MAC|SHARED_PHY</arg>
+        <arg name="sock_type"/>
+        <arg name="if_down">FALSE</arg>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="flag">SHARED_MAC|SHARED_PHY</arg>
+        <arg name="sock_type"/>
+        <arg name="if_down">TRUE</arg>
+        <notes/>
+        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="flag">ALL</arg>
+        <arg name="sock_type"/>
+        <arg name="if_down">FALSE</arg>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="flag">ALL</arg>
+        <arg name="sock_type"/>
+        <arg name="if_down">TRUE</arg>
+        <notes/>
+        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="mac_change_tx" type="script">
+      <objective>Check that MAC address can be changed and it affects source MAC address of sent packets.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="if_down"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="mac_change_rx" type="script">
+      <objective>Check that MAC address can be changed and after that packets sent to the new address can be received.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="promisc"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="ping" type="script">
+      <objective>Check that ping tool can ping Tester address from IUT.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="packets"/>
+        <arg name="data_size"/>
+        <arg name="interval"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="read_sysfs" type="script">
+      <objective>Check that the files in sysfs related to the tested driver can be read.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+        <results tags="sfc_ef100" key="NET-49" notes="sfc_ef100 uses sfc name in debugfs">
+          <result value="FAILED">
+            <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
+          </result>
+        </results>
+        <results tags="igb" key="WONTFIX IGB-SYSFS-DEBUG" notes="igb does not provide debug in sysfs">
+          <result value="FAILED">
+            <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-SYSFS-DEBUG" notes="mlx5_core does not provide debug in sysfs, it uses mlx5 instead">
+          <result value="FAILED">
+            <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-SYSFS-DEBUG" notes="VirtIO net does not provide debug in sysfs">
+          <result value="FAILED">
+            <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="mtu_tcp" type="script">
+      <objective>Check that TCP packets of full MTU size are sent and processed correctly.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="mtu">576</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">FALSE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer</arg>
+        <arg name="mtu">576</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer_ipv6</arg>
+        <arg name="mtu">576</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="mtu">1280</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">FALSE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer</arg>
+        <arg name="mtu">1280</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer_ipv6</arg>
+        <arg name="mtu">1280</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="mtu">1500</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">FALSE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer</arg>
+        <arg name="mtu">1500</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer_ipv6</arg>
+        <arg name="mtu">1500</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="mtu">1600</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">FALSE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer</arg>
+        <arg name="mtu">1600</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer_ipv6</arg>
+        <arg name="mtu">1600</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="mtu">1960</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">FALSE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer</arg>
+        <arg name="mtu">1960</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer_ipv6</arg>
+        <arg name="mtu">1960</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="mtu">9000</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on"/>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="mtu_udp" type="script">
+      <objective>Check that UDP packets of full MTU size are sent and that jumbo frames are processed correctly.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="mtu">576</arg>
+        <arg name="tx"/>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="mtu">1280</arg>
+        <arg name="tx"/>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="mtu">1500</arg>
+        <arg name="tx"/>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="mtu">1600</arg>
+        <arg name="tx"/>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="mtu">1960</arg>
+        <arg name="tx"/>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="mtu">9000</arg>
+        <arg name="tx"/>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="send_receive" type="script">
+      <objective>Check that packets can be sent and received over the tested interface.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="tx"/>
+        <arg name="pkt_size"/>
+        <arg name="pkts_num"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="set_if_down" type="script">
+      <objective>Check that network interface can be set DOWN.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="check_socket">FALSE</arg>
+        <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="check_socket">TRUE</arg>
+        <notes/>
+        <results tags="sfc_ef100" key="SWNETLINUX-4591" notes="UDP send in interface down state is delivered">
+          <result value="FAILED">
+            <verdict>Tester receives data sent after IUT interface was set DOWN</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="multicast" type="script">
+      <objective>Check that multicast packets may be sent and received over the tested interface.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="tx"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="sfc_ef100" key="SWNETLINUX-4592" notes="UDP multicast is not received">
+          <result value="FAILED">
+            <verdict>Checking multicast sending: receiver did not become readable</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+  </iter>
+</test>

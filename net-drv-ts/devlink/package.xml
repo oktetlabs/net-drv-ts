@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<package version="1.0">
+    <description>Devlink tests</description>
+
+    <author mailto="Dmitry.Izbitsky@oktetlabs.ru"/>
+
+    <session track_conf="silent" track_conf_handdown="descendants">
+
+        <run>
+            <script name="dist_layout" track_conf="nohistory">
+                <req id="X3-DVL004"/>
+                <req id="X3-DVL006"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="if_down" type="boolean"/>
+        </run>
+
+        <run>
+            <script name="ct_thresh" track_conf="nohistory">
+                <req id="X3-DVL002"/>
+                <req id="X3-DVL003"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </run>
+
+        <run>
+            <script name="separated_cpu" track_conf="nohistory">
+                <req id="X3-DLV005"/>
+                <req id="X3-DLV007"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="if_down" type="boolean"/>
+        </run>
+
+    </session>
+</package>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<package version="1.0">
+    <description>Rx path tests</description>
+
+    <author mailto="Dmitry.Izbitsky@oktetlabs.ru"/>
+
+    <session track_conf="silent" track_conf_handdown="descendants">
+
+        <run>
+            <script name="rx_fcs"/>
+            <arg name="env" list="">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="sock_type" type="sock_stream_dgram"/>
+            <arg name="rx_fcs" type="boolean"/>
+            <arg name="small_frame" type="boolean" list="">
+                <value>FALSE</value>
+                <value>FALSE</value>
+                <value>TRUE</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="rx_coalesce_usecs"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="coalesce_usecs">
+                <value>0</value>
+                <value>300</value>
+                <!-- 511 is new max value for X3. See bug X3-986 -->
+                <value>511</value>
+                <!-- See bug net-52 -->
+                <value reqs="X3_BROKEN">800</value>
+            </arg>
+        </run>
+
+    </session>
+</package>

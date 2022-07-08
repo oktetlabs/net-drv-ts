@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<test name="stress" type="package">
+  <objective>Stress tests</objective>
+  <notes/>
+  <iter result="PASSED">
+    <notes/>
+    <test name="driver_unload" type="script">
+      <objective>Check that unloading network driver works fine.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="if_status"/>
+        <arg name="iters"/>
+        <notes/>
+        <results tags="net-drv-shared" notes="Network driver is shared and module cannot be unloaded">
+          <result value="SKIPPED">
+            <verdict>Network driver on IUT cannot be unloaded</verdict>
+          </result>
+        </results>
+        <results tags="sfc_ef100" key="NET-56" notes="TS should distinguish module and driver names">
+          <result value="FAILED">
+            <verdict>Failed to unload the driver</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="driver_unload_traffic" type="script">
+      <objective>Check that unloading network driver works fine when data is received and transmitted over an interface.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="send_time"/>
+        <arg name="unload_once"/>
+        <arg name="conns_num"/>
+        <notes/>
+        <results tags="net-drv-shared" notes="Network driver is shared and module cannot be unloaded">
+          <result value="SKIPPED">
+            <verdict>Network driver on IUT cannot be unloaded</verdict>
+          </result>
+        </results>
+        <results tags="sfc_ef100" key="NET-56" notes="TS should distinguish module and driver names">
+          <result value="FAILED">
+            <verdict>Failed to unload the driver</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="if_down_up_loop" type="script">
+      <objective>Check that setting interface DOWN/UP does not break the driver.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="duration"/>
+        <arg name="wait_after_if_up"/>
+        <arg name="tx_traffic"/>
+        <arg name="rx_traffic"/>
+        <notes/>
+      </iter>
+    </test>
+  </iter>
+</test>

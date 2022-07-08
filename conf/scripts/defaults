@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: Apache-2.0
+# (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved.
+case "$(hostname -d)" in
+oktetlabs.ru)
+    test -n "${TE_WORKSPACE_DIR}" \
+        || export TE_WORKSPACE_DIR="/srv/testers/tmp"
+    ;;
+esac
+
+# Print verdict if an RPC fails unexpectedly and jumps to cleanup
+export TE_TEST_BEHAVIOUR_RPC_FAIL_VERDICT=1

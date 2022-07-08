@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<package version="1.0">
+    <description>Ethtool tests</description>
+
+    <author mailto="Yurij.Plotnikov@arknetworks.am"/>
+
+    <session track_conf="silent" track_conf_handdown="descendants">
+
+        <run>
+            <script name="dev_properties" track_conf="nohistory">
+                <req id="X3-ET001"/>
+                <req id="X3-ET010"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </run>
+
+        <run>
+            <script name="statistics">
+                <req id="X3-ET003"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="sock_type" type="sock_stream_dgram"/>
+        </run>
+
+        <run>
+            <script name="msglvl" track_conf="nohistory">
+                <req id="X3-ET009"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </run>
+
+        <run>
+            <script name="reset_under_traffic" track_conf="nohistory|sync">
+                <req id="RESET"/>
+                <req id="X3-ET021"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="flags">
+                <value>MAC</value>
+                <value>DEDICATED</value>
+                <value>SHARED_MAC|SHARED_PHY</value>
+                <value>ALL</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="check_ring">
+                <req id="X3-ET014"/>
+                <req id="X3-ET015"/>
+            </script>
+            <arg name="env">
+                <value ref="env.iut_only"/>
+            </arg>
+        </run>
+
+        <run>
+            <script name="show_pause">
+                <req id="X3-ET005"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </run>
+
+        <run>
+            <script name="ts_info">
+                <req id="X3-PTP013"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </run>
+
+    </session>
+</package>

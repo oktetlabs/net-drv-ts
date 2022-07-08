@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<test name="devlink" type="package">
+  <objective>Devlink tests</objective>
+  <notes/>
+  <iter result="PASSED">
+    <notes/>
+    <test name="dist_layout" type="script">
+      <objective>Check that dist_layout device parameter can be retrieved and changed via devlink API.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="if_down"/>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-DEVLINK" notes="igb does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>dist_layout parameter is not present</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-DEVLINK" notes="mlx5_core does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>dist_layout parameter is not present</verdict>
+          </result>
+        </results>
+        <results tags="sfc|sfc_ef100" key="WONTFIX SFC-DEVLINK" notes="sfc does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>dist_layout parameter is not present</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-DEVLINK" notes="VirtIO net does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>dist_layout parameter is not present</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="ct_thresh" type="script">
+      <objective>Check that ct_thresh device parameter can be retrieved and changed via devlink API.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-DEVLINK" notes="igb does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>ct_thresh parameter is not present</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-DEVLINK" notes="mlx5_core does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>ct_thresh parameter is not present</verdict>
+          </result>
+        </results>
+        <results tags="sfc|sfc_ef100" key="WONTFIX SFC-DEVLINK" notes="sfc does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>ct_thresh parameter is not present</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-DEVLINK" notes="VirtIO net does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>ct_thresh parameter is not present</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="separated_cpu" type="script">
+      <objective>Check that separated_cpu device parameter can be retrieved and changed via devlink API.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="if_down"/>
+        <notes/>
+        <results tags="igb" key="WONTFIX IGB-DEVLINK" notes="igb does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>separated_cpu parameter is not present</verdict>
+          </result>
+        </results>
+        <results tags="mlx5_core" key="WONTFIX MLX5-DEVLINK" notes="mlx5_core does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>separated_cpu parameter is not present</verdict>
+          </result>
+        </results>
+        <results tags="sfc|sfc_ef100" key="WONTFIX SFC-DEVLINK" notes="sfc does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>separated_cpu parameter is not present</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-DEVLINK" notes="VirtIO net does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>separated_cpu parameter is not present</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+  </iter>
+</test>

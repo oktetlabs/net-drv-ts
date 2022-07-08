@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<package version="1.0">
+
+    <description>Net Driver Test Suite</description>
+
+    <author mailto="Yurij.Plotnikov@arknetworks.am"/>
+
+    <session track_conf="silent">
+        <!--- @page arg_types Test argument types
+        @defgroup arg_types Test argument types
+        @{
+        Definition and description of argument types.
+        -->
+
+        <var name="env.iut_only" global="true">
+            <!--- Only IUT host with a network interface is present. -->
+            <value>'net':IUT{'iut_host'{{'iut_rpcs':IUT,if:'iut_if'},addr:'iut_addr':inet:unicast}}</value>
+        </var>
+
+        <var name="env.peer2peer" global="true">
+            <!--- IUT and tester are located on two different hosts which
+            are connected directly using @b SFC NICs. IPv4 addresses
+            are issued for testing.
+            -->
+            <value>'net':IUT{'iut_host'{{'iut_rpcs':IUT,if:'iut_if'},addr:'iut_addr':inet:unicast,addr:'mcast_addr':ether:multicast,addr:'bcast_addr':ether:broadcast,addr:'iut_lladdr':ether:unicast,addr:'iut_alien_mac':ether:alien,addr:'alien_addr':inet:alien},'tst_host'{{'tst_rpcs':tester},addr:'tst_addr':inet:unicast,if:'tst_if',addr:'tst_lladdr':ether:unicast,addr:'tst_alien_mac':ether:alien}}</value>
+        </var>
+
+        <var name="env.peer2peer_ipv6" global="true">
+            <!--- IUT and tester are located on two different hosts which
+            are connected directly using @b SFC NICs. IPv6 addresses
+            are issued for testing.
+            -->
+            <value>'net':IUT{'iut_host'{{'iut_rpcs':IUT,if:'iut_if'},addr:'iut_addr':inet6:unicast,addr:'mcast_addr':ether:multicast,addr:'bcast_addr':ether:broadcast,addr:'iut_lladdr':ether:unicast,addr:'iut_alien_mac':ether:alien,addr:'alien_addr':inet6:alien},'tst_host'{{'tst_rpcs':tester},addr:'tst_addr':inet6:unicast,if:'tst_if',addr:'tst_lladdr':ether:unicast,addr:'tst_alien_mac':ether:alien}}</value>
+        </var>
+
+        <var name="env.peer2peer_mcast" global="true">
+            <!--- IUT and Tester are located on two different hosts which
+            are connected directly using tested NICs. IPv4 addresses
+            are issued for testing, including multicast one.
+            -->
+            <value>'net':IUT{{{'iut_rpcs':IUT},addr:'iut_addr':inet:unicast,addr:'mcast_addr':inet:multicast,if:'iut_if'},{{'tst_rpcs':tester},addr:'tst_addr':inet:unicast,if:'tst_if'}}</value>
+        </var>
+
+        <var name="env.peer2peer_mcast_ipv6" global="true">
+            <!--- IUT and Tester are located on two different hosts which
+            are connected directly using tested NICs. IPv6 addresses
+            are issued for testing, including multicast one.
+            -->
+            <value>'net':IUT{{{'iut_rpcs':IUT},addr:'iut_addr':inet6:unicast,addr:'mcast_addr':inet6:multicast,if:'iut_if'},{{'tst_rpcs':tester},addr:'tst_addr':inet6:unicast,if:'tst_if'}}</value>
+        </var>
+
+        <enum name="sock_stream_dgram">
+            <!--- TCP and UDP sockets. -->
+            <value reqs="SOCK_STREAM">SOCK_STREAM</value>
+            <value reqs="SOCK_DGRAM">SOCK_DGRAM</value>
+        </enum>
+
+        <!--- @} -->
+
+        <prologue>
+            <script name="prologue"/>
+            <arg name="env" ref="env.peer2peer"/>
+        </prologue>
+
+        <run>
+            <package name="basic"/>
+        </run>
+
+        <run>
+            <package name="devlink"/>
+        </run>
+
+        <run>
+            <package name="ethtool"/>
+        </run>
+
+        <run>
+            <package name="offload"/>
+        </run>
+
+        <run>
+            <package name="ptp"/>
+        </run>
+
+        <run>
+            <package name="rx_path"/>
+        </run>
+
+        <run>
+            <package name="stress"/>
+        </run>
+
+    </session>
+
+</package>

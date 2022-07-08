@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved. -->
+<package version="1.0">
+    <description>Basic tests</description>
+
+    <author mailto="Yurij.Plotnikov@arknetworks.am"/>
+
+    <session track_conf="silent" track_conf_handdown="descendants">
+
+        <run>
+            <script name="driver_info">
+                <req id="X3-ET002"/>
+            </script>
+            <arg name="env">
+                <value ref="env.iut_only"/>
+            </arg>
+        </run>
+
+        <run>
+            <script name="ethtool_reset_nic" track_conf="nohistory|sync">
+                <req id="RESET"/>
+                <req id="X3-ST10"/>
+                <req id="X3-ET019"/>
+                <req id="X3-ET020"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="flag">
+                <value>none</value>
+                <value>MAC</value>
+                <value>DEDICATED</value>
+                <value>SHARED_MAC|SHARED_PHY</value>
+                <value>ALL</value>
+            </arg>
+            <arg name="sock_type" type="sock_stream_dgram"/>
+            <arg name="if_down" type="boolean"/>
+        </run>
+
+        <run>
+            <script name="mac_change_tx"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="if_down" type="boolean"/>
+        </run>
+
+        <run>
+            <script name="mac_change_rx"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="promisc" type="boolean"/>
+        </run>
+
+        <run>
+            <script name="ping"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="packets">
+                <value>[50,200]</value>
+            </arg>
+            <arg name="data_size">
+                <value>-1</value> <!-- Default size -->
+                <value>1</value>
+                <value>[60,1400]</value>
+                <value>[2000,64000]</value>
+            </arg>
+            <arg name="interval">
+                <value>0.1</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="read_sysfs">
+                <req id="X3-ST08"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </run>
+
+        <run>
+            <script name="mtu_tcp">
+                <req id="X3-SYS04"/>
+            </script>
+            <arg name="env" list="env_mtu">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+                <value ref="env.peer2peer_ipv6"/>
+                <value ref="env.peer2peer_ipv6"/>
+                <value ref="env.peer2peer_ipv6"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="mtu" list="env_mtu">
+                <value>576</value>
+                <value>1280</value>
+                <value>1500</value>
+                <value>1600</value>
+                <value>1960</value>
+                <value>9000</value>
+                <value>1280</value>
+                <value>1500</value>
+                <value>1600</value>
+                <value>1960</value>
+                <value>9000</value>
+            </arg>
+            <arg name="tx" type="boolean" list="offloads">
+                <value>FALSE</value>
+                <value>TRUE</value>
+                <value>TRUE</value>
+                <value>TRUE</value>
+                <value>TRUE</value>
+            </arg>
+            <arg name="gso_on" type="boolean" list="offloads">
+                <value>FALSE</value>
+                <value>FALSE</value>
+                <value>TRUE</value>
+                <value>FALSE</value>
+                <value>TRUE</value>
+            </arg>
+            <arg name="tso_on" type="boolean" list="offloads">
+                <value>FALSE</value>
+                <value>FALSE</value>
+                <value>FALSE</value>
+                <value>TRUE</value>
+                <value>TRUE</value>
+            </arg>
+            <arg name="pkt_size">
+                <value>less</value>
+                <value>equal</value>
+                <value>more</value>
+            </arg>
+            <arg name="sends_num">
+                <value>100</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="mtu_udp">
+                <req id="X3-SYS04"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="mtu">
+                <value>576</value>
+            </arg>
+            <arg name="tx" type="boolean"/>
+            <arg name="pkt_size">
+                <value>less</value>
+                <value>equal</value>
+                <value>more</value>
+            </arg>
+            <arg name="sends_num">
+                <value>100</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="mtu_udp">
+                <req id="X3-SYS04"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="mtu">
+                <value>1280</value>
+                <value>1500</value>
+                <value>1600</value>
+                <value>1960</value>
+                <value>9000</value>
+            </arg>
+            <arg name="tx" type="boolean"/>
+            <arg name="pkt_size">
+                <value>less</value>
+                <value>equal</value>
+                <value>more</value>
+            </arg>
+            <arg name="sends_num">
+                <value>100</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="set_if_down" track_conf="nohistory">
+                <req id="X3-ST06"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="check_socket" type="boolean"/>
+        </run>
+
+        <run>
+            <script name="send_receive"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="sock_type" type="sock_stream_dgram"/>
+            <arg name="tx" type="boolean"/>
+            <arg name="pkt_size">
+                <value reqs="X3-SYS01">1000</value>
+                <value reqs="X3-SYS02">-1</value>
+            </arg>
+            <arg name="pkts_num">
+                <value>100</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="multicast">
+                <req id="X3-SYS05"/>
+            </script>
+            <arg name="env">
+                <value ref="env.peer2peer_mcast"/>
+                <value ref="env.peer2peer_mcast_ipv6"/>
+            </arg>
+            <arg name="tx" type="boolean"/>
+            <arg name="sends_num">
+                <value>100</value>
+            </arg>
+        </run>
+
+    </session>
+</package>
