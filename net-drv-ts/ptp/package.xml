@@ -142,5 +142,12 @@
             </arg>
         </run>
 
+        <run>
+            <script name="ptp4l"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </run>
+
     </session>
 </package>

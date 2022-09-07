@@ -98,5 +98,13 @@
         <notes/>
       </iter>
     </test>
+    <test name="ptp4l" type="script">
+      <objective>Check that ptp4l can be used to synchronize clocks across network.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+      </iter>
+    </test>
   </iter>
 </test>
