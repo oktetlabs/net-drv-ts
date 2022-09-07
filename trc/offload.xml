@@ -104,6 +104,7 @@
         <arg name="rx_csum_on">FALSE</arg>
         <arg name="lro_on">FALSE</arg>
         <arg name="gro_on"/>
+        <arg name="gro_hw_on"/>
         <notes/>
         <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
           <result value="SKIPPED">
@@ -116,6 +117,7 @@
         <arg name="rx_csum_on">FALSE</arg>
         <arg name="lro_on">TRUE</arg>
         <arg name="gro_on"/>
+        <arg name="gro_hw_on"/>
         <notes/>
         <results tags="sfc_ef100" key="WONTFIX SWNETLINUX-4593" notes="sfc_ef100 does not support LRO">
           <result value="SKIPPED">
@@ -143,6 +145,7 @@
         <arg name="rx_csum_on">TRUE</arg>
         <arg name="lro_on">FALSE</arg>
         <arg name="gro_on"/>
+        <arg name="gro_hw_on"/>
         <notes/>
       </iter>
       <iter result="PASSED">
@@ -150,6 +153,7 @@
         <arg name="rx_csum_on">TRUE</arg>
         <arg name="lro_on">TRUE</arg>
         <arg name="gro_on"/>
+        <arg name="gro_hw_on"/>
         <notes/>
         <results tags="sfc_ef100" key="WONTFIX SWNETLINUX-4593" notes="sfc_ef100 does not support LRO">
           <result value="SKIPPED">

@@ -19,6 +19,7 @@
  * @param rx_csum_on    If @c TRUE, Rx checksum offload is enabled.
  * @param lro_on        If @c TRUE, LRO is enabled.
  * @param gro_on        If @c TRUE, GRO is enabled.
+ * @param gro_hw_on     If @c TRUE, Hardware GRO is enabled.
  *
  * @par Scenario:
  *
@@ -120,6 +121,7 @@ main(int argc, char *argv[])
     te_bool rx_csum_on;
     te_bool lro_on;
     te_bool gro_on;
+    te_bool gro_hw_on;
     te_bool lro_works;
 
     int iut_s = -1;
@@ -153,17 +155,20 @@ main(int argc, char *argv[])
     TEST_GET_BOOL_PARAM(rx_csum_on);
     TEST_GET_BOOL_PARAM(lro_on);
     TEST_GET_BOOL_PARAM(gro_on);
+    TEST_GET_BOOL_PARAM(gro_hw_on);
 
-    TEST_STEP("Set @b rx-checksum, @b rx-lro and @b rx-gro "
+    TEST_STEP("Set @b rx-checksum, @b rx-lro, @b rx-gro and @b rx-gro-hw "
               "features on the IUT interface according to "
-              "values of @p rx_csum_on, @p lro_on and @p gro_on "
-              "test parameters.");
+              "values of @p rx_csum_on, @p lro_on, @p gro_on and "
+              "@p gro_hw_on test parameters.");
     net_drv_set_if_feature(iut_rpcs->ta, iut_if->if_name,
                            "rx-checksum", rx_csum_on ? 1 : 0);
     net_drv_set_if_feature(iut_rpcs->ta, iut_if->if_name,
                            "rx-lro", lro_on ? 1 : 0);
     net_drv_set_if_feature(iut_rpcs->ta, iut_if->if_name,
                            "rx-gro", gro_on ? 1 : 0);
+    net_drv_set_if_feature(iut_rpcs->ta, iut_if->if_name,
+                           "rx-gro-hw", gro_hw_on ? 1 : 0);
 
     /* Rx checksum offload is needed for LRO to work */
     lro_works = (lro_on && rx_csum_on);
@@ -313,8 +318,8 @@ main(int argc, char *argv[])
 
     TEST_STEP("Process packets captured by CSAP on IUT. Check that "
               "larger-than-MSS packets are encountered if and only if "
-              "either @p gro_on is @c TRUE or both @p lro_on and "
-              "@p rx_csum_on are @c TRUE.");
+              "either @p gro_on and/or gro_hw_on are @c TRUE or both "
+              "@p lro_on and @p rx_csum_on are @c TRUE.");
     TEST_SUBSTEP("If LRO is enabled (i.e. both @p lro_on and @p rx_csum_on "
                  "are @c TRUE) and 'sfc' driver is tested, check that the "
                  "first large packet is received after a number of packets "
@@ -339,7 +344,7 @@ main(int argc, char *argv[])
     else if (stats.pkts_num == 0)
         TEST_VERDICT("No packets were captured");
 
-    if (!lro_works && !gro_on)
+    if (!lro_works && !gro_on && !gro_hw_on)
     {
         if (stats.first_big > 0)
         {
