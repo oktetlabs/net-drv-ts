@@ -115,7 +115,6 @@ GEN_OPTS+=(--trc-comparison=normalised)
 GEN_OPTS+=(--trc-html=trc-brief.html)
 GEN_OPTS+=(--trc-no-expected)
 GEN_OPTS+=(--trc-no-total --trc-no-unspec)
-GEN_OPTS+=(--build-meson)
 GEN_OPTS+=(--tester-only-req-logues)
 
 "${TE_BASE}"/dispatcher.sh "${GEN_OPTS[@]}" "${RUN_OPTS[@]}"
