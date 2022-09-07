@@ -31,15 +31,6 @@
 #include "math.h"
 #include "tapi_mem.h"
 
-/* Maximum deviation from average time difference, in seconds */
-#define MAX_DEV_FROM_AVG 0.001
-
-/*
- * Maximum difference between offset measured with PTP_SYS_OFFSET
- * and offset measured with help of two clock_gettime() calls.
- */
-#define MAX_DEV_FROM_GETTIME 0.5
-
 int
 main(int argc, char *argv[])
 {
@@ -54,14 +45,6 @@ main(int argc, char *argv[])
     double *diffs = NULL;
     unsigned int n_diffs;
     double avg_diff;
-    double dev;
-    double max_dev;
-    int64_t sec_diff;
-    int64_t nsec_diff;
-
-    tarpc_timespec ts_ptp;
-    tarpc_timespec ts_sys;
-    double gettime_diff;
 
     TEST_START;
     TEST_GET_PCO(iut_rpcs);
@@ -109,11 +92,8 @@ main(int argc, char *argv[])
     avg_diff = 0;
     for (i = 0; i < n_diffs; i++)
     {
-        sec_diff = (int64_t)(samples.ts[i].sec) -
-                   samples.ts[i + 1].sec;
-        nsec_diff = (int64_t)(samples.ts[i].nsec) -
-                    samples.ts[i + 1].nsec;
-        diffs[i] = sec_diff + nsec_diff / 1000000000.0;
+        diffs[i] = net_drv_ptp_clock_time_diff(&samples.ts[i],
+                                               &samples.ts[i + 1]);
 
         /*
          * If i % 2 == 0, computed difference is
@@ -127,43 +107,15 @@ main(int argc, char *argv[])
     }
     avg_diff /= n_diffs;
 
-    max_dev = 0;
-    for (i = 0; i < n_diffs; i++)
-    {
-        dev = fabs(diffs[i] - avg_diff);
-        if (dev > max_dev)
-            max_dev = dev;
-    }
-
-    RING("Average difference %f sec, maximum deviation "
-         "from the average %f sec", avg_diff, max_dev);
-
-    if (max_dev > MAX_DEV_FROM_AVG)
-    {
-        WARN_VERDICT("Difference between pairs of timestamps changes "
-                     "significantly over array of samples");
-    }
+    net_drv_ptp_offs_check_dev_avg(diffs, n_diffs, avg_diff);
 
     TEST_STEP("Estimate offset between PTP and system clocks with help "
               "of two consecutive @b clock_gettime() calls. Check that "
               "this estimate is close to the average difference between "
               "timestamps pairs obtained from @c PTP_SYS_OFFSET.");
 
-    rpc_clock_gettime(iut_rpcs, TARPC_CLOCK_ID_FD, fd, &ts_ptp);
-
-    rpc_clock_gettime(iut_rpcs, TARPC_CLOCK_ID_NAMED, RPC_CLOCK_REALTIME,
-                      &ts_sys);
-
-    gettime_diff = net_drv_timespec_diff(&ts_ptp, &ts_sys);
-    RING("Difference measured with clock_gettime() calls: %f sec",
-         gettime_diff);
-
-    if (fabs(avg_diff - gettime_diff) > MAX_DEV_FROM_GETTIME)
-    {
-        WARN_VERDICT("Offset measured with PTP_SYS_OFFSET differs too much "
-                     "from offset measured with help of clock_gettime() "
-                     "calls");
-    }
+    net_drv_ptp_offs_check_dev_gettime(iut_rpcs, fd, RPC_CLOCK_REALTIME,
+                                       avg_diff);
 
     TEST_SUCCESS;
 

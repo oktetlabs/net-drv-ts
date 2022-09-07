@@ -81,5 +81,14 @@
         <notes/>
       </iter>
     </test>
+    <test name="sys_offset_extended" type="script">
+      <objective>Check that PTP_SYS_OFFSET_EXTENDED ioctl can be used to obtain samples of PTP device time and system time at the same moment.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="n_samples"/>
+        <notes/>
+      </iter>
+    </test>
   </iter>
 </test>

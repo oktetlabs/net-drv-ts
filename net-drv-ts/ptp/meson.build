@@ -9,6 +9,7 @@ tests = [
     'set_time',
     'sfptpd',
     'sys_offset',
+    'sys_offset_extended',
 ]
 
 foreach test : tests
