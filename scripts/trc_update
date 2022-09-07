@@ -5,5 +5,5 @@
 source "$(dirname "$(which "$0")")"/guess.sh
 
 . $TE_BASE/scripts/guess.sh
-te_trc_update_wrapper --def-conf-tester=./conf/tester.conf \
+te_trc_update_wrapper --def-conf-tester=tester.conf \
     --def-db=trc/top.xml "$@"
