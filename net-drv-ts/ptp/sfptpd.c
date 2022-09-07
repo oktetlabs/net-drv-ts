@@ -30,6 +30,8 @@
 #include "net_drv_test.h"
 #include "tapi_ntpd.h"
 #include "tapi_sfptpd.h"
+#include "tapi_ethtool.h"
+#include "tapi_job_factory_rpc.h"
 
 /* Maximum time to wait for clocks sychronization, in seconds */
 #define MAX_SYNC_WAIT 1200
@@ -145,6 +147,103 @@ get_sync_status(rcf_rpc_server *rpcs, const char *path,
     RPC_CLOSE(rpcs, *fd);
 }
 
+/* Get sum of all ethtool statistics with prefix "ptp_". */
+static int64_t
+get_ptp_stats_sum(tapi_job_factory_t *factory, tapi_ethtool_opt *opts,
+                  tapi_ethtool_report *report, const char *stage)
+{
+    te_kvpair *kv = NULL;
+    te_kvpair *kv_aux = NULL;
+    long unsigned int sum = 0;
+    long unsigned int val;
+    int rc;
+
+    rc = tapi_ethtool(factory, opts, report);
+    if (rc != 0)
+    {
+        ERROR_VERDICT("%s: failed to process ethtool command, "
+                      "rc=%r", stage, rc);
+        return -1;
+    }
+
+    if (report->err_out)
+        ERROR_VERDICT("%s: ethtool printed something to stderr", stage);
+
+    TAILQ_FOREACH_SAFE(kv, &report->data.stats, links, kv_aux)
+    {
+        if (strcmp_start("ptp_", kv->key) == 0)
+        {
+            CHECK_RC(te_strtoul(kv->value, 10, &val));
+            sum += val;
+        }
+        else
+        {
+            TAILQ_REMOVE(&report->data.stats, kv, links);
+        }
+    }
+
+    RING("%s, sum of PTP statistics: %lu", stage, sum);
+    return sum;
+}
+
+/*
+ * Log statistics which changed between two ethtool reports.
+ * Note: this function destroys some data in reports.
+ */
+static void
+print_stats_diff(tapi_ethtool_report *before, tapi_ethtool_report *after)
+{
+#define ROW_FMT "%30s%20s%20s\n"
+    te_kvpair *kv_before = NULL;
+    te_kvpair *kv_aux = NULL;
+    te_kvpair *kv_after = NULL;
+    te_bool found;
+    te_string str = TE_STRING_INIT;
+
+    CHECK_RC(te_string_append(&str, ROW_FMT, "Name", "Before",
+                              "After"));
+
+    /*
+     * Print statistics which changed or disappeared in the second
+     * report.
+     */
+    TAILQ_FOREACH_SAFE(kv_before, &before->data.stats, links, kv_aux)
+    {
+        found = FALSE;
+        TAILQ_FOREACH(kv_after, &after->data.stats, links)
+        {
+            if (strcmp(kv_after->key, kv_before->key) == 0)
+            {
+                found = TRUE;
+                break;
+            }
+        }
+
+        if (!found || strcmp(kv_before->value, kv_after->value) != 0)
+        {
+            CHECK_RC(te_string_append(&str, ROW_FMT,
+                                      kv_before->key, kv_before->value,
+                                      (found ? kv_after->value : "NONE")));
+        }
+
+        TAILQ_REMOVE(&before->data.stats, kv_before, links);
+        if (found)
+            TAILQ_REMOVE(&after->data.stats, kv_after, links);
+    }
+
+    /* Print statistics which appeared only in the second report. */
+    TAILQ_FOREACH(kv_after, &after->data.stats, links)
+    {
+        CHECK_RC(te_string_append(&str, ROW_FMT, kv_after->key,
+                                  "NONE", kv_after->value));
+    }
+
+    RING("Changed PTP statistics:\n%s",
+         te_string_value(&str));
+    te_string_free(&str);
+#undef ROW_FMT
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -164,6 +263,13 @@ main(int argc, char *argv[])
     int i;
     int fd = -1;
 
+    tapi_job_factory_t *factory = NULL;
+    tapi_ethtool_opt opts = tapi_ethtool_default_opt;
+    tapi_ethtool_report report_before = tapi_ethtool_default_report;
+    tapi_ethtool_report report_after = tapi_ethtool_default_report;
+    int64_t stats_before = 0;
+    int64_t stats_after = 0;
+
     TEST_START;
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
@@ -177,6 +283,15 @@ main(int argc, char *argv[])
               "supported.");
     net_drv_open_ptp_fd(iut_rpcs, iut_if->if_name, &fd);
     RPC_CLOSE(iut_rpcs, fd);
+
+    CHECK_RC(tapi_job_factory_rpc_create(iut_rpcs, &factory));
+    opts.cmd = TAPI_ETHTOOL_CMD_STATS;
+    opts.if_name = iut_if->if_name;
+
+    TEST_STEP("Compute sum of statistics from 'ethtool -S' output "
+              "having 'ptp_' prefix.");
+    stats_before = get_ptp_stats_sum(factory, &opts, &report_before,
+                                     "Before running sfptpd");
 
     config_sfptpd(iut_rpcs->ta, iut_if->if_name, slave_cfg);
     config_sfptpd(tst_rpcs->ta, tst_if->if_name, master_cfg);
@@ -224,6 +339,25 @@ main(int argc, char *argv[])
                       "synchronized");
     }
 
+    TEST_STEP("Again compute sum of statistics from 'ethtool -S' output "
+              "having 'ptp_' prefix. Check that after running sfptpd "
+              "this sum increased.");
+
+    stats_after = get_ptp_stats_sum(factory, &opts, &report_after,
+                                    "After running sfptpd");
+
+    if (stats_after >= 0 && stats_before >= 0)
+    {
+        print_stats_diff(&report_before, &report_after);
+
+        if (stats_after <= stats_before)
+        {
+            ERROR_VERDICT("Sum of PTP statistics after running sfptpd %s",
+                          (stats_after < stats_before ?
+                                "decreased" : "did not increase"));
+        }
+    }
+
     if (!system_in_sync || !ptp_in_sync)
         TEST_STOP;
 
@@ -235,6 +369,10 @@ cleanup:
     CLEANUP_RPC_CLOSE(iut_rpcs, system_state_fd);
     free(master_cfg);
     free(slave_cfg);
+
+    tapi_job_factory_destroy(factory);
+    tapi_ethtool_destroy_report(&report_before);
+    tapi_ethtool_destroy_report(&report_after);
 
     TEST_END;
 }
