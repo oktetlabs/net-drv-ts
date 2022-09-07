@@ -90,5 +90,13 @@
         <notes/>
       </iter>
     </test>
+    <test name="sys_offset_precise" type="script">
+      <objective>Check that PTP_SYS_OFFSET_PRECISE ioctl can be used to obtain PTP device time and system time at the same moment.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+      </iter>
+    </test>
   </iter>
 </test>

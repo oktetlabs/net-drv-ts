@@ -135,5 +135,12 @@
             </arg>
         </run>
 
+        <run>
+            <script name="sys_offset_precise"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </run>
+
     </session>
 </package>
