@@ -18,6 +18,7 @@ te_tests_info_sh = find_program(join_paths(te_path, 'te_tests_info.sh'))
 test_deps = [ dependency('threads'), cc.find_library('m') ]
 
 te_libs = [
+    'tapi_bpf',
     'tapi_env',
     'tapi_rpc',
     'rpc_types',
