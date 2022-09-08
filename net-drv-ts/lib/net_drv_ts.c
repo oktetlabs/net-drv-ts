@@ -250,6 +250,9 @@ net_drv_sendto_recv_check(rcf_rpc_server *rpcs_sender,
     int len;
     int rc;
 
+    if (vpref == NULL || *vpref == '\0')
+        vpref = "Data transmission check";
+
     len = rand_range(1, MAX_PKT_LEN);
     te_fill_buf(send_buf, len);
 
