@@ -36,5 +36,14 @@
         <notes/>
       </iter>
     </test>
+    <test name="hash_key_set" type="script">
+      <objective>Check that RSS hash key change can result in changing of Rx queue which processes packets of a given connection.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <notes/>
+      </iter>
+    </test>
   </iter>
 </test>
