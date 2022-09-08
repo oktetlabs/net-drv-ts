@@ -26,15 +26,17 @@
  *                        @c RPC_SOCK_DGRAM)
  * @param exp_queue       Expected RSS queue ID
  * @param vpref           Prefix to use in verdicts
+ *
+ * @return Status code.
  */
-extern void net_drv_rss_send_check_stats(rcf_rpc_server *sender_rpcs,
-                                         int sender_s,
-                                         rcf_rpc_server *receiver_rpcs,
-                                         int receiver_s,
-                                         rpc_socket_type sock_type,
-                                         unsigned int exp_queue,
-                                         unsigned int bpf_id,
-                                         const char *vpref);
+extern te_errno net_drv_rss_send_check_stats(rcf_rpc_server *sender_rpcs,
+                                             int sender_s,
+                                             rcf_rpc_server *receiver_rpcs,
+                                             int receiver_s,
+                                             rpc_socket_type sock_type,
+                                             unsigned int exp_queue,
+                                             unsigned int bpf_id,
+                                             const char *vpref);
 
 /**
  * Check whether expected RSS hash function is enabled; if not,

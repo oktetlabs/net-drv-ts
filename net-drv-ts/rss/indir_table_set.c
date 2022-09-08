@@ -60,6 +60,7 @@ main(int argc, char *argv[])
     size_t key_len;
     te_toeplitz_hash_cache *cache = NULL;
     unsigned int hash;
+    te_bool test_failed = FALSE;
 
     TEST_START;
     TEST_GET_PCO(iut_rpcs);
@@ -143,12 +144,15 @@ main(int argc, char *argv[])
     TEST_STEP("Send a few packets from the Tester socket. Check that they "
               "went via the specified Rx queue.");
 
-    RING("With current hash key packets should go via queue %d",
-         cur_queue);
+    RING("With current hash key hash value is expected to be 0x%x "
+         "and packets should go via queue %d specified "
+         "in indirection table entry %u", hash, cur_queue, idx);
 
-    net_drv_rss_send_check_stats(tst_rpcs, tst_s, iut_rpcs, iut_s,
-                                 sock_type, cur_queue, bpf_id,
-                                 "Before indirection table change");
+    rc = net_drv_rss_send_check_stats(tst_rpcs, tst_s, iut_rpcs, iut_s,
+                                      sock_type, cur_queue, bpf_id,
+                                      "Before indirection table change");
+    if (rc != 0)
+        test_failed = TRUE;
 
     TEST_STEP("Change Rx queue in the indirection table record.");
 
@@ -165,10 +169,13 @@ main(int argc, char *argv[])
     RING("After indirection table change packets should go via queue %d",
          new_queue);
 
-    net_drv_rss_send_check_stats(tst_rpcs, tst_s, iut_rpcs, iut_s,
-                                 sock_type, new_queue, bpf_id,
-                                 "After indirection table change");
+    CHECK_RC(net_drv_rss_send_check_stats(
+                                    tst_rpcs, tst_s, iut_rpcs, iut_s,
+                                    sock_type, new_queue, bpf_id,
+                                    "After indirection table change"));
 
+    if (test_failed)
+        TEST_STOP;
     TEST_SUCCESS;
 
 cleanup:

@@ -115,6 +115,13 @@ main(int argc, char *argv[])
 
     for (j = 0; j < table_size; j++)
     {
+        CHECK_RC(tapi_cfg_if_rss_indir_get(iut_rpcs->ta,
+                                           iut_if->if_name, 0, j,
+                                           &indir));
+
+        RING("Indirection table entry: %u, Rx queue: %u",
+             j, indir);
+
         TEST_SUBSTEP("Find such address/port pairs on IUT and Tester that "
                      "Toeplitz hash produces value mapped to the table "
                      "entry.");
@@ -150,9 +157,7 @@ main(int argc, char *argv[])
                       "table entry %u", j);
         }
 
-        CHECK_RC(tapi_cfg_if_rss_indir_get(iut_rpcs->ta,
-                                           iut_if->if_name, 0, idx,
-                                           &indir));
+        RING("Predicted hash: 0x%x", hash);
 
         TEST_SUBSTEP("Create a pair of connected sockets on IUT and Tester "
                      "bound to these address/port pairs.");
@@ -174,11 +179,10 @@ main(int argc, char *argv[])
                      "processed by the Rx queue specified by the current "
                      "indirection table entry.");
 
-        RING("Predicted hash: %u, indirection table entry: %u, Rx queue: %u",
-             hash, idx, indir);
-
-        net_drv_rss_send_check_stats(tst_rpcs, tst_s, iut_rpcs, iut_s,
-                                     sock_type, indir, bpf_id, "");
+        CHECK_RC(net_drv_rss_send_check_stats(tst_rpcs, tst_s,
+                                              iut_rpcs, iut_s,
+                                              sock_type, indir,
+                                              bpf_id, ""));
 
         RPC_CLOSE(iut_rpcs, iut_s);
         RPC_CLOSE(tst_rpcs, tst_s);

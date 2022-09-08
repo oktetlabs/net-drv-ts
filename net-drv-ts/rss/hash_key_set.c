@@ -73,6 +73,7 @@ main(int argc, char *argv[])
 
     int init_queue;
     int new_queue;
+    te_bool test_failed = FALSE;
 
     TEST_START;
     TEST_GET_PCO(iut_rpcs);
@@ -170,8 +171,9 @@ main(int argc, char *argv[])
               "Check that XDP hook reports that all packets go through the "
               "Rx queue determined by the current hash key value.");
 
-    RING("With current hash key packets should go via queue %d",
-         init_queue);
+    RING("With current hash key hash value should be 0x%x and packets "
+         "should go via queue %d specified in indirection table entry %u",
+         hash, init_queue, idx);
 
     CHECK_RC(tapi_bpf_rxq_stats_get_id(iut_rpcs->ta, iut_if->if_name,
                                        &bpf_id));
@@ -183,9 +185,11 @@ main(int argc, char *argv[])
                  sock_type == RPC_SOCK_DGRAM ? IPPROTO_UDP : IPPROTO_TCP,
                  TRUE));
 
-    net_drv_rss_send_check_stats(tst_rpcs, tst_s, iut_rpcs, iut_s,
-                                 sock_type, init_queue, bpf_id,
-                                 "Before hash key change");
+    rc = net_drv_rss_send_check_stats(tst_rpcs, tst_s, iut_rpcs, iut_s,
+                                      sock_type, init_queue, bpf_id,
+                                      "Before hash key change");
+    if (rc != 0)
+        test_failed = TRUE;
 
     for (i = 0; i < MAX_ATTEMPTS; i++)
     {
@@ -227,13 +231,16 @@ main(int argc, char *argv[])
               "Check that XDP hook reports that all the packets were "
               "processed by the new Rx queue.");
 
-    RING("With changed hash key packets should go via queue %d",
-         new_queue);
+    RING("With changed hash key hash value should be 0x%x and packets "
+         "should go via queue %d specified in indirection table entry %u",
+         hash, new_queue, idx);
 
-    net_drv_rss_send_check_stats(tst_rpcs, tst_s, iut_rpcs, iut_s,
-                                 sock_type, new_queue, bpf_id,
-                                 "After hash key change");
+    CHECK_RC(net_drv_rss_send_check_stats(tst_rpcs, tst_s, iut_rpcs, iut_s,
+                                          sock_type, new_queue, bpf_id,
+                                          "After hash key change"));
 
+    if (test_failed)
+        TEST_STOP;
     TEST_SUCCESS;
 
 cleanup:

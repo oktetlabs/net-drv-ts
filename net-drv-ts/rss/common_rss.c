@@ -18,7 +18,7 @@
 #define RSS_TEST_MAX_PKTS_NUM 30
 
 /* See description in common_rss.h */
-void
+te_errno
 net_drv_rss_send_check_stats(rcf_rpc_server *sender_rpcs, int sender_s,
                              rcf_rpc_server *receiver_rpcs, int receiver_s,
                              rpc_socket_type sock_type, unsigned int exp_queue,
@@ -37,9 +37,9 @@ net_drv_rss_send_check_stats(rcf_rpc_server *sender_rpcs, int sender_s,
                                 receiver_rpcs, receiver_s, vpref);
     }
 
-    CHECK_RC(tapi_bpf_rxq_stats_check_single(receiver_rpcs->ta, bpf_id,
-                                             exp_queue, pkts_num,
-                                             sock_type, vpref));
+    return tapi_bpf_rxq_stats_check_single(receiver_rpcs->ta, bpf_id,
+                                           exp_queue, pkts_num,
+                                           sock_type, vpref);
 }
 
 /* See description in common_rss.h */
