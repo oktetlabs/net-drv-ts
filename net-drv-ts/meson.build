@@ -77,6 +77,7 @@ packages = [
     'ethtool',
     'offload',
     'ptp',
+    'rss',
     'rx_path',
     'stress',
 ]

@@ -1,0 +1,14 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+/* Copyright (C) 2022 OKTET Labs Ltd. All rights reserved. */
+
+/**
+
+@defgroup rss RSS tests
+@ingroup net_drv_tests
+@{
+
+@author Dmitry Izbitsky <Dmitry.Izbitsky@oktetlabs.ru>
+
+@} rss
+
+*/

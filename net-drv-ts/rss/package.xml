@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Copyright (C) 2022 OKTET Labs Ltd. All rights reserved. -->
+<package version="1.0">
+    <description>RSS tests</description>
+
+    <author mailto="Dmitry.Izbitsky@oktetlabs.ru"/>
+
+    <req id="BPF" sticky="true"/>
+
+    <session track_conf="nohistory|sync" track_conf_handdown="descendants">
+
+        <prologue>
+            <script name="prologue"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </prologue>
+
+        <epilogue>
+            <script name="epilogue"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </epilogue>
+
+        <run>
+            <script name="hash_key_get" track_conf="nohistory"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="sock_type" type="sock_stream_dgram"/>
+        </run>
+
+    </session>
+</package>

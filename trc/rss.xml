@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Copyright (C) 2022 OKTET Labs Ltd. All rights reserved. -->
+<test name="rss" type="package">
+  <objective>RSS tests</objective>
+  <notes/>
+  <iter result="PASSED">
+    <notes/>
+    <test name="prologue" type="script">
+      <objective/>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-NET-PCI" notes="VirtIO net does not support RSS">
+          <result value="SKIPPED">
+            <verdict>RSS is not supported for IUT interface</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
+    <test name="epilogue" type="script">
+      <objective/>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="hash_key_get" type="script">
+      <objective>Get RSS hash key, check that packets are directed to receive queues according to its value.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <notes/>
+      </iter>
+    </test>
+  </iter>
+</test>
