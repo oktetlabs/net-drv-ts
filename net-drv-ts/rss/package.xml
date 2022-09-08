@@ -42,5 +42,14 @@
             <arg name="sock_type" type="sock_stream_dgram"/>
         </run>
 
+        <run>
+            <script name="indir_table_set"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="sock_type" type="sock_stream_dgram"/>
+        </run>
+
     </session>
 </package>

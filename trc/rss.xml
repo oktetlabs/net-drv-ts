@@ -45,5 +45,14 @@
         <notes/>
       </iter>
     </test>
+    <test name="indir_table_set" type="script">
+      <objective>Check that a record of RSS hash indirection table can be changed to specify another Rx queue and the new queue will then be used for an existing connection whose hash is mapped to that table record.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <notes/>
+      </iter>
+    </test>
   </iter>
 </test>

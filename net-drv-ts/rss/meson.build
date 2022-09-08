@@ -19,6 +19,7 @@ tests = [
     'epilogue',
     'hash_key_get',
     'hash_key_set',
+    'indir_table_set',
     'prologue',
 ]
 
