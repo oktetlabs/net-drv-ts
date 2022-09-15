@@ -145,6 +145,9 @@ main(int argc, char *argv[])
                                                   0, rx_queues - 1));
     }
 
+    CHECK_RC(tapi_cfg_if_rss_print_indir_table(iut_rpcs->ta,
+                                               iut_if->if_name, 0));
+
     CHECK_NOT_NULL(cache = te_toeplitz_cache_init_size(hash_key, key_len));
 
     CHECK_NOT_NULL(iut_netaddr = te_sockaddr_get_netaddr(iut_addr));

@@ -102,6 +102,9 @@ main(int argc, char *argv[])
           "toeplitz", TEST_SKIP("Test cannot be run without enabling "
                                 "Toeplitz hash function"));
 
+    CHECK_RC(tapi_cfg_if_rss_print_indir_table(iut_rpcs->ta,
+                                               iut_if->if_name, 0));
+
     TEST_STEP("Create a pair of connected sockets of type @p sock_type "
               "on IUT and Tester.");
 

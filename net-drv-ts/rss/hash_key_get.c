@@ -111,6 +111,9 @@ main(int argc, char *argv[])
     new_iut_addr = SA(&new_iut_addr_st);
     new_tst_addr = SA(&new_tst_addr_st);
 
+    CHECK_RC(tapi_cfg_if_rss_print_indir_table(iut_rpcs->ta,
+                                               iut_if->if_name, 0));
+
     TEST_STEP("For every entry in RSS hash indirection table: ");
 
     for (j = 0; j < table_size; j++)
