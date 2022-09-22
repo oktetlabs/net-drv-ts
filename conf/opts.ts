@@ -5,5 +5,4 @@
 --script=scripts/defaults
 --script=scripts/disable_unused_agts
 --script=scripts/export_driver_sources
---script=scripts/nic-trc-tags
 --script=scripts/check_bpf
