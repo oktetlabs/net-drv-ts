@@ -54,7 +54,12 @@ main(int argc, char *argv[])
 
     rc = tapi_ethtool(factory, &opts, &report);
     if (rc != 0)
+    {
+        if (report.err_code == TE_EOPNOTSUPP)
+            TEST_SKIP("Ethtool command is not supported");
+
         TEST_VERDICT("Failed to process ethtool command");
+    }
 
     if (report.err_out)
         ERROR_VERDICT("ethtool printed something to stderr");

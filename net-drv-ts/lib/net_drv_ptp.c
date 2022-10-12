@@ -68,3 +68,80 @@ net_drv_timespec_diff(tarpc_timespec *tsa, tarpc_timespec *tsb)
 
     return seconds + nseconds / 1000000000.0;
 }
+
+/* See description in net_drv_ptp.h */
+double
+net_drv_ptp_clock_time_diff(tarpc_ptp_clock_time *tsa,
+                            tarpc_ptp_clock_time *tsb)
+{
+    double seconds;
+    double nseconds;
+
+    seconds = (int64_t)(tsa->sec) - tsb->sec;
+    nseconds = (int64_t)(tsa->nsec) - tsb->nsec;
+
+    return seconds + nseconds / 1000000000.0;
+}
+
+/* Get maximum deviation from a given target in an array of values */
+static double
+net_drv_max_dev(double *values, unsigned int number,
+                double target)
+{
+    unsigned int i;
+    double max_dev = 0;
+    double dev;
+
+    for (i = 0; i < number; i++)
+    {
+        dev = fabs(values[i] - target);
+        if (dev > max_dev)
+            max_dev = dev;
+    }
+
+    return max_dev;
+}
+
+/* See description in net_drv_ptp.h */
+void
+net_drv_ptp_offs_check_dev_avg(double *values, unsigned int number,
+                               double avg_diff)
+{
+    double max_dev;
+
+    max_dev = net_drv_max_dev(values, number, avg_diff);
+
+    RING("Maximum deviation from average offset is %f sec", max_dev);
+    if (max_dev > NET_DRV_PTP_OFFS_MAX_DEV_FROM_AVG)
+    {
+        WARN_VERDICT("Difference between pairs of timestamps changes "
+                     "significantly over array of samples");
+    }
+}
+
+/* See description in net_drv_ptp.h */
+void
+net_drv_ptp_offs_check_dev_gettime(rcf_rpc_server *rpcs, int ptp_fd,
+                                   rpc_clock_id sys_clock,
+                                   double ptp_offs)
+{
+    tarpc_timespec ts_ptp;
+    tarpc_timespec ts_sys;
+    double gettime_diff;
+
+    rpc_clock_gettime(rpcs, TARPC_CLOCK_ID_FD, ptp_fd, &ts_ptp);
+
+    rpc_clock_gettime(rpcs, TARPC_CLOCK_ID_NAMED, sys_clock,
+                      &ts_sys);
+
+    gettime_diff = net_drv_timespec_diff(&ts_ptp, &ts_sys);
+    RING("Difference measured with clock_gettime() calls: %f sec",
+         gettime_diff);
+
+    if (fabs(ptp_offs - gettime_diff) > NET_DRV_PTP_OFFS_MAX_DEV_FROM_GETTIME)
+    {
+        WARN_VERDICT("Offset relative to %s measured with ioctl() request "
+                     "differs too much from offset measured with help of "
+                     "clock_gettime() calls", clock_id_rpc2str(sys_clock));
+    }
+}

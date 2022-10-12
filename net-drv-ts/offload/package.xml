@@ -49,6 +49,7 @@
             <arg name="rx_csum_on" type="boolean"/>
             <arg name="lro_on" type="boolean"/>
             <arg name="gro_on" type="boolean"/>
+            <arg name="gro_hw_on" type="boolean"/>
         </run>
 
     </session>

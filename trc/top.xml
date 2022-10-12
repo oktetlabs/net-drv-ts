@@ -35,6 +35,9 @@
       <xi:include href="ptp.xml" parse="xml"
                   xmlns:xi="http://www.w3.org/2003/XInclude"/>
 
+      <xi:include href="rss.xml" parse="xml"
+                  xmlns:xi="http://www.w3.org/2003/XInclude"/>
+
       <xi:include href="rx_path.xml" parse="xml"
                   xmlns:xi="http://www.w3.org/2003/XInclude"/>
 

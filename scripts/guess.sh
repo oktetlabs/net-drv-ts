@@ -61,6 +61,14 @@ if test -z "${SF_TS_CONFDIR}" ; then
     export SF_TS_CONFDIR
 fi
 
+if [[ -z "${TE_TS_RIGSDIR}" ]] ; then
+    check_path="${TE_TS_TOPDIR}"/../ts-rigs
+    if [[ -d "${check_path}" ]] ; then
+        echo "Guessed TE_TS_RIGSDIR=${check_path}"
+        export TE_TS_RIGSDIR="${check_path}"
+    fi
+fi
+
 test -z "${TE_TS_CONFDIR}" -a -d "${TE_TS_TOPDIR}/conf" \
     && TE_TS_CONFDIR="${TE_TS_TOPDIR}/conf"
 

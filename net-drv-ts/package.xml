@@ -85,6 +85,10 @@
         </run>
 
         <run>
+            <package name="rss"/>
+        </run>
+
+        <run>
             <package name="rx_path"/>
         </run>
 

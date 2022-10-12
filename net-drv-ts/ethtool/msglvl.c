@@ -45,8 +45,9 @@
     te_motivated_sleep(1, "wait for any driver logs")
 
 #define WAIT_AFTER_LOGS_DISABLE \
-    te_motivated_sleep(1, "wait until any logs printed before disabling " \
-                       "logging are processed")
+    te_motivated_sleep(3, "wait until any logs printed before disabling " \
+                       "logging are processed and msglvl change takes " \
+                       "effect")
 
 int
 main(int argc, char *argv[])

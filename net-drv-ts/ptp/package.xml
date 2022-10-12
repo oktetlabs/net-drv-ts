@@ -124,5 +124,30 @@
             </arg>
         </run>
 
+        <run>
+            <script name="sys_offset_extended"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+            <arg name="n_samples">
+                <value>5</value>
+                <value>25</value>
+            </arg>
+        </run>
+
+        <run>
+            <script name="sys_offset_precise"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </run>
+
+        <run>
+            <script name="ptp4l"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </run>
+
     </session>
 </package>

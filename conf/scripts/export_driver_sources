@@ -92,7 +92,7 @@ obtain_driver_sources() {
 }
 
 obtain_driver_sources IUT "${TE_ENV_IUT_NET_DRIVER}"
-obtain_driver_sources TST1 "${TE_ENV_TST_NET_DRIVER}"
+obtain_driver_sources TST1 "${TE_ENV_TST1_NET_DRIVER}"
 
 # If the signatures is the same, then the variables should be combined,
 # e.g. two hosts with the same signature might have different NICs

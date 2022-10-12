@@ -7,8 +7,11 @@ tests = [
     'clock_caps',
     'get_time',
     'set_time',
+    'ptp4l',
     'sfptpd',
     'sys_offset',
+    'sys_offset_extended',
+    'sys_offset_precise',
 ]
 
 foreach test : tests

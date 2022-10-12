@@ -6,26 +6,36 @@
 
 set -e
 source "$(dirname "$(which "$0")")"/guess.sh
-source ${SF_TS_CONFDIR}/scripts/lib.run
+
+source "${TE_BASE}/scripts/lib"
+source "${TE_BASE}/scripts/lib.grab_cfg"
+
+if [[ -n "${TE_TS_RIGSDIR}" ]] ; then
+    source "${TE_TS_RIGSDIR}/scripts/lib/grab_cfg_handlers"
+fi
+
+CFG=
 
 run_fail() {
     echo "$*" >&2
     exit 1
 }
 
+cleanup() {
+    call_if_defined grab_cfg_release
+}
+trap "cleanup" EXIT
+
 usage() {
     cat <<EOF
 USAGE: run.sh [run.sh options] [dispatcher.sh options]
 Options:
-  --no-item                 Do not try to reserve requested
-                            configuration with item
-  --steal-cfg               Steal the configuration even if it is owned by
-                            someone else.
-  --release-cfg             Release configuration at the end of the tests.
-                            It is intended for use in night testing, when
-                            the configuration is taken and released
-                            automatically.
   --cfg=<CFG>               Configuration to be used.
+EOF
+
+    call_if_defined grab_cfg_print_help
+
+    cat <<EOF
   --reuse-pco               Do not restart RPC servers in each test
                             (it makes testing significantly faster)
   --net-driver-ndebug       Build net drivers with NDEBUG=1 option
@@ -40,12 +50,7 @@ function process_cfg() {
     local run_conf
     local -a mod_opts
 
-    if $do_item; then
-        local force=
-        ! ${STEAL_CFG} || force="--force"
-        # -mlx means "use the same host but Melanox NIC on it"
-        take_items "${cfg/%-mlx/}" "${force}"
-    fi
+    call_if_defined grab_cfg_process "${cfg}"
 
     # Support <cfg>-p0 etc modifiers to use only one port
     if test "${cfg}" != "${cfg%-p[0-9]}" ; then
@@ -63,27 +68,22 @@ function process_cfg() {
 # Instead specify interfaces in terms of PCI.
 export TE_SFC_IFS_BY_PCI=yes
 
-declare CFG=
 declare -a RUN_OPTS
 declare -a GEN_OPTS
 
-do_item=true
-STEAL_CFG=false
-RELEASE_CFG=false
-
 while test -n "$1" ; do
+
+    if call_if_defined grab_cfg_check_opt "$1" ; then
+        shift 1
+        continue
+    fi
+
     case "$1" in
         --help) usage ;;
 
-        --no-item) do_item=false ;;
-
-        --steal-cfg) STEAL_CFG=true ;;
-
-        --release-cfg) RELEASE_CFG=true ;;
-
         --cfg=*)
             test -z "${CFG}" ||
-                run_fail "Configuration is specified twice: ${CFG} vs ${1#--cfg=}"
+              run_fail "Configuration is specified twice: ${CFG} vs ${1#--cfg=}"
 
             CFG="${1#--cfg=}"
             ;;
@@ -108,14 +108,18 @@ fi
 
 RUN_OPTS+=(--opts=opts.ts)
 
-GEN_OPTS+=(--conf-dirs="${TE_TS_CONFDIR}:${SF_TS_CONFDIR}")
+conf_dirs="${TE_TS_CONFDIR}"
+if [[ -n "${TE_TS_RIGSDIR}" ]] ; then
+    conf_dirs="${conf_dirs}:${TE_TS_RIGSDIR}"
+fi
+conf_dirs="${conf_dirs}:${SF_TS_CONFDIR}"
+GEN_OPTS+=(--conf-dirs="${conf_dirs}")
 
 GEN_OPTS+=(--trc-db="${TE_TS_TRC_DB}")
 GEN_OPTS+=(--trc-comparison=normalised)
 GEN_OPTS+=(--trc-html=trc-brief.html)
 GEN_OPTS+=(--trc-no-expected)
 GEN_OPTS+=(--trc-no-total --trc-no-unspec)
-GEN_OPTS+=(--build-meson)
 GEN_OPTS+=(--tester-only-req-logues)
 
 "${TE_BASE}"/dispatcher.sh "${GEN_OPTS[@]}" "${RUN_OPTS[@]}"
@@ -124,10 +128,6 @@ RESULT=$?
 if test ${RESULT} -ne 0 ; then
     echo FAIL
     echo ""
-fi
-
-if $RELEASE_CFG; then
-    free_items "$CFG"
 fi
 
 echo -ne "\a"

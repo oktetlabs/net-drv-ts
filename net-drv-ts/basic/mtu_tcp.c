@@ -214,10 +214,6 @@ main(int argc, char *argv[])
     TEST_GET_ENUM_PARAM(pkt_size, PKT_SIZES);
     TEST_GET_INT_PARAM(sends_num);
 
-    TEST_STEP("Set MTU on IUT and Tester interfaces to @p mtu.");
-    net_drv_set_mtu(iut_rpcs->ta, iut_if->if_name, mtu, "IUT");
-    net_drv_set_mtu(tst_rpcs->ta, tst_if->if_name, mtu, "Tester");
-
     if (tx)
     {
         TEST_STEP("If @p tx is @c TRUE, make sure that receive "
@@ -228,6 +224,8 @@ main(int argc, char *argv[])
                                "rx-lro", 0);
         net_drv_set_if_feature(tst_rpcs->ta, tst_if->if_name,
                                "rx-gro", 0);
+        net_drv_set_if_feature(tst_rpcs->ta, tst_if->if_name,
+                               "rx-gro-hw", 0);
     }
     else
     {
@@ -246,6 +244,10 @@ main(int argc, char *argv[])
                                    "tx-tcp6-segmentation", 0);
         }
     }
+
+    TEST_STEP("Set MTU on IUT and Tester interfaces to @p mtu.");
+    net_drv_set_mtu(iut_rpcs->ta, iut_if->if_name, mtu, "IUT");
+    net_drv_set_mtu(tst_rpcs->ta, tst_if->if_name, mtu, "Tester");
 
     TEST_STEP("Enable or disable Generic Segmentation Offload on IUT "
               "according to @p gso_on.");
