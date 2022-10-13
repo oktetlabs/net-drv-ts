@@ -6,3 +6,4 @@
 --script=scripts/disable_unused_agts
 --script=scripts/export_driver_sources
 --script=scripts/check_bpf
+--tester-script=scripts/os-trc-tags
