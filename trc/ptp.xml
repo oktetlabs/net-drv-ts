@@ -136,6 +136,11 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
+        <results tags="mlx5_core" key="NO-PTP_SYS_OFFSET_PRECISE">
+          <result value="SKIPPED">
+            <verdict>PTP_SYS_OFFSET_PRECISE request is not supported</verdict>
+          </result>
+        </results>
         <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
