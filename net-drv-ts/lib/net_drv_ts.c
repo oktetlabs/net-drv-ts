@@ -75,9 +75,23 @@ net_drv_driver_set_loaded(const char *ta,
     cfg_val_type cvt_int = CVT_INTEGER;
 
     if (load)
+    {
         rc = tapi_cfg_module_load(ta, module);
+    }
     else
+    {
+        rc = cfg_set_instance_fmt(CFG_VAL(INTEGER, 1),
+                                  "/agent:%s/module:%s/unload_holders:",
+                                  ta, module);
+        if (rc != 0)
+        {
+            ERROR("Failed to set unload holders for the module '%s' on %s: %r",
+                  module, ta, rc);
+            return rc;
+        }
+
         rc = tapi_cfg_module_unload(ta, module);
+    }
 
     if (rc != 0)
         return rc;
