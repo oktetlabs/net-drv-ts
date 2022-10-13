@@ -104,8 +104,26 @@
         <arg name="rx_csum_on">FALSE</arg>
         <arg name="lro_on">FALSE</arg>
         <arg name="gro_on"/>
-        <arg name="gro_hw_on"/>
+        <arg name="gro_hw_on">FALSE</arg>
         <notes/>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="rx_csum_on">FALSE</arg>
+        <arg name="lro_on">FALSE</arg>
+        <arg name="gro_on"/>
+        <arg name="gro_hw_on">TRUE</arg>
+        <notes/>
+        <results tags="mlx5_core" key="NO-RX-GRO-HW" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
           <result value="SKIPPED">
             <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
@@ -117,8 +135,41 @@
         <arg name="rx_csum_on">FALSE</arg>
         <arg name="lro_on">TRUE</arg>
         <arg name="gro_on"/>
-        <arg name="gro_hw_on"/>
+        <arg name="gro_hw_on">FALSE</arg>
         <notes/>
+        <results tags="sfc_ef100" key="WONTFIX SWNETLINUX-4593" notes="sfc_ef100 does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="igb" key="WONTFIX IGB-RX-LRO" notes="igb does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="WONTFIX X3-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="rx_csum_on">FALSE</arg>
+        <arg name="lro_on">TRUE</arg>
+        <arg name="gro_on"/>
+        <arg name="gro_hw_on">TRUE</arg>
+        <notes/>
+        <results tags="mlx5_core" key="NO-RX-GRO-HW" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="sfc_ef100" key="WONTFIX SWNETLINUX-4593" notes="sfc_ef100 does not support LRO">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
@@ -145,16 +196,62 @@
         <arg name="rx_csum_on">TRUE</arg>
         <arg name="lro_on">FALSE</arg>
         <arg name="gro_on"/>
-        <arg name="gro_hw_on"/>
+        <arg name="gro_hw_on">FALSE</arg>
         <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="rx_csum_on">TRUE</arg>
+        <arg name="lro_on">FALSE</arg>
+        <arg name="gro_on"/>
+        <arg name="gro_hw_on">TRUE</arg>
+        <notes/>
+        <results tags="mlx5_core" key="NO-RX-GRO-HW" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
         <arg name="rx_csum_on">TRUE</arg>
         <arg name="lro_on">TRUE</arg>
         <arg name="gro_on"/>
-        <arg name="gro_hw_on"/>
+        <arg name="gro_hw_on">FALSE</arg>
         <notes/>
+        <results tags="sfc_ef100" key="WONTFIX SWNETLINUX-4593" notes="sfc_ef100 does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="igb" key="WONTFIX IGB-RX-LRO" notes="igb does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-LRO" notes="VirtIO net does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="WONTFIX X3-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="rx_csum_on">TRUE</arg>
+        <arg name="lro_on">TRUE</arg>
+        <arg name="gro_on"/>
+        <arg name="gro_hw_on">TRUE</arg>
+        <notes/>
+        <results tags="mlx5_core" key="NO-RX-GRO-HW" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="sfc_ef100" key="WONTFIX SWNETLINUX-4593" notes="sfc_ef100 does not support LRO">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
