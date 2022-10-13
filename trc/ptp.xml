@@ -14,6 +14,11 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
+        <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="set_time" type="script">
@@ -25,6 +30,11 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
+        <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="adj_setoffset" type="script">
@@ -36,6 +46,11 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
+        <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="adj_frequency" type="script">
@@ -47,6 +62,11 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
+        <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="clock_caps" type="script">
@@ -55,6 +75,11 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
+        <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
         <results tags="xilinx_efct" key="X3-893">
           <result value="PASSED">
             <verdict>Frequency adjustment range is less than expected</verdict>
@@ -70,6 +95,11 @@
         <arg name="master_cfg"/>
         <arg name="slave_cfg"/>
         <notes/>
+        <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="sys_offset" type="script">
@@ -79,6 +109,11 @@
         <arg name="env"/>
         <arg name="n_samples"/>
         <notes/>
+        <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="sys_offset_extended" type="script">
@@ -88,6 +123,11 @@
         <arg name="env"/>
         <arg name="n_samples"/>
         <notes/>
+        <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="sys_offset_precise" type="script">
@@ -96,6 +136,11 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
+        <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="ptp4l" type="script">
@@ -104,6 +149,11 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
+        <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
       </iter>
     </test>
   </iter>
