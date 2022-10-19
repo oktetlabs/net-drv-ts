@@ -33,6 +33,11 @@
         <arg name="sock_type"/>
         <arg name="if_down"/>
         <notes/>
+        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
         <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
@@ -55,6 +60,11 @@
         <arg name="sock_type"/>
         <arg name="if_down"/>
         <notes/>
+        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
         <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
@@ -77,6 +87,11 @@
         <arg name="sock_type"/>
         <arg name="if_down"/>
         <notes/>
+        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
         <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
@@ -99,6 +114,11 @@
         <arg name="sock_type"/>
         <arg name="if_down">FALSE</arg>
         <notes/>
+        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
         <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
@@ -121,6 +141,11 @@
         <arg name="sock_type"/>
         <arg name="if_down">TRUE</arg>
         <notes/>
+        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
         <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
@@ -143,6 +168,11 @@
         <arg name="sock_type"/>
         <arg name="if_down">FALSE</arg>
         <notes/>
+        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
         <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
@@ -165,6 +195,11 @@
         <arg name="sock_type"/>
         <arg name="if_down">TRUE</arg>
         <notes/>
+        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
         <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
