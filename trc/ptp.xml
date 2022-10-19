@@ -14,6 +14,11 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
+        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
         <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
@@ -30,6 +35,11 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
+        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
         <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
@@ -46,6 +56,11 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
+        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
         <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
@@ -62,6 +77,11 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
+        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
         <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
@@ -75,6 +95,11 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
+        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
         <results tags="mlx5_core" key="CLOCK-CAPS">
           <result value="PASSED">
             <verdict>No external timestamp channels</verdict>
@@ -101,6 +126,11 @@
         <arg name="master_cfg"/>
         <arg name="slave_cfg"/>
         <notes/>
+        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
         <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
@@ -115,6 +145,11 @@
         <arg name="env"/>
         <arg name="n_samples"/>
         <notes/>
+        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
         <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
@@ -129,6 +164,11 @@
         <arg name="env"/>
         <arg name="n_samples"/>
         <notes/>
+        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
         <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
@@ -142,6 +182,11 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
+        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
         <results tags="mlx5_core" key="NO-PTP_SYS_OFFSET_PRECISE">
           <result value="SKIPPED">
             <verdict>PTP_SYS_OFFSET_PRECISE request is not supported</verdict>
@@ -160,6 +205,11 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
+        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
         <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
