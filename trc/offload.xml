@@ -124,6 +124,11 @@
         <arg name="gro_on"/>
         <arg name="gro_hw_on">TRUE</arg>
         <notes/>
+        <results tags="ice" key="NO-RX-GRO-HW" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="mlx5_core" key="NO-RX-GRO-HW" notes="rx-gro-hw offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
@@ -143,6 +148,11 @@
         <arg name="gro_hw_on">FALSE</arg>
         <notes/>
         <results tags="sfc_ef100" key="WONTFIX SWNETLINUX-4593" notes="sfc_ef100 does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="ice" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
@@ -180,6 +190,11 @@
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="ice" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="igb" key="WONTFIX IGB-RX-LRO" notes="igb does not support LRO">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
@@ -211,6 +226,11 @@
         <arg name="gro_on"/>
         <arg name="gro_hw_on">TRUE</arg>
         <notes/>
+        <results tags="ice" key="NO-RX-GRO-HW" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="mlx5_core" key="NO-RX-GRO-HW" notes="rx-gro-hw offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
@@ -225,6 +245,11 @@
         <arg name="gro_hw_on">FALSE</arg>
         <notes/>
         <results tags="sfc_ef100" key="WONTFIX SWNETLINUX-4593" notes="sfc_ef100 does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="ice" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
@@ -258,6 +283,11 @@
           </result>
         </results>
         <results tags="sfc_ef100" key="WONTFIX SWNETLINUX-4593" notes="sfc_ef100 does not support LRO">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="ice" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
