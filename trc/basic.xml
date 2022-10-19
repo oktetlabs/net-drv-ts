@@ -323,6 +323,11 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
+        <results tags="ice" key="TSO6">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
@@ -363,6 +368,11 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
+        <results tags="ice" key="TSO6">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
@@ -403,6 +413,11 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
+        <results tags="ice" key="TSO6">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
@@ -453,6 +468,11 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
+        <results tags="ice" key="TSO6">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
           <result value="FAILED">
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
@@ -508,6 +528,11 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
+        <results tags="ice" key="TSO6">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
           <result value="FAILED">
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
