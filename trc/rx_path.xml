@@ -22,6 +22,11 @@
         <arg name="rx_fcs">TRUE</arg>
         <arg name="small_frame"/>
         <notes/>
+        <results tags="ice" key="WONTFIX RX-FCS" notes="intel/ice does not support FCS on Rx">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="igb" key="WONTFIX IGB-RX-FCS" notes="igb does not support FCS on Rx">
           <result value="SKIPPED">
             <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
