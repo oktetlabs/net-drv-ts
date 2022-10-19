@@ -53,6 +53,11 @@
         <arg name="env"/>
         <arg name="flags">MAC</arg>
         <notes/>
+        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
         <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
@@ -78,6 +83,11 @@
         <arg name="env"/>
         <arg name="flags">DEDICATED</arg>
         <notes/>
+        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
         <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
@@ -103,6 +113,11 @@
         <arg name="env"/>
         <arg name="flags">SHARED_MAC|SHARED_PHY</arg>
         <notes/>
+        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
         <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
@@ -128,6 +143,11 @@
         <arg name="env"/>
         <arg name="flags">ALL</arg>
         <notes/>
+        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+          <result value="SKIPPED">
+            <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
         <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
