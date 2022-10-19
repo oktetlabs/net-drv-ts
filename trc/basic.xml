@@ -269,6 +269,11 @@
             <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
           </result>
         </results>
+        <results tags="ice" key="WONTFIX SYSFS-DEBUG" notes="ice does not provide debug in sysfs">
+          <result value="FAILED">
+            <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
+          </result>
+        </results>
         <results tags="igb" key="WONTFIX IGB-SYSFS-DEBUG" notes="igb does not provide debug in sysfs">
           <result value="FAILED">
             <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
