@@ -304,6 +304,11 @@
             <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
           </result>
         </results>
+        <results tags="i40e" key="WONTFIX SYSFS-DEBUG" notes="intel/i40e does not provide debug in sysfs">
+          <result value="FAILED">
+            <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
+          </result>
+        </results>
         <results tags="ice" key="WONTFIX SYSFS-DEBUG" notes="ice does not provide debug in sysfs">
           <result value="FAILED">
             <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
