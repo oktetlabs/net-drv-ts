@@ -89,6 +89,11 @@
             <verdict>Feature 'rx-gro-hw' is enabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="ice" key="TSO6">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="xilinx_efct" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
