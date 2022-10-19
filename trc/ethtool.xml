@@ -29,6 +29,11 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
+        <results tags="ice" key="WONTFIX ETHTOOL-MSGLVL" notes="ice does not have logs enabled via msglvl">
+          <result value="FAILED">
+            <verdict>No logs from the driver were detected when all flags in msglvl are switched on</verdict>
+          </result>
+        </results>
         <results tags="igb" key="WONTFIX IGB-ETHTOOL-MSGLVL" notes="igb does not have logs enabled via msglvl">
           <result value="FAILED">
             <verdict>No logs from the driver were detected when all flags in msglvl are switched on</verdict>
@@ -181,6 +186,12 @@
             <verdict>Preset maximums RX: 256, TX: 256</verdict>
           </result>
         </results>
+        <results tags="ice">
+          <result value="PASSED">
+            <verdict>Current ring sizes RX: 2048, TX: 256</verdict>
+            <verdict>Preset maximums RX: 8160, TX: 8160</verdict>
+          </result>
+        </results>
         <results tags="igb">
           <result value="PASSED">
             <verdict>Current ring sizes RX: 256, TX: 256</verdict>
@@ -211,6 +222,13 @@
             <verdict>Pause autonegotiation is disabled</verdict>
           </result>
         </results>
+        <results tags="ice">
+          <result value="PASSED">
+            <verdict>Pause autonegotiation is disabled</verdict>
+            <verdict>Reception of pause frames is disabled</verdict>
+            <verdict>Transmission of pause frames is disabled</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="ts_info" type="script">
@@ -222,6 +240,14 @@
         <results tags="mlx5_core" key="NO-SW-TS">
           <result value="PASSED">
             <verdict>Some of the expected software timestamps flags are not set: SOF_TIMESTAMPING_TX_SOFTWARE | SOF_TIMESTAMPING_RX_SOFTWARE | SOF_TIMESTAMPING_SOFTWARE</verdict>
+          </result>
+        </results>
+        <results tags="ice">
+          <result value="PASSED">
+            <verdict>No PHC device index is specified</verdict>
+            <verdict>Some of the expected TX types flags are not set: HWTSTAMP_TX_OFF | HWTSTAMP_TX_ON</verdict>
+            <verdict>Some of the expected RX filters flags are not set: HWTSTAMP_FILTER_NONE | HWTSTAMP_FILTER_ALL</verdict>
+            <verdict>Some of the expected harware timestamps flags are not set: SOF_TIMESTAMPING_TX_HARDWARE | SOF_TIMESTAMPING_RX_HARDWARE | SOF_TIMESTAMPING_RAW_HARDWARE</verdict>
           </result>
         </results>
       </iter>
