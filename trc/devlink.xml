@@ -13,6 +13,11 @@
         <arg name="env"/>
         <arg name="if_down"/>
         <notes/>
+        <results tags="i40e" key="WONTFIX DEVLINK" notes="intel/i40e does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>dist_layout parameter is not present</verdict>
+          </result>
+        </results>
         <results tags="ice" key="WONTFIX DEVLINK" notes="ice does not provide devlink parameters">
           <result value="SKIPPED">
             <verdict>dist_layout parameter is not present</verdict>
@@ -46,6 +51,11 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
+        <results tags="i40e" key="WONTFIX DEVLINK" notes="intel/i40e does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>ct_thresh parameter is not present</verdict>
+          </result>
+        </results>
         <results tags="ice" key="WONTFIX DEVLINK" notes="ice does not provide devlink parameters">
           <result value="SKIPPED">
             <verdict>ct_thresh parameter is not present</verdict>
@@ -80,6 +90,11 @@
         <arg name="env"/>
         <arg name="if_down"/>
         <notes/>
+        <results tags="i40e" key="WONTFIX DEVLINK" notes="intel/i40e does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>separated_cpu parameter is not present</verdict>
+          </result>
+        </results>
         <results tags="ice" key="WONTFIX DEVLINK" notes="ice does not provide devlink parameters">
           <result value="SKIPPED">
             <verdict>separated_cpu parameter is not present</verdict>
