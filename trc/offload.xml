@@ -89,7 +89,7 @@
             <verdict>Feature 'rx-gro-hw' is enabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="ice" key="TSO6">
+        <results tags="ice&amp;linux-mm&lt;508" key="TSO6">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
