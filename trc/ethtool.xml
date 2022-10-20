@@ -289,7 +289,7 @@
             <verdict>Additional RX filters flags are reported: HWTSTAMP_FILTER_ALL</verdict>
           </result>
         </results>
-        <results tags="ice">
+        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
           <result value="PASSED">
             <verdict>No PHC device index is specified</verdict>
             <verdict>Some of the expected TX types flags are not set: HWTSTAMP_TX_OFF | HWTSTAMP_TX_ON</verdict>
