@@ -92,6 +92,11 @@
         <arg name="env"/>
         <arg name="coalesce_usecs">511</arg>
         <notes/>
+        <results tags="ice&amp;linux-mm&lt;506" key="WONTFIX RX-USECS-EVEN" notes="intel/ice requires rx-usecs to be even before Linux 5.6">
+          <result value="FAILED">
+            <verdict>Failed to set rx_coalesce_usecs, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
         <results tags="sfc_ef100" key="SWNETLINUX-3314" notes="ethtool coalesce ops are not implemented in sfc_ef100">
           <result value="FAILED">
             <verdict>Failed to set use_adaptive_rx_coalesce, rc=CS-ENOENT</verdict>
