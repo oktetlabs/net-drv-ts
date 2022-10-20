@@ -600,14 +600,79 @@
         </results>
       </iter>
       <iter result="PASSED">
-        <arg name="env"/>
+        <arg name="env">VAR.env.peer2peer</arg>
         <arg name="mtu">9000</arg>
         <arg name="tx"/>
         <arg name="gso_on"/>
-        <arg name="tso_on"/>
+        <arg name="tso_on">FALSE</arg>
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer_ipv6</arg>
+        <arg name="mtu">9000</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">FALSE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer</arg>
+        <arg name="mtu">9000</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
+          <result value="FAILED">
+            <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env">VAR.env.peer2peer_ipv6</arg>
+        <arg name="mtu">9000</arg>
+        <arg name="tx"/>
+        <arg name="gso_on"/>
+        <arg name="tso_on">TRUE</arg>
+        <arg name="pkt_size"/>
+        <arg name="sends_num"/>
+        <notes/>
+        <results tags="ice" key="TSO6">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="xilinx-virtio-net" key="XILINX-VIRTIO-MTU" notes="Xilinx VirtIO net does not allow MTU change">
           <result value="FAILED">
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
