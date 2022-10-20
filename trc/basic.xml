@@ -12,17 +12,17 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
-        <results tags="i40e" key="WONTFIX MOD-VERSION" notes="intel/i40e module has no version information">
+        <results tags="i40e&amp;linux-mm&gt;508" key="WONTFIX MOD-VERSION" notes="intel/i40e module has no version information">
           <result value="PASSED">
             <verdict>Module i40e has no version information</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX MOD-VERSION" notes="intel/ice module has no version information">
+        <results tags="ice&amp;linux-mm&gt;508" key="WONTFIX MOD-VERSION" notes="intel/ice module has no version information">
           <result value="PASSED">
             <verdict>Module ice has no version information</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-VERSION" notes="igb module has no version information">
+        <results tags="igb&amp;linux-mm&gt;508" key="WONTFIX MOD-VERSION" notes="igb module has no version information">
           <result value="PASSED">
             <verdict>Module igb has no version information</verdict>
           </result>
