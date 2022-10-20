@@ -14,7 +14,7 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
-        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -35,7 +35,7 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
-        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -56,7 +56,7 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
-        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -77,7 +77,7 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
-        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -95,7 +95,7 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
-        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -126,7 +126,7 @@
         <arg name="master_cfg"/>
         <arg name="slave_cfg"/>
         <notes/>
-        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -145,7 +145,7 @@
         <arg name="env"/>
         <arg name="n_samples"/>
         <notes/>
-        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -164,7 +164,7 @@
         <arg name="env"/>
         <arg name="n_samples"/>
         <notes/>
-        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -182,7 +182,7 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
-        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -210,7 +210,7 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
-        <results tags="pci-8086-159b" key="WONTFIX PTP" notes="E810-XXVDA2 has no PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
