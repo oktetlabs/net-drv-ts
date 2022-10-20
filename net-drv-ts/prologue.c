@@ -47,7 +47,7 @@ load_required_modules(const char *ta, void *cookie)
 
         if (strcmp_start("sfc", driver) == 0)
         {
-            rc = tapi_cfg_module_add_from_ta_dir(ta, "sfc", TRUE);
+            rc = tapi_cfg_module_add_from_ta_dir_or_fallback(ta, "sfc", TRUE);
         }
         else if (strcmp("xilinx_efct", driver) == 0)
         {
