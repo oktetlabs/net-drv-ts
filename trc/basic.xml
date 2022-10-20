@@ -378,7 +378,7 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="ice" key="TSO6">
+        <results tags="ice&amp;linux-mm&lt;508" key="TSO6">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -423,7 +423,7 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="ice" key="TSO6">
+        <results tags="ice&amp;linux-mm&lt;508" key="TSO6">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -468,7 +468,7 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="ice" key="TSO6">
+        <results tags="ice&amp;linux-mm&lt;508" key="TSO6">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -523,7 +523,7 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="ice" key="TSO6">
+        <results tags="ice&amp;linux-mm&lt;508" key="TSO6">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -583,7 +583,7 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="ice" key="TSO6">
+        <results tags="ice&amp;linux-mm&lt;508" key="TSO6">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -668,7 +668,7 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="ice" key="TSO6">
+        <results tags="ice&amp;linux-mm&lt;508" key="TSO6">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
