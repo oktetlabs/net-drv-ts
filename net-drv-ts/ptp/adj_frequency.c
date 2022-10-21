@@ -125,7 +125,7 @@ main(int argc, char *argv[])
 
     TEST_STEP("Find out PTP device associated with the IUT interface, "
               "call @b open() to get its FD.");
-    net_drv_open_ptp_fd(iut_rpcs, iut_if->if_name, &fd);
+    net_drv_open_ptp_fd(iut_rpcs, iut_if->if_name, &fd, "");
 
     TEST_STEP("Call @b clock_adjtime() to check whether current frequency "
               "offset is zero.");

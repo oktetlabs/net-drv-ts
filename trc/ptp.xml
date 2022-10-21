@@ -228,12 +228,12 @@
         <notes/>
         <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
           <result value="SKIPPED">
-            <verdict>PTP device index is not known</verdict>
+            <verdict>IUT: PTP device index is not known</verdict>
           </result>
         </results>
         <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
           <result value="SKIPPED">
-            <verdict>PTP device index is not known</verdict>
+            <verdict>IUT: PTP device index is not known</verdict>
           </result>
         </results>
       </iter>

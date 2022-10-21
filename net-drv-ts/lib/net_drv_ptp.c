@@ -13,14 +13,26 @@
 
 /* See description in net_drv_ptp.h */
 void
-net_drv_open_ptp_fd(rcf_rpc_server *rpcs, const char *if_name, int *fd)
+net_drv_open_ptp_fd(rcf_rpc_server *rpcs, const char *if_name, int *fd,
+                    const char *vpref)
 {
     struct ifreq ifreq_var;
     struct tarpc_ethtool_ts_info ts_info;
 
     char path[1024];
+    te_string vpref_str = TE_STRING_INIT_STATIC(256);
     int s = -1;
     int rc;
+
+    if (vpref != NULL && *vpref != '\0')
+    {
+        te_string_append(&vpref_str, "%s: ", vpref);
+        vpref = te_string_value(&vpref_str);
+    }
+    else
+    {
+        vpref = "";
+    }
 
     s = rpc_socket(rpcs, RPC_PF_INET, RPC_SOCK_DGRAM, RPC_PROTO_DEF);
 
@@ -36,23 +48,23 @@ net_drv_open_ptp_fd(rcf_rpc_server *rpcs, const char *if_name, int *fd)
     rc = rpc_ioctl(rpcs, s, RPC_SIOCETHTOOL, &ifreq_var);
     if (rc < 0)
     {
-        ERROR_VERDICT("ioctl(SIOCETHTOOL/ETHTOOL_GET_TS_INFO) failed with "
-                      "error %r", RPC_ERRNO(rpcs));
+        ERROR_VERDICT("%sioctl(SIOCETHTOOL/ETHTOOL_GET_TS_INFO) failed "
+                      "with error %r", vpref, RPC_ERRNO(rpcs));
         RPC_CLOSE(rpcs, s);
         TEST_STOP;
     }
     RPC_CLOSE(rpcs, s);
 
     if (ts_info.phc_index < 0)
-        TEST_SKIP("PTP device index is not known");
+        TEST_SKIP("%sPTP device index is not known", vpref);
 
     TE_SPRINTF(path, "/dev/ptp%d", (int)(ts_info.phc_index));
     RPC_AWAIT_ERROR(rpcs);
     *fd = rpc_open(rpcs, path, RPC_O_RDWR, 0);
     if (*fd < 0)
     {
-        TEST_VERDICT("Failed to open PTP device file, errno=%r",
-                     RPC_ERRNO(rpcs));
+        TEST_VERDICT("%sfailed to open PTP device file, errno=%r",
+                     vpref, RPC_ERRNO(rpcs));
     }
 }
 

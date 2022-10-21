@@ -281,7 +281,7 @@ main(int argc, char *argv[])
     TEST_STEP("Find out PTP device associated with the IUT interface, "
               "check that it can be opened to be sure that PTP is "
               "supported.");
-    net_drv_open_ptp_fd(iut_rpcs, iut_if->if_name, &fd);
+    net_drv_open_ptp_fd(iut_rpcs, iut_if->if_name, &fd, "");
     RPC_CLOSE(iut_rpcs, fd);
 
     CHECK_RC(tapi_job_factory_rpc_create(iut_rpcs, &factory));
