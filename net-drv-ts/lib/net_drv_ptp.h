@@ -42,9 +42,10 @@
  * @param rpcs      RPC server
  * @param if_name   Interface name
  * @param fd        Where to save opened file descriptor
+ * @param vpref     Prefix for verdicts (may be @c NULL or empty)
  */
 extern void net_drv_open_ptp_fd(rcf_rpc_server *rpcs, const char *if_name,
-                                int *fd);
+                                int *fd, const char *vpref);
 
 /**
  * Get difference between two timespec structures in seconds

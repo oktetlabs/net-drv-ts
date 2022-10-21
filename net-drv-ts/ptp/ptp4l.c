@@ -166,11 +166,11 @@ main(int argc, char *argv[])
 
     TEST_STEP("Find out PTP device associated with the IUT interface, "
               "call @b open() to get its FD.");
-    net_drv_open_ptp_fd(iut_rpcs, iut_if->if_name, &fd_iut);
+    net_drv_open_ptp_fd(iut_rpcs, iut_if->if_name, &fd_iut, "IUT");
 
     TEST_STEP("Find out PTP device associated with the Tester interface, "
               "call @b open() to get its FD.");
-    net_drv_open_ptp_fd(tst_rpcs, tst_if->if_name, &fd_tst);
+    net_drv_open_ptp_fd(tst_rpcs, tst_if->if_name, &fd_tst, "Tester");
 
     TEST_STEP("Check that @b ptp4l is available on IUT and Tester.");
     find_ptp4l(iut_rpcs, "IUT");
