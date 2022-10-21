@@ -28,7 +28,7 @@
           </result>
         </results>
         <results tags="mlx5_core&amp;linux-mm&gt;510" key="WONTFIX MOD-VERSION">
-          <result value="SKIPPED">
+          <result value="PASSED">
             <verdict>Module igb has no version information</verdict>
           </result>
         </results>
