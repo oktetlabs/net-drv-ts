@@ -44,23 +44,18 @@ main(int argc, char *argv[])
     const struct sockaddr *tst_addr = NULL;
     rpc_socket_type sock_type;
 
-    size_t addr_size;
-
     int iut_s = -1;
     int tst_s = -1;
 
-    int rx_queues;
-    unsigned int table_size;
     unsigned int idx;
-    int cur_queue;
-    int new_queue;
+    unsigned int cur_queue;
+    unsigned int new_queue;
     unsigned int bpf_id = 0;
 
-    uint8_t *hash_key = NULL;
-    size_t key_len;
-    te_toeplitz_hash_cache *cache = NULL;
     unsigned int hash;
     te_bool test_failed = FALSE;
+
+    net_drv_rss_ctx ctx = NET_DRV_RSS_CTX_INIT;
 
     TEST_START;
     TEST_GET_PCO(iut_rpcs);
@@ -70,37 +65,7 @@ main(int argc, char *argv[])
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_SOCK_TYPE(sock_type);
 
-    addr_size = te_netaddr_get_size(iut_addr->sa_family);
-
-    TEST_STEP("Check that RSS hash key can be obtained for IUT "
-              "interface.");
-
-    net_drv_rss_get_check_hkey(iut_rpcs->ta, iut_if->if_name, 0,
-                               &hash_key, &key_len);
-
-    TEST_STEP("Check that multiple Rx queues are available.");
-
-    CHECK_RC(tapi_cfg_if_rss_rx_queues_get(
-                    iut_rpcs->ta, iut_if->if_name, &rx_queues));
-    if (rx_queues <= 1)
-        TEST_SKIP("Multiple Rx queues should be available");
-
-    TEST_STEP("Check that at least one record is present in RSS hash "
-              "indirection table.");
-
-    CHECK_RC(tapi_cfg_if_rss_indir_table_size(iut_rpcs->ta,
-                                              iut_if->if_name, 0,
-                                              &table_size));
-
-    if (table_size < 1)
-        TEST_SKIP("RSS indirection table does not have any records");
-
-    TEST_STEP("Make sure that Toeplitz hash function is used on "
-              "the IUT interface.");
-    NET_DRV_RSS_CHECK_SET_HFUNC(
-          iut_rpcs->ta, iut_if->if_name, 0,
-          "toeplitz", TEST_SKIP("Test cannot be run without enabling "
-                                "Toeplitz hash function"));
+    net_drv_rss_ctx_prepare(&ctx, iut_rpcs->ta, iut_if->if_name, 0);
 
     CHECK_RC(tapi_cfg_if_rss_print_indir_table(iut_rpcs->ta,
                                                iut_if->if_name, 0));
@@ -115,20 +80,8 @@ main(int argc, char *argv[])
               "out which indirection table record specifies Rx queue for "
               "those packets.");
 
-    CHECK_NOT_NULL(cache = te_toeplitz_cache_init_size(hash_key, key_len));
-
-    hash = te_toeplitz_hash(
-                cache, addr_size,
-                te_sockaddr_get_netaddr(tst_addr),
-                te_sockaddr_get_port(tst_addr),
-                te_sockaddr_get_netaddr(iut_addr),
-                te_sockaddr_get_port(iut_addr));
-
-    idx = hash % table_size;
-
-    CHECK_RC(tapi_cfg_if_rss_indir_get(iut_rpcs->ta,
-                                       iut_if->if_name, 0, idx,
-                                       &cur_queue));
+    CHECK_RC(net_drv_rss_predict(&ctx, tst_addr, iut_addr,
+                                 &hash, &idx, &cur_queue));
 
     TEST_STEP("Configure XDP hook to count only packets going "
               "from Tester to IUT via the created connection. It will "
@@ -148,7 +101,7 @@ main(int argc, char *argv[])
               "went via the specified Rx queue.");
 
     RING("With current hash key hash value is expected to be 0x%x "
-         "and packets should go via queue %d specified "
+         "and packets should go via queue %u specified "
          "in indirection table entry %u", hash, cur_queue, idx);
 
     rc = net_drv_rss_send_check_stats(tst_rpcs, tst_s, iut_rpcs, iut_s,
@@ -159,7 +112,7 @@ main(int argc, char *argv[])
 
     TEST_STEP("Change Rx queue in the indirection table record.");
 
-    new_queue = (cur_queue + 1) % rx_queues;
+    new_queue = (cur_queue + 1) % ctx.rx_queues;
 
     CHECK_RC(tapi_cfg_if_rss_indir_set_local(iut_rpcs->ta, iut_if->if_name,
                                              0, idx, new_queue));
@@ -169,7 +122,7 @@ main(int argc, char *argv[])
     TEST_STEP("Send a few packets from the Tester socket. Check that they "
               "went via the new Rx queue.");
 
-    RING("After indirection table change packets should go via queue %d",
+    RING("After indirection table change packets should go via queue %u",
          new_queue);
 
     CHECK_RC(net_drv_rss_send_check_stats(
@@ -188,8 +141,7 @@ cleanup:
 
     CLEANUP_CHECK_RC(tapi_bpf_rxq_stats_reset(iut_rpcs->ta, bpf_id));
 
-    te_toeplitz_hash_fini(cache);
-    free(hash_key);
+    net_drv_rss_ctx_release(&ctx);
 
     TEST_END;
 }

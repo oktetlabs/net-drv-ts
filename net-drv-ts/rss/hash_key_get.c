@@ -56,12 +56,8 @@ main(int argc, char *argv[])
     int iut_s = -1;
     int tst_s = -1;
 
-    uint8_t *hash_key = NULL;
-    size_t key_len;
-    te_toeplitz_hash_cache *cache = NULL;
     unsigned int hash;
 
-    unsigned int table_size;
     unsigned int idx;
     int indir;
     unsigned int i;
@@ -73,8 +69,9 @@ main(int argc, char *argv[])
     struct sockaddr *new_tst_addr = NULL;
     uint16_t iut_port;
     uint16_t tst_port;
-    size_t addr_size;
     unsigned int bpf_id = 0;
+
+    net_drv_rss_ctx ctx = NET_DRV_RSS_CTX_INIT;
 
     TEST_START;
     TEST_GET_PCO(iut_rpcs);
@@ -84,24 +81,9 @@ main(int argc, char *argv[])
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_SOCK_TYPE(sock_type);
 
-    addr_size = te_netaddr_get_size(iut_addr->sa_family);
-
     TEST_STEP("Check that RSS hash key can be obtained for IUT "
               "interface.");
-
-    net_drv_rss_get_check_hkey(iut_rpcs->ta, iut_if->if_name, 0,
-                               &hash_key, &key_len);
-
-    TEST_STEP("Make sure that Toeplitz hash function is used on "
-              "the IUT interface.");
-    NET_DRV_RSS_CHECK_SET_HFUNC(iut_rpcs->ta, iut_if->if_name, 0,
-                                "toeplitz", TEST_SUCCESS);
-
-    CHECK_NOT_NULL(cache = te_toeplitz_cache_init_size(hash_key, key_len));
-
-    CHECK_RC(tapi_cfg_if_rss_indir_table_size(iut_rpcs->ta,
-                                              iut_if->if_name, 0,
-                                              &table_size));
+    net_drv_rss_ctx_prepare(&ctx, iut_rpcs->ta, iut_if->if_name, 0);
 
     CHECK_RC(tapi_bpf_rxq_stats_get_id(iut_rpcs->ta, iut_if->if_name,
                                        &bpf_id));
@@ -116,7 +98,7 @@ main(int argc, char *argv[])
 
     TEST_STEP("For every entry in RSS hash indirection table: ");
 
-    for (j = 0; j < table_size; j++)
+    for (j = 0; j < ctx.indir_table_size; j++)
     {
         CHECK_RC(tapi_cfg_if_rss_indir_get(iut_rpcs->ta,
                                            iut_if->if_name, 0, j,
@@ -135,14 +117,9 @@ main(int argc, char *argv[])
             te_sockaddr_set_port(new_iut_addr, htons(iut_port));
             te_sockaddr_set_port(new_tst_addr, htons(tst_port));
 
-            hash = te_toeplitz_hash(
-                        cache, addr_size,
-                        te_sockaddr_get_netaddr(new_tst_addr),
-                        htons(tst_port),
-                        te_sockaddr_get_netaddr(new_iut_addr),
-                        htons(iut_port));
+            CHECK_RC(net_drv_rss_predict(&ctx, new_tst_addr, new_iut_addr,
+                                         &hash, &idx, NULL));
 
-            idx = hash % table_size;
             if (idx == j)
             {
                 if (rpc_check_port_is_free(iut_rpcs, iut_port) &&
@@ -200,8 +177,7 @@ cleanup:
 
     CLEANUP_CHECK_RC(tapi_bpf_rxq_stats_reset(iut_rpcs->ta, bpf_id));
 
-    te_toeplitz_hash_fini(cache);
-    free(hash_key);
+    net_drv_rss_ctx_release(&ctx);
 
     TEST_END;
 }

@@ -94,3 +94,151 @@ net_drv_rss_check_set_hfunc(const char *ta,
 
     return rc;
 }
+
+/* See description in common_rss.h */
+void
+net_drv_rss_ctx_prepare(net_drv_rss_ctx *ctx, const char *ta,
+                        const char *if_name, unsigned int rss_ctx)
+{
+    te_errno rc = 0;
+    int hash_var;
+    int rx_queues;
+
+    ctx->ta = ta;
+    ctx->if_name = if_name;
+    ctx->rss_ctx = rss_ctx;
+
+    net_drv_rss_get_check_hkey(ta, if_name, rss_ctx, &ctx->hash_key,
+                               &ctx->key_len);
+
+    rc = tapi_cfg_if_rss_rx_queues_get(ta, if_name, &rx_queues);
+    if (rc != 0)
+    {
+        ERROR("%s(): failed to get number of Rx queues, rc=%r",
+              __FUNCTION__, rc);
+        goto cleanup;
+    }
+
+    ctx->rx_queues = rx_queues;
+
+    rc = tapi_cfg_if_rss_indir_table_size(ta, if_name, rss_ctx,
+                                          &ctx->indir_table_size);
+    if (rc != 0)
+    {
+        ERROR("%s(): failed to get indirection table size, rc=%r",
+              __FUNCTION__, rc);
+        goto cleanup;
+    }
+
+    ctx->cache = te_toeplitz_cache_init_size(ctx->hash_key, ctx->key_len);
+    if (ctx->cache == NULL)
+    {
+        ERROR("%s(): failed to allocate Toeplitz hash cache", __FUNCTION__);
+        rc = TE_ENOMEM;
+        goto cleanup;
+    }
+
+    rc = cfg_get_instance_int_fmt(&hash_var, "%s",
+                                  "/local:/iut_toeplitz_variant:");
+    if (rc != 0)
+    {
+        ERROR("%s(): failed to get Toeplitz hash variant", __FUNCTION__);
+        rc = TE_EINVAL;
+        goto cleanup;
+    }
+
+    ctx->hash_variant = hash_var;
+
+cleanup:
+
+    if (rc != 0)
+    {
+        net_drv_rss_ctx_release(ctx);
+        TEST_STOP;
+    }
+}
+
+/* See description in common_rss.h */
+void
+net_drv_rss_ctx_release(net_drv_rss_ctx *ctx)
+{
+    free(ctx->hash_key);
+    te_toeplitz_hash_fini(ctx->cache);
+    ctx->hash_key = NULL;
+    ctx->cache = NULL;
+}
+
+/* See description in common_rss.h */
+te_errno
+net_drv_rss_ctx_change_key(net_drv_rss_ctx *ctx, uint8_t *hash_key,
+                           unsigned int key_len)
+{
+    uint8_t *key_dup = NULL;
+    te_toeplitz_hash_cache *new_cache = NULL;
+
+    key_dup = TE_ALLOC(key_len);
+    if (key_dup == NULL)
+    {
+        ERROR("%s(): cannot allocate memory for hash key", __FUNCTION__);
+        return TE_ENOMEM;
+    }
+    memcpy(key_dup, hash_key, key_len);
+
+    new_cache = te_toeplitz_cache_init_size(hash_key, key_len);
+    if (new_cache == NULL)
+    {
+        ERROR("%s(): failed to allocate Toeplitz hash cache", __FUNCTION__);
+        free(key_dup);
+        return TE_ENOMEM;
+    }
+
+    free(ctx->hash_key);
+    ctx->hash_key = key_dup;
+    ctx->key_len = key_len;
+
+    te_toeplitz_hash_fini(ctx->cache);
+    ctx->cache = new_cache;
+
+    return 0;
+}
+
+/* See description in common_rss.h */
+te_errno
+net_drv_rss_predict(net_drv_rss_ctx *ctx,
+                    const struct sockaddr *src_addr,
+                    const struct sockaddr *dst_addr,
+                    unsigned int *hash_out,
+                    unsigned int *idx_out,
+                    unsigned int *queue_out)
+{
+    unsigned int idx;
+    int queue;
+    uint32_t hash;
+    te_errno rc;
+
+    rc = te_toeplitz_hash_sa(ctx->cache, src_addr, dst_addr,
+                             ctx->hash_variant, &hash);
+    if (rc != 0)
+        return rc;
+
+    if (hash_out != NULL)
+        *hash_out = hash;
+
+    if (idx_out == NULL && queue_out == NULL)
+        return 0;
+
+    idx = hash % ctx->indir_table_size;
+    if (idx_out != NULL)
+        *idx_out = idx;
+
+    if (queue_out == NULL)
+        return 0;
+
+    rc = tapi_cfg_if_rss_indir_get(ctx->ta, ctx->if_name, ctx->rss_ctx,
+                                   idx, &queue);
+    if (rc != 0)
+        return rc;
+
+    *queue_out = queue;
+    return 0;
+}
