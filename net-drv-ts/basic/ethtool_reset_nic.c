@@ -81,6 +81,7 @@ main(int argc, char *argv[])
     cfg_val_type vtype;
     uint64_t val;
     te_bool stats_zeroed;
+    te_bool one_stat_zeroed;
     size_t sent;
     size_t received;
 
@@ -202,6 +203,7 @@ main(int argc, char *argv[])
                                   iut_rpcs->ta, iut_if->if_name));
 
     stats_zeroed = TRUE;
+    one_stat_zeroed = TRUE;
     for (i = 0; i < stats_num; i++)
     {
         vtype = CVT_UINT64;
@@ -223,35 +225,32 @@ main(int argc, char *argv[])
             if (strstr(subid, "octets") != NULL)
             {
                 if (val > MAX_BYTES_AFTER_RESET)
-                    stats_zeroed = FALSE;
+                    one_stat_zeroed = FALSE;
             }
             else
             {
                 if (val > MAX_PKTS_AFTER_RESET)
-                    stats_zeroed = FALSE;
+                    one_stat_zeroed = FALSE;
+            }
+
+            if (!one_stat_zeroed)
+            {
+                if (flag)
+                    ERROR_VERDICT("Interface statistic %s was not zeroed",
+                                  subid);
+
+                stats_zeroed = FALSE;
+                one_stat_zeroed = TRUE;
             }
 
             free(subid);
-            if (!stats_zeroed)
-                break;
         }
     }
 
-    if (flag == 0)
+    if (stats_zeroed && !if_down && !flag)
     {
-        if (stats_zeroed && !if_down)
-        {
-            ERROR_VERDICT("Interface statistics was zeroed after "
-                          "ETHTOOL_RESET command with zero flags");
-        }
-    }
-    else
-    {
-        if (!stats_zeroed)
-        {
-            ERROR_VERDICT("Some of the interface statistics were "
-                          "not zeroed");
-        }
+        ERROR_VERDICT("Interface statistics was zeroed after "
+                      "ETHTOOL_RESET command with zero flags");
     }
 
     if (if_down)

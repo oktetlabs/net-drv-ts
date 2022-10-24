@@ -158,6 +158,12 @@
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
+        <results tags="xilinx_efct" key="X3-1105" notes="On X3 sometimes in_errors isn't zeroed">
+          <result value="PASSED"/>
+          <result value="PASSED">
+            <verdict>Interface statistic in_errors was not zeroed</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -178,6 +184,12 @@
         <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="X3-1105" notes="On X3 sometimes in_errors isn't zeroed">
+          <result value="PASSED"/>
+          <result value="PASSED">
+            <verdict>Interface statistic in_errors was not zeroed</verdict>
           </result>
         </results>
       </iter>
