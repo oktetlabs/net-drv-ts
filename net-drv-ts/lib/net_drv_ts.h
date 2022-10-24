@@ -21,10 +21,11 @@
 
 /**
  * Wait until interface statistics are updated after sending or
- * receiving something.
+ * receiving something. Increase sleep time from 1 to 2 according
+ * to X3-1135.
  */
 #define NET_DRV_WAIT_IF_STATS_UPDATE \
-    te_motivated_sleep(1, "wait until interface statistics are updated")
+    te_motivated_sleep(2, "wait until interface statistics are updated")
 
 /**
  * Get tested driver name on TA.
