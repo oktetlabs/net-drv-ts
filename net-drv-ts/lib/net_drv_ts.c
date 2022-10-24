@@ -249,6 +249,7 @@ net_drv_sendto_recv_check(rcf_rpc_server *rpcs_sender,
     te_bool readable;
     int len;
     int rc;
+    int total_len = 0;
 
     if (vpref == NULL || *vpref == '\0')
         vpref = "Data transmission check";
@@ -281,14 +282,23 @@ net_drv_sendto_recv_check(rcf_rpc_server *rpcs_sender,
     if (!readable)
         TEST_VERDICT("%s: receiver did not become readable", vpref);
 
-    RPC_AWAIT_ERROR(rpcs_receiver);
-    rc = rpc_recv(rpcs_receiver, s_receiver, recv_buf, sizeof(recv_buf), 0);
-    if (rc < 0)
+    while (readable)
     {
-        TEST_VERDICT("%s: recv() failed with error " RPC_ERROR_FMT,
-                     vpref, RPC_ERROR_ARGS(rpcs_receiver));
+        RPC_AWAIT_ERROR(rpcs_receiver);
+        rc = rpc_recv(rpcs_receiver, s_receiver, &recv_buf[total_len],
+                      sizeof(recv_buf) - total_len, 0);
+        if (rc < 0)
+        {
+            TEST_VERDICT("%s: recv() failed with error " RPC_ERROR_FMT,
+                         vpref, RPC_ERROR_ARGS(rpcs_receiver));
+        }
+        total_len += rc;
+        if (total_len >= MAX_PKT_LEN)
+            break;
+        RPC_GET_READABILITY(readable, rpcs_receiver, s_receiver,
+                            TAPI_WAIT_NETWORK_DELAY);
     }
-    else if (rc != len)
+    if (total_len != len)
     {
         TEST_VERDICT("%s: recv() returned unexpected result", vpref);
     }
