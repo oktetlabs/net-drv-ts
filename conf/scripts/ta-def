@@ -3,6 +3,7 @@
 # (c) Copyright 2021 - 2022 Xilinx, Inc. All rights reserved.
 
 . ${SF_TS_CONFDIR}/scripts/lib
+. ${TE_TS_RIGSDIR}/scripts/lib.run
 
 export TE_IUT_TA_NAME="NetDrv"
 export TE_TST1_TA_NAME="Peer"
