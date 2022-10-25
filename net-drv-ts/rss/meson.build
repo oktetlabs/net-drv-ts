@@ -9,7 +9,8 @@ rss_tests_lib_sources = [
 
 rss_tests_lib = static_library('rss_tests', rss_tests_lib_sources,
                                include_directories: [lib_dir,
-                                                     rss_tests_lib_dir])
+                                                     rss_tests_lib_dir],
+                               dependencies: dep_tirpc)
 
 rss_test_deps = test_deps
 rss_test_deps += declare_dependency(include_directories: rss_tests_lib_dir,
