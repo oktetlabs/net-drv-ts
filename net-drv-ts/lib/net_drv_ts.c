@@ -249,14 +249,13 @@ net_drv_send_recv_check(rcf_rpc_server *rpcs_sender,
                                      rpcs_receiver, s_receiver, vpref);
 }
 
-/* See description in net_drv_ts.h */
-size_t
-net_drv_sendto_recv_check(rcf_rpc_server *rpcs_sender,
-                          int s_sender,
-                          const struct sockaddr *dst_addr,
-                          rcf_rpc_server *rpcs_receiver,
-                          int s_receiver,
-                          const char *vpref)
+static size_t
+net_drv_sendto_recv_check_gen(rcf_rpc_server *rpcs_sender,
+                              int s_sender,
+                              const struct sockaddr *dst_addr,
+                              rcf_rpc_server *rpcs_receiver,
+                              int s_receiver,
+                              const char *vpref, te_bool may_loss)
 {
     char send_buf[MAX_PKT_LEN];
     char recv_buf[MAX_PKT_LEN];
@@ -294,7 +293,12 @@ net_drv_sendto_recv_check(rcf_rpc_server *rpcs_sender,
     RPC_GET_READABILITY(readable, rpcs_receiver, s_receiver,
                         TAPI_WAIT_NETWORK_DELAY);
     if (!readable)
+    {
+        if (may_loss)
+            return 0;
+
         TEST_VERDICT("%s: receiver did not become readable", vpref);
+    }
 
     while (readable)
     {
@@ -322,6 +326,34 @@ net_drv_sendto_recv_check(rcf_rpc_server *rpcs_sender,
     }
 
     return len;
+}
+
+/* See description in net_drv_ts.h */
+size_t
+net_drv_sendto_recv_check(rcf_rpc_server *rpcs_sender,
+                          int s_sender,
+                          const struct sockaddr *dst_addr,
+                          rcf_rpc_server *rpcs_receiver,
+                          int s_receiver,
+                          const char *vpref)
+{
+    return net_drv_sendto_recv_check_gen(rpcs_sender, s_sender, dst_addr,
+                                         rpcs_receiver, s_receiver, vpref,
+                                         FALSE);
+}
+
+/* See description in net_drv_ts.h */
+size_t
+net_drv_sendto_recv_check_may_loss(rcf_rpc_server *rpcs_sender,
+                                   int s_sender,
+                                   const struct sockaddr *dst_addr,
+                                   rcf_rpc_server *rpcs_receiver,
+                                   int s_receiver,
+                                   const char *vpref)
+{
+    return net_drv_sendto_recv_check_gen(rpcs_sender, s_sender, dst_addr,
+                                         rpcs_receiver, s_receiver, vpref,
+                                         TRUE);
 }
 
 /* See description in net_drv_ts.h */
