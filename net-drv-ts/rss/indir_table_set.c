@@ -104,7 +104,8 @@ main(int argc, char *argv[])
          "and packets should go via queue %u specified "
          "in indirection table entry %u", hash, cur_queue, idx);
 
-    rc = net_drv_rss_send_check_stats(tst_rpcs, tst_s, iut_rpcs, iut_s,
+    rc = net_drv_rss_send_check_stats(tst_rpcs, tst_s, NULL,
+                                      iut_rpcs, iut_s, NULL,
                                       sock_type, cur_queue, bpf_id,
                                       "Before indirection table change");
     if (rc != 0)
@@ -126,7 +127,8 @@ main(int argc, char *argv[])
          new_queue);
 
     CHECK_RC(net_drv_rss_send_check_stats(
-                                    tst_rpcs, tst_s, iut_rpcs, iut_s,
+                                    tst_rpcs, tst_s, NULL,
+                                    iut_rpcs, iut_s, NULL,
                                     sock_type, new_queue, bpf_id,
                                     "After indirection table change"));
 

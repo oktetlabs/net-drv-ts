@@ -19,25 +19,37 @@
  * Send a few packets and check whether expected Rx queue received them.
  * This function clears XDP hook statistics before sending.
  *
+ * @note If both @p sender_addr and @p receiver_addr are @c NULL,
+ *       the function assumes that XDP hook is already configured.
+ *       If at least one of these parameters is not @c NULL,
+ *       XDP hook is reconfigured to count only packets matching
+ *       provided addresses and ports.
+ *
  * @param sender_rpcs     Sender RPC server
  * @param sender_s        Sender socket
+ * @param sender_addr     Sender address (may be @c NULL)
  * @param receiver_rpcs   Receiver RPC server
  * @param receiver_s      Receiver socket
+ * @param receiver_addr   Receiver address (may be @c NULL)
  * @param sock_type       Socket type (@c RPC_SOCK_STREAM,
  *                        @c RPC_SOCK_DGRAM)
  * @param exp_queue       Expected RSS queue ID
+ * @param bpf_id          Id of XDP hook used to count packets
  * @param vpref           Prefix to use in verdicts
  *
  * @return Status code.
  */
-extern te_errno net_drv_rss_send_check_stats(rcf_rpc_server *sender_rpcs,
-                                             int sender_s,
-                                             rcf_rpc_server *receiver_rpcs,
-                                             int receiver_s,
-                                             rpc_socket_type sock_type,
-                                             unsigned int exp_queue,
-                                             unsigned int bpf_id,
-                                             const char *vpref);
+extern te_errno net_drv_rss_send_check_stats(
+                                       rcf_rpc_server *sender_rpcs,
+                                       int sender_s,
+                                       const struct sockaddr *sender_addr,
+                                       rcf_rpc_server *receiver_rpcs,
+                                       int receiver_s,
+                                       const struct sockaddr *receiver_addr,
+                                       rpc_socket_type sock_type,
+                                       unsigned int exp_queue,
+                                       unsigned int bpf_id,
+                                       const char *vpref);
 
 /**
  * Check whether expected RSS hash function is enabled; if not,
