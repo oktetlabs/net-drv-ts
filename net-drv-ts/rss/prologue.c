@@ -304,6 +304,13 @@ main(int argc, char **argv)
     CHECK_RC(tapi_bpf_rxq_stats_init(iut_rpcs->ta, iut_if->if_name,
                                      "rss_bpf", &bpf_id));
 
+    /*
+     * On balin-x710 configuration (Intel X710 NIC) IUT may not receive UDP
+     * packet sent from Tester in the next step without this delay.
+     */
+    te_motivated_sleep(2, "waiting after linking XDP hook helps to "
+                       "avoid problems with receiving packets");
+
     /* Detect whether nonstandard Toeplitz hash variant is used */
     detect_toeplitz_variant(iut_rpcs, tst_rpcs, iut_addr, tst_addr,
                             iut_if->if_name, &iut_s, &tst_s, bpf_id,
