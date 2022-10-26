@@ -105,7 +105,8 @@ main(int argc, char *argv[])
                  sock_type == RPC_SOCK_DGRAM ? IPPROTO_UDP : IPPROTO_TCP,
                  TRUE));
 
-    rc = net_drv_rss_send_check_stats(tst_rpcs, tst_s, iut_rpcs, iut_s,
+    rc = net_drv_rss_send_check_stats(tst_rpcs, tst_s, NULL,
+                                      iut_rpcs, iut_s, NULL,
                                       sock_type, init_queue, bpf_id,
                                       "Before hash key change");
     if (rc != 0)
@@ -146,7 +147,8 @@ main(int argc, char *argv[])
          "should go via queue %u specified in indirection table entry %u",
          hash, new_queue, idx);
 
-    CHECK_RC(net_drv_rss_send_check_stats(tst_rpcs, tst_s, iut_rpcs, iut_s,
+    CHECK_RC(net_drv_rss_send_check_stats(tst_rpcs, tst_s, NULL,
+                                          iut_rpcs, iut_s, NULL,
                                           sock_type, new_queue, bpf_id,
                                           "After hash key change"));
 

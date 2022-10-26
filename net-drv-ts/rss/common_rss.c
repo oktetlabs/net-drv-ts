@@ -20,14 +20,40 @@
 /* See description in common_rss.h */
 te_errno
 net_drv_rss_send_check_stats(rcf_rpc_server *sender_rpcs, int sender_s,
+                             const struct sockaddr *sender_addr,
                              rcf_rpc_server *receiver_rpcs, int receiver_s,
+                             const struct sockaddr *receiver_addr,
                              rpc_socket_type sock_type, unsigned int exp_queue,
                              unsigned int bpf_id, const char *vpref)
 {
     unsigned int i;
     unsigned int pkts_num;
+    te_errno rc;
 
-    CHECK_RC(tapi_bpf_rxq_stats_clear(receiver_rpcs->ta, bpf_id));
+    if (sender_addr != NULL || receiver_addr != NULL)
+    {
+        int af = (sender_addr != NULL ? sender_addr->sa_family :
+                                        receiver_addr->sa_family);
+
+        rc = tapi_bpf_rxq_stats_reset(receiver_rpcs->ta, bpf_id);
+        if (rc != 0)
+            return rc;
+
+        rc = tapi_bpf_rxq_stats_set_params(
+                 receiver_rpcs->ta, bpf_id, af,
+                 sender_addr, receiver_addr,
+                 sock_type == RPC_SOCK_DGRAM ? IPPROTO_UDP : IPPROTO_TCP,
+                 TRUE);
+        if (rc != 0)
+            return rc;
+    }
+    else
+    {
+
+        rc = tapi_bpf_rxq_stats_clear(receiver_rpcs->ta, bpf_id);
+        if (rc != 0)
+            return rc;
+    }
 
     pkts_num = rand_range(RSS_TEST_MIN_PKTS_NUM, RSS_TEST_MAX_PKTS_NUM);
 

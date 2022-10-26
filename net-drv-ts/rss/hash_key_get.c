@@ -144,23 +144,13 @@ main(int argc, char *argv[])
         GEN_CONNECTION(iut_rpcs, tst_rpcs, sock_type, RPC_PROTO_DEF,
                        new_iut_addr, new_tst_addr, &iut_s, &tst_s);
 
-        TEST_SUBSTEP("Configure XDP hook to count only packets going "
-                     "from Tester to IUT via the created connection.");
-        CHECK_RC(tapi_bpf_rxq_stats_reset(iut_rpcs->ta, bpf_id));
-        CHECK_RC(
-            tapi_bpf_rxq_stats_set_params(
-                 iut_rpcs->ta, bpf_id, iut_addr->sa_family,
-                 new_tst_addr, new_iut_addr,
-                 sock_type == RPC_SOCK_DGRAM ? IPPROTO_UDP : IPPROTO_TCP,
-                 TRUE));
-
         TEST_SUBSTEP("Send a few packets from Tester to IUT. "
                      "Check that XDP hook reports that all the packets were "
                      "processed by the Rx queue specified by the current "
                      "indirection table entry.");
 
-        CHECK_RC(net_drv_rss_send_check_stats(tst_rpcs, tst_s,
-                                              iut_rpcs, iut_s,
+        CHECK_RC(net_drv_rss_send_check_stats(tst_rpcs, tst_s, new_tst_addr,
+                                              iut_rpcs, iut_s, new_iut_addr,
                                               sock_type, indir,
                                               bpf_id, ""));
 
