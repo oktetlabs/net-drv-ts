@@ -144,6 +144,28 @@ extern size_t net_drv_sendto_recv_check(rcf_rpc_server *rpcs_sender,
                                         const char *vpref);
 
 /**
+ * Same as net_drv_sendto_recv_check() but do not fail if receiver
+ * does not become readable and return 0.
+ *
+ * @param rpcs_sender       RPC server from which to send.
+ * @param s_sender          Socket from which to send.
+ * @param dst_addr          If not @c NULL, @b sendto() should
+ *                          be called with this destination.
+ * @param rpcs_receiver     RPC server on which to receive.
+ * @param s_receiver        Socket on which to receive.
+ * @param vpref             Prefix for verdicts.
+ *
+ * @return Number of bytes sent and received.
+ */
+extern size_t net_drv_sendto_recv_check_may_loss(
+                    rcf_rpc_server *rpcs_sender,
+                    int s_sender,
+                    const struct sockaddr *dst_addr,
+                    rcf_rpc_server *rpcs_receiver,
+                    int s_receiver,
+                    const char *vpref);
+
+/**
  * Send data in both directions between a pair of connected
  * sockets, check that it can be received.
  * In case of any failure, print verdict and stop the test.
