@@ -51,5 +51,30 @@
             <arg name="sock_type" type="sock_stream_dgram"/>
         </run>
 
+        <run>
+            <script name="rx_rule_tcp_udp"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="sock_type" type="sock_stream_dgram"/>
+            <arg name="match_src" type="boolean" list="">
+                <value>TRUE</value>
+                <value>TRUE</value>
+                <value>FALSE</value>
+            </arg>
+            <arg name="match_dst" type="boolean" list="">
+                <value>TRUE</value>
+                <value>FALSE</value>
+                <value>TRUE</value>
+            </arg>
+            <arg name="location">
+                <value>first</value>
+                <value>last</value>
+                <value>any</value>
+                <value>specific</value>
+            </arg>
+        </run>
+
     </session>
 </package>

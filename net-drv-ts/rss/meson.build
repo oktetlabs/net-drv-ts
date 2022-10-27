@@ -22,6 +22,7 @@ tests = [
     'hash_key_set',
     'indir_table_set',
     'prologue',
+    'rx_rule_tcp_udp',
 ]
 
 foreach test : tests

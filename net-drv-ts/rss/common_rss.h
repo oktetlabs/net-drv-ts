@@ -214,4 +214,36 @@ extern te_errno net_drv_rss_predict(net_drv_rss_ctx *ctx,
                                     unsigned int *idx_out,
                                     unsigned int *queue_out);
 
+/**
+ * List of values for rule location test parameter, to be used together
+ * with TEST_GET_ENUM_PARAM().
+ */
+#define NET_DRV_RX_RULE_LOC \
+    { "first", TAPI_CFG_RX_RULE_FIRST },      \
+    { "last", TAPI_CFG_RX_RULE_LAST },        \
+    { "any", TAPI_CFG_RX_RULE_ANY },          \
+    { "specific", 0 }
+
+/**
+ * Check that size of Rx rules table can be read and it is not zero.
+ * Stop the test if this check fails.
+ *
+ * @param ta          Test Agent name
+ * @param if_name     Interface name
+ * @param table_size  Retrieved table size (may be @c NULL)
+ */
+extern void net_drv_rx_rules_check_table_size(const char *ta,
+                                              const char *if_name,
+                                              uint32_t *table_size);
+
+/**
+ * Check that special insert locations are supported.
+ * Skip the test if it is not the case.
+ *
+ * @param ta          Test Agent name
+ * @param if_name     Interface name
+ */
+extern void net_drv_rx_rules_check_spec_loc(const char *ta,
+                                            const char *if_name);
+
 #endif /* !__TS_NET_DRV_COMMON_RSS_H__ */

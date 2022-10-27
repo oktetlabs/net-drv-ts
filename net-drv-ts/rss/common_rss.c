@@ -10,6 +10,7 @@
 #include "common_rss.h"
 #include "tapi_bpf.h"
 #include "tapi_bpf_rxq_stats.h"
+#include "tapi_cfg_rx_rule.h"
 
 /* Minimum number of packets to send when testing RSS */
 #define RSS_TEST_MIN_PKTS_NUM 3
@@ -267,4 +268,50 @@ net_drv_rss_predict(net_drv_rss_ctx *ctx,
 
     *queue_out = queue;
     return 0;
+}
+
+/* See description in common_rss.h */
+void
+net_drv_rx_rules_check_table_size(const char *ta, const char *if_name,
+                                  uint32_t *table_size)
+{
+    te_errno rc;
+    uint32_t size;
+
+    rc = tapi_cfg_rx_rule_table_size_get(ta, if_name, &size);
+    if (rc != 0)
+    {
+        if (rc == TE_RC(TE_CS, TE_ENOENT))
+            TEST_SKIP("Rx rules are not supported");
+        else
+            TEST_VERDICT("Failed to get size of Rx rules table: %r", rc);
+    }
+    else if (size == 0)
+    {
+        TEST_SKIP("Rx rules table has zero size");
+    }
+
+    if (table_size != NULL)
+        *table_size = size;
+}
+
+/* See description in common_rss.h */
+void
+net_drv_rx_rules_check_spec_loc(const char *ta, const char *if_name)
+{
+    te_errno rc;
+    te_bool spec_loc;
+
+    rc = tapi_cfg_rx_rule_spec_loc_get(ta, if_name, &spec_loc);
+    if (rc != 0)
+    {
+        TEST_VERDICT("Failed to check support of special insert "
+                     "locations: %r", rc);
+    }
+
+    if (!spec_loc)
+    {
+        TEST_SKIP("Special insert locations are not supported for "
+                  "Rx rules");
+    }
 }
