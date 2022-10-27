@@ -348,8 +348,17 @@ main(int argc, char *argv[])
     {
         if (stats.first_big > 0)
         {
-            TEST_VERDICT("A large packet was captured while both "
-                         "LRO and GRO are disabled");
+            if (lro_on && !rx_csum_on)
+            {
+                RING_VERDICT("Some packets are coalesced when LRO "
+                             "is enabled even if Rx checksumming is "
+                             "turned off");
+            }
+            else
+            {
+                TEST_VERDICT("A large packet was captured while both "
+                             "LRO and GRO are disabled");
+            }
         }
     }
     else
