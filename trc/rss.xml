@@ -64,5 +64,89 @@
         <notes/>
       </iter>
     </test>
+    <test name="rx_rule_tcp_udp" type="script">
+      <objective>Check that Rx classification rule can redirect matching TCP/UDP traffic to a different Rx queue.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="match_src"/>
+        <arg name="match_dst"/>
+        <arg name="location">first</arg>
+        <notes/>
+        <results tags="sfc" key="RX-RULE-NO-FIRST-LOC" notes="RX_CLS_LOC_FIRST is not supported">
+          <result value="FAILED">
+            <verdict>Failed to add Rx rule: TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="i40e|ice|mlx5_core" key="RX-RULE-NO-SPEC-LOC">
+          <result value="SKIPPED">
+            <verdict>Special insert locations are not supported for Rx rules</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="match_src"/>
+        <arg name="match_dst"/>
+        <arg name="location">last</arg>
+        <notes/>
+        <results tags="sfc" key="RX-RULE-NO-LAST-LOC" notes="RX_CLS_LOC_LAST is not supported">
+          <result value="FAILED">
+            <verdict>Failed to add Rx rule: TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="i40e|ice|mlx5_core" key="RX-RULE-NO-SPEC-LOC">
+          <result value="SKIPPED">
+            <verdict>Special insert locations are not supported for Rx rules</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="match_src"/>
+        <arg name="match_dst">TRUE</arg>
+        <arg name="location">any</arg>
+        <notes/>
+        <results tags="i40e|ice|mlx5_core" key="RX-RULE-NO-SPEC-LOC">
+          <result value="SKIPPED">
+            <verdict>Special insert locations are not supported for Rx rules</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="match_src"/>
+        <arg name="match_dst"/>
+        <arg name="location">specific</arg>
+        <notes/>
+        <results tags="sfc" key="RX-RULE-NO-SET-LOC" notes="User cannot choose location for a rule">
+          <result value="FAILED">
+            <verdict>Failed to add Rx rule: TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="match_src"/>
+        <arg name="match_dst">FALSE</arg>
+        <arg name="location">any</arg>
+        <notes/>
+        <results tags="sfc" key="RX-RULE-NO-WIDLCARD-DST" notes="Rx rule must specify destination address/port">
+          <result value="FAILED">
+            <verdict>Failed to add Rx rule: TA_UNIX-EPROTONOSUPPORT</verdict>
+          </result>
+        </results>
+        <results tags="i40e|ice|mlx5_core" key="RX-RULE-NO-SPEC-LOC">
+          <result value="SKIPPED">
+            <verdict>Special insert locations are not supported for Rx rules</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
   </iter>
 </test>
