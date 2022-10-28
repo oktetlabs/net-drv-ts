@@ -122,6 +122,11 @@ GEN_OPTS+=(--trc-no-expected)
 GEN_OPTS+=(--trc-no-total --trc-no-unspec)
 GEN_OPTS+=(--tester-only-req-logues)
 
+if [[ -z "${TE_ENV_SFPTPD}" ]] ; then
+    # Path to sfptpd is not exported
+    RUN_OPTS+=("--tester-req=!SFPTPD")
+fi
+
 "${TE_BASE}"/dispatcher.sh "${GEN_OPTS[@]}" "${RUN_OPTS[@]}"
 RESULT=$?
 
