@@ -176,3 +176,94 @@ te-trc-diff \
     --html=SN1022-Virtio-Net.html \
     --title="SN1022 Virtio-Net status" \
     "${SN1022_VNET_STATUS_OPTS[@]}"
+
+
+#
+# Intel i40e driver status
+#
+
+declare -a I40E_TAGS
+I40E_TAGS+=(i40e)
+I40E_TAGS+=(pci-8086-1572)
+
+declare -a I40E_OPTS2
+
+for tag in "${COMMON_TAGS[@]}" ; do
+    I40E_OPTS2+=(-2 "${tag}")
+done
+for tag in "${I40E_TAGS[@]}" ; do
+    I40E_OPTS2+=(-2 "${tag}")
+done
+
+declare -a I40E_STATUS_OPTS
+I40E_STATUS_OPTS+=("${COMMON_OPTS[@]}")
+I40E_STATUS_OPTS+=(--1-name="Reference")
+I40E_STATUS_OPTS+=("${REF_OPTS[@]}")
+I40E_STATUS_OPTS+=(--2-name="X2 sfc")
+I40E_STATUS_OPTS+=(--2-show-keys)
+I40E_STATUS_OPTS+=("${I40E_OPTS2[@]}")
+
+te-trc-diff \
+    --html=Intel-i40e.html \
+    --title="Intel i40e driver status" \
+    "${I40E_STATUS_OPTS[@]}"
+
+
+#
+# Intel ice driver status
+#
+
+declare -a ICE_TAGS
+ICE_TAGS+=(ice)
+
+declare -a ICE_OPTS2
+
+for tag in "${COMMON_TAGS[@]}" ; do
+    ICE_OPTS2+=(-2 "${tag}")
+done
+for tag in "${ICE_TAGS[@]}" ; do
+    ICE_OPTS2+=(-2 "${tag}")
+done
+
+declare -a ICE_STATUS_OPTS
+ICE_STATUS_OPTS+=("${COMMON_OPTS[@]}")
+ICE_STATUS_OPTS+=(--1-name="Reference")
+ICE_STATUS_OPTS+=("${REF_OPTS[@]}")
+ICE_STATUS_OPTS+=(--2-name="X2 sfc")
+ICE_STATUS_OPTS+=(--2-show-keys)
+ICE_STATUS_OPTS+=("${ICE_OPTS2[@]}")
+
+te-trc-diff \
+    --html=Intel-ice.html \
+    --title="Intel ice driver status" \
+    "${ICE_STATUS_OPTS[@]}"
+
+
+#
+# Nvidia mlx5 driver status
+#
+
+declare -a MLX5_TAGS
+MLX5_TAGS+=(mlx5_core)
+
+declare -a MLX5_OPTS2
+
+for tag in "${COMMON_TAGS[@]}" ; do
+    MLX5_OPTS2+=(-2 "${tag}")
+done
+for tag in "${MLX5_TAGS[@]}" ; do
+    MLX5_OPTS2+=(-2 "${tag}")
+done
+
+declare -a MLX5_STATUS_OPTS
+MLX5_STATUS_OPTS+=("${COMMON_OPTS[@]}")
+MLX5_STATUS_OPTS+=(--1-name="Reference")
+MLX5_STATUS_OPTS+=("${REF_OPTS[@]}")
+MLX5_STATUS_OPTS+=(--2-name="X2 sfc")
+MLX5_STATUS_OPTS+=(--2-show-keys)
+MLX5_STATUS_OPTS+=("${MLX5_OPTS2[@]}")
+
+te-trc-diff \
+    --html=Nvidia-mlx5.html \
+    --title="Nvidia mlx5 driver status" \
+    "${MLX5_STATUS_OPTS[@]}"
