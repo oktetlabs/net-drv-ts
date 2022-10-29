@@ -161,7 +161,7 @@ main(int argc, char *argv[])
     if (lost > 0)
     {
         if (total_len > 0 && lost <= TEST_ALLOWED_PKT_LOSS)
-            WARN_VERDICT("Few leading multicast packets are not received");
+            WARN("Few leading multicast packets are not received");
         else
             TEST_VERDICT("Too many leading multicast packets are not received");
     }
