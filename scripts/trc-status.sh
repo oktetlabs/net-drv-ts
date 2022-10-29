@@ -199,7 +199,7 @@ declare -a I40E_STATUS_OPTS
 I40E_STATUS_OPTS+=("${COMMON_OPTS[@]}")
 I40E_STATUS_OPTS+=(--1-name="Reference")
 I40E_STATUS_OPTS+=("${REF_OPTS[@]}")
-I40E_STATUS_OPTS+=(--2-name="X2 sfc")
+I40E_STATUS_OPTS+=(--2-name="Intel i40e")
 I40E_STATUS_OPTS+=(--2-show-keys)
 I40E_STATUS_OPTS+=("${I40E_OPTS2[@]}")
 
@@ -229,7 +229,7 @@ declare -a ICE_STATUS_OPTS
 ICE_STATUS_OPTS+=("${COMMON_OPTS[@]}")
 ICE_STATUS_OPTS+=(--1-name="Reference")
 ICE_STATUS_OPTS+=("${REF_OPTS[@]}")
-ICE_STATUS_OPTS+=(--2-name="X2 sfc")
+ICE_STATUS_OPTS+=(--2-name="Intel ice")
 ICE_STATUS_OPTS+=(--2-show-keys)
 ICE_STATUS_OPTS+=("${ICE_OPTS2[@]}")
 
@@ -259,7 +259,7 @@ declare -a MLX5_STATUS_OPTS
 MLX5_STATUS_OPTS+=("${COMMON_OPTS[@]}")
 MLX5_STATUS_OPTS+=(--1-name="Reference")
 MLX5_STATUS_OPTS+=("${REF_OPTS[@]}")
-MLX5_STATUS_OPTS+=(--2-name="X2 sfc")
+MLX5_STATUS_OPTS+=(--2-name="Nvidia mlx5")
 MLX5_STATUS_OPTS+=(--2-show-keys)
 MLX5_STATUS_OPTS+=("${MLX5_OPTS2[@]}")
 
