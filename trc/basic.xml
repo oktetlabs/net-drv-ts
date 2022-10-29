@@ -801,11 +801,6 @@
         <arg name="tx"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="i40e" key="I40E-MCAST-JOIN-DELAY" notes="intel/i40e losses up to 2 first packet just after multicast join">
-          <result value="PASSED">
-            <verdict>Few leading multicast packets are not received</verdict>
-          </result>
-        </results>
         <results tags="sfc_ef100" key="SWNETLINUX-4592" notes="UDP multicast is not received">
           <result value="FAILED">
             <verdict>Checking multicast sending: receiver did not become readable</verdict>
