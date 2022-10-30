@@ -22,27 +22,27 @@
         <arg name="rx_fcs">TRUE</arg>
         <arg name="small_frame"/>
         <notes/>
-        <results tags="i40e" key="WONTFIX RX-FCS" notes="intel/i40e does not support FCS on Rx">
+        <results tags="i40e" key="NO-RX-FCS" notes="intel/i40e does not support FCS on Rx">
           <result value="SKIPPED">
             <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX RX-FCS" notes="intel/ice does not support FCS on Rx">
+        <results tags="ice" key="NO-RX-FCS" notes="intel/ice does not support FCS on Rx">
           <result value="SKIPPED">
             <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-RX-FCS" notes="igb does not support FCS on Rx">
+        <results tags="igb" key="NO-RX-FCS" notes="igb does not support FCS on Rx">
           <result value="SKIPPED">
             <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-FCS" notes="VirtIO net does not support FCS on Rx">
+        <results tags="virtio-pci" key="NO-RX-FCS" notes="VirtIO net does not support FCS on Rx">
           <result value="SKIPPED">
             <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-RX-FCS" notes="xilinx_efct does not support FCS on Rx on EA release: XN-200494-PD-1D/NPT-450">
+        <results tags="xilinx_efct" key="NO-RX-FCS" notes="xilinx_efct does not support FCS on Rx on EA release: XN-200494-PD-1D/NPT-450">
           <result value="SKIPPED">
             <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
           </result>
@@ -82,7 +82,7 @@
             <verdict>Failed to set use_adaptive_rx_coalesce, rc=CS-ENOENT</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-IRQ-MODER-CONTROL" notes="VirtIO net does not support interrupt moderation control">
+        <results tags="virtio-pci" key="NO-RX-IRQ-MODER-CONTROL" notes="VirtIO net does not support interrupt moderation control">
           <result value="SKIPPED">
             <verdict>rx_coalesce_usecs=300 is not supported</verdict>
           </result>
@@ -92,7 +92,7 @@
         <arg name="env"/>
         <arg name="coalesce_usecs">511</arg>
         <notes/>
-        <results tags="ice&amp;linux-mm&lt;506" key="WONTFIX RX-USECS-EVEN" notes="intel/ice requires rx-usecs to be even before Linux 5.6">
+        <results tags="ice&amp;linux-mm&lt;506" key="RX-USECS-EVEN" notes="intel/ice requires rx-usecs to be even before Linux 5.6">
           <result value="FAILED">
             <verdict>Failed to set rx_coalesce_usecs, rc=TA_UNIX-EINVAL</verdict>
           </result>
@@ -102,7 +102,7 @@
             <verdict>Failed to set use_adaptive_rx_coalesce, rc=CS-ENOENT</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-IRQ-MODER-CONTROL" notes="VirtIO net does not support interrupt moderation control">
+        <results tags="virtio-pci" key="NO-RX-IRQ-MODER-CONTROL" notes="VirtIO net does not support interrupt moderation control">
           <result value="SKIPPED">
             <verdict>rx_coalesce_usecs=511 is not supported</verdict>
           </result>
@@ -117,7 +117,7 @@
             <verdict>Failed to set use_adaptive_rx_coalesce, rc=CS-ENOENT</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-IRQ-MODER-CONTROL" notes="VirtIO net does not support interrupt moderation control">
+        <results tags="virtio-pci" key="NO-RX-IRQ-MODER-CONTROL" notes="VirtIO net does not support interrupt moderation control">
           <result value="SKIPPED">
             <verdict>rx_coalesce_usecs=800 is not supported</verdict>
           </result>

@@ -12,12 +12,12 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-NET-PCI" notes="VirtIO net does not support RSS">
+        <results tags="virtio-pci" key="NO-RSS" notes="VirtIO net does not support RSS">
           <result value="SKIPPED">
             <verdict>RSS is not supported for IUT interface</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-TOEPLITZ" notes="Mellanox uses nonstandard Toeplitz hash algorithm">
+        <results tags="mlx5_core" key="MLX5-SYM-TOEPLITZ" notes="Mellanox uses nonstandard Toeplitz hash algorithm">
           <result value="PASSED">
             <verdict>NIC uses symmetric-or-xor Toeplitz hash</verdict>
           </result>

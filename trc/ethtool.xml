@@ -29,27 +29,27 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
-        <results tags="i40e" key="WONTFIX ETHTOOL-MSGLVL" notes="intel/i40e does not have logs enabled via msglvl">
+        <results tags="i40e" key="NO-ETHTOOL-MSGLVL" notes="intel/i40e does not have logs enabled via msglvl">
           <result value="FAILED">
             <verdict>No logs from the driver were detected when all flags in msglvl are switched on</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX ETHTOOL-MSGLVL" notes="ice does not have logs enabled via msglvl">
+        <results tags="ice" key="NO-ETHTOOL-MSGLVL" notes="ice does not have logs enabled via msglvl">
           <result value="FAILED">
             <verdict>Some logs from driver were detected when msglvl is set to zero</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-ETHTOOL-MSGLVL" notes="igb does not have logs enabled via msglvl">
+        <results tags="igb" key="NO-ETHTOOL-MSGLVL" notes="igb does not have logs enabled via msglvl">
           <result value="FAILED">
             <verdict>No logs from the driver were detected when all flags in msglvl are switched on</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX ETHTOOL-MSGLVL">
+        <results tags="mlx5_core" key="NO-ETHTOOL-MSGLVL">
           <result value="FAILED">
             <verdict>Some logs from driver were detected when msglvl is set to zero</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-MSGLEVEL" notes="VirtIO net does not support message level change via ethtool">
+        <results tags="virtio-pci" key="NO-ETHTOOL-MSGLVL" notes="VirtIO net does not support message level change via ethtool">
           <result value="FAILED">
             <verdict>Failed to enable all flags in msglvl</verdict>
           </result>
@@ -63,27 +63,27 @@
         <arg name="env"/>
         <arg name="flags">MAC</arg>
         <notes/>
-        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+        <results tags="i40e" key="NO-ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+        <results tags="ice" key="NO-ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+        <results tags="igb" key="NO-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_core does not support reset via ethtool">
+        <results tags="mlx5_core" key="NO-ETHTOOL-RESET" notes="mlx5_core does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+        <results tags="virtio-pci" key="NO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
@@ -93,27 +93,27 @@
         <arg name="env"/>
         <arg name="flags">DEDICATED</arg>
         <notes/>
-        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+        <results tags="i40e" key="NO-ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+        <results tags="ice" key="NO-ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+        <results tags="igb" key="NO-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_core does not support reset via ethtool">
+        <results tags="mlx5_core" key="NO-ETHTOOL-RESET" notes="mlx5_core does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+        <results tags="virtio-pci" key="NO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
@@ -123,27 +123,27 @@
         <arg name="env"/>
         <arg name="flags">SHARED_MAC|SHARED_PHY</arg>
         <notes/>
-        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+        <results tags="i40e" key="NO-ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+        <results tags="ice" key="NO-ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+        <results tags="igb" key="NO-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_core does not support reset via ethtool">
+        <results tags="mlx5_core" key="NO-ETHTOOL-RESET" notes="mlx5_core does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+        <results tags="virtio-pci" key="NO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
@@ -153,27 +153,27 @@
         <arg name="env"/>
         <arg name="flags">ALL</arg>
         <notes/>
-        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+        <results tags="i40e" key="NO-ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+        <results tags="ice" key="NO-ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+        <results tags="igb" key="NO-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_core does not support reset via ethtool">
+        <results tags="mlx5_core" key="NO-ETHTOOL-RESET" notes="mlx5_core does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+        <results tags="virtio-pci" key="NO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
@@ -289,7 +289,7 @@
             <verdict>Additional RX filters flags are reported: HWTSTAMP_FILTER_ALL</verdict>
           </result>
         </results>
-        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="NO-PTP">
           <result value="PASSED">
             <verdict>No PHC device index is specified</verdict>
             <verdict>Some of the expected TX types flags are not set: HWTSTAMP_TX_OFF | HWTSTAMP_TX_ON</verdict>
