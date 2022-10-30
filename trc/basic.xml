@@ -29,7 +29,7 @@
         </results>
         <results tags="mlx5_core&amp;linux-mm&gt;510" key="WONTFIX MOD-VERSION">
           <result value="PASSED">
-            <verdict>Module igb has no version information</verdict>
+            <verdict>Module mlx5_core has no version information</verdict>
           </result>
         </results>
         <results tags="virtio-pci" key="WONTFIX VIRTIO-NET-VERSION" notes="VirtIO net module has no version information">
