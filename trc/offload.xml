@@ -14,7 +14,7 @@
         <arg name="sock_type"/>
         <arg name="rx_csum">FALSE</arg>
         <notes/>
-        <results tags="xilinx_efct" key="WONTFIX X3-TX-CKSUM" notes="TCP/IP checksum offload on transmit will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-TX-CKSUM" notes="TCP/IP checksum offload on transmit will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-checksum-ip-generic' cannot be modified</verdict>
           </result>
@@ -25,7 +25,7 @@
         <arg name="sock_type"/>
         <arg name="rx_csum">FALSE</arg>
         <notes/>
-        <results tags="xilinx_efct" key="WONTFIX X3-TX-CKSUM" notes="TCP/IP checksum offload on transmit will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-TX-CKSUM" notes="TCP/IP checksum offload on transmit will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-checksum-ip-generic' cannot be modified</verdict>
           </result>
@@ -36,7 +36,7 @@
         <arg name="sock_type"/>
         <arg name="rx_csum">TRUE</arg>
         <notes/>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
+        <results tags="virtio-pci" key="NO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
           <result value="SKIPPED">
             <verdict>Feature 'rx-checksum' cannot be modified</verdict>
           </result>
@@ -53,7 +53,7 @@
         <arg name="max_size"/>
         <arg name="send_calls"/>
         <notes/>
-        <results tags="peer-virtio_pci" key="WONTFIX VIRTIO-RX-GRO-HW" notes="VirtIO net does not support hardware GRO disabling">
+        <results tags="peer-virtio_pci" key="NO-RX-GRO-HW" notes="VirtIO net does not support hardware GRO disabling">
           <result value="SKIPPED">
             <verdict>Feature 'rx-gro-hw' is enabled and cannot be modified</verdict>
           </result>
@@ -66,7 +66,7 @@
         <arg name="max_size"/>
         <arg name="send_calls"/>
         <notes/>
-        <results tags="peer-virtio_pci" key="WONTFIX VIRTIO-RX-GRO-HW" notes="VirtIO net does not support hardware GRO disabling">
+        <results tags="peer-virtio_pci" key="NO-RX-GRO-HW" notes="VirtIO net does not support hardware GRO disabling">
           <result value="SKIPPED">
             <verdict>Feature 'rx-gro-hw' is enabled and cannot be modified</verdict>
           </result>
@@ -84,7 +84,7 @@
         <arg name="max_size"/>
         <arg name="send_calls"/>
         <notes/>
-        <results tags="peer-virtio_pci" key="WONTFIX VIRTIO-RX-GRO-HW" notes="VirtIO net does not support hardware GRO disabling">
+        <results tags="peer-virtio_pci" key="NO-RX-GRO-HW" notes="VirtIO net does not support hardware GRO disabling">
           <result value="SKIPPED">
             <verdict>Feature 'rx-gro-hw' is enabled and cannot be modified</verdict>
           </result>
@@ -111,7 +111,7 @@
         <arg name="gro_on"/>
         <arg name="gro_hw_on">FALSE</arg>
         <notes/>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
+        <results tags="virtio-pci" key="NO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
           <result value="SKIPPED">
             <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
           </result>
@@ -139,7 +139,7 @@
             <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
+        <results tags="virtio-pci" key="NO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
           <result value="SKIPPED">
             <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
           </result>
@@ -157,17 +157,17 @@
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="i40e" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
+        <results tags="i40e" key="NO-RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
+        <results tags="ice" key="NO-RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-RX-LRO" notes="igb does not support LRO">
+        <results tags="igb" key="NO-RX-LRO" notes="igb does not support LRO">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
@@ -177,12 +177,12 @@
             <verdict>Some packets are coalesced when LRO is enabled even if Rx checksumming is turned off</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
+        <results tags="virtio-pci" key="NO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
           <result value="SKIPPED">
             <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
@@ -200,27 +200,27 @@
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="i40e" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
+        <results tags="i40e" key="NO-RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
+        <results tags="ice" key="NO-RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-RX-LRO" notes="igb does not support LRO">
+        <results tags="igb" key="NO-RX-LRO" notes="igb does not support LRO">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
+        <results tags="virtio-pci" key="NO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
           <result value="SKIPPED">
             <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
@@ -243,27 +243,27 @@
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="i40e" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
+        <results tags="i40e" key="NO-RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
+        <results tags="ice" key="NO-RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-RX-LRO" notes="igb does not support LRO">
+        <results tags="igb" key="NO-RX-LRO" notes="igb does not support LRO">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
+        <results tags="virtio-pci" key="NO-RX-CKSUM" notes="VirtIO net does not support Rx checksum offload disabling">
           <result value="SKIPPED">
             <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
@@ -312,27 +312,27 @@
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="i40e" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
+        <results tags="i40e" key="NO-RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
+        <results tags="ice" key="NO-RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-RX-LRO" notes="igb does not support LRO">
+        <results tags="igb" key="NO-RX-LRO" notes="igb does not support LRO">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-LRO" notes="VirtIO net does not support LRO">
+        <results tags="virtio-pci" key="NO-RX-LRO" notes="VirtIO net does not support LRO">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
@@ -355,27 +355,27 @@
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="i40e" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
+        <results tags="i40e" key="NO-RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX RX-LRO" notes="rx-lro offload is not supported">
+        <results tags="ice" key="NO-RX-LRO" notes="rx-lro offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-RX-LRO" notes="igb does not support LRO">
+        <results tags="igb" key="NO-RX-LRO" notes="igb does not support LRO">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-RX-LRO" notes="VirtIO net does not support LRO">
+        <results tags="virtio-pci" key="NO-RX-LRO" notes="VirtIO net does not support LRO">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>

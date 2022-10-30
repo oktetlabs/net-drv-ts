@@ -14,7 +14,7 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
-        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="NO-PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -35,7 +35,7 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
-        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="NO-PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -56,7 +56,7 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
-        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="NO-PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -77,7 +77,7 @@
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
-        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="NO-PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -95,18 +95,18 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
-        <results tags="i40e" key="WONTFIX PTP">
+        <results tags="i40e" key="NO-PTP">
           <result value="PASSED">
             <verdict>No external timestamp channels</verdict>
             <verdict>Pulse Per Second is not supported</verdict>
           </result>
         </results>
-        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="NO-PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
         </results>
-        <results tags="ice&amp;linux-mm&gt;=514" key="WONTFIX PTP">
+        <results tags="ice&amp;linux-mm&gt;=514" key="NO-PTP">
           <result value="PASSED">
             <verdict>Pulse Per Second is not supported</verdict>
           </result>
@@ -137,7 +137,7 @@
         <arg name="master_cfg"/>
         <arg name="slave_cfg"/>
         <notes/>
-        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="NO-PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -156,7 +156,7 @@
         <arg name="env"/>
         <arg name="n_samples"/>
         <notes/>
-        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="NO-PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -175,7 +175,7 @@
         <arg name="env"/>
         <arg name="n_samples"/>
         <notes/>
-        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="NO-PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -193,7 +193,7 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
-        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="NO-PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
           </result>
@@ -226,7 +226,7 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
-        <results tags="ice&amp;linux-mm&lt;514" key="WONTFIX PTP">
+        <results tags="ice&amp;linux-mm&lt;514" key="NO-PTP">
           <result value="SKIPPED">
             <verdict>IUT: PTP device index is not known</verdict>
           </result>

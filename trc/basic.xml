@@ -12,27 +12,27 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
-        <results tags="i40e&amp;linux-mm&gt;508" key="WONTFIX MOD-VERSION" notes="intel/i40e module has no version information">
+        <results tags="i40e&amp;linux-mm&gt;508" key="NO-MOD-VERSOIN" notes="intel/i40e module has no version information">
           <result value="PASSED">
             <verdict>Module i40e has no version information</verdict>
           </result>
         </results>
-        <results tags="ice&amp;linux-mm&gt;508" key="WONTFIX MOD-VERSION" notes="intel/ice module has no version information">
+        <results tags="ice&amp;linux-mm&gt;508" key="NO-MOD-VERSOIN" notes="intel/ice module has no version information">
           <result value="PASSED">
             <verdict>Module ice has no version information</verdict>
           </result>
         </results>
-        <results tags="igb&amp;linux-mm&gt;508" key="WONTFIX MOD-VERSION" notes="igb module has no version information">
+        <results tags="igb&amp;linux-mm&gt;508" key="NO-MOD-VERSOIN" notes="igb module has no version information">
           <result value="PASSED">
             <verdict>Module igb has no version information</verdict>
           </result>
         </results>
-        <results tags="mlx5_core&amp;linux-mm&gt;510" key="WONTFIX MOD-VERSION">
+        <results tags="mlx5_core&amp;linux-mm&gt;510" key="NO-MOD-VERSOIN">
           <result value="PASSED">
             <verdict>Module mlx5_core has no version information</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-NET-VERSION" notes="VirtIO net module has no version information">
+        <results tags="virtio-pci" key="NO-MOD-VERSOIN" notes="VirtIO net module has no version information">
           <result value="PASSED">
             <verdict>Module virtio_net has no version information</verdict>
           </result>
@@ -48,27 +48,27 @@
         <arg name="sock_type"/>
         <arg name="if_down"/>
         <notes/>
-        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+        <results tags="i40e" key="NO-ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+        <results tags="ice" key="NO-ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+        <results tags="igb" key="NO-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+        <results tags="mlx5_core" key="NO-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+        <results tags="virtio-pci" key="NO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
@@ -80,27 +80,27 @@
         <arg name="sock_type"/>
         <arg name="if_down"/>
         <notes/>
-        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+        <results tags="i40e" key="NO-ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+        <results tags="ice" key="NO-ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+        <results tags="igb" key="NO-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+        <results tags="mlx5_core" key="NO-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+        <results tags="virtio-pci" key="NO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
@@ -112,27 +112,27 @@
         <arg name="sock_type"/>
         <arg name="if_down"/>
         <notes/>
-        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+        <results tags="i40e" key="NO-ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+        <results tags="ice" key="NO-ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+        <results tags="igb" key="NO-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+        <results tags="mlx5_core" key="NO-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+        <results tags="virtio-pci" key="NO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
@@ -144,27 +144,27 @@
         <arg name="sock_type"/>
         <arg name="if_down">FALSE</arg>
         <notes/>
-        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+        <results tags="i40e" key="NO-ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+        <results tags="ice" key="NO-ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+        <results tags="igb" key="NO-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+        <results tags="mlx5_core" key="NO-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+        <results tags="virtio-pci" key="NO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
@@ -176,27 +176,27 @@
         <arg name="sock_type"/>
         <arg name="if_down">TRUE</arg>
         <notes/>
-        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+        <results tags="i40e" key="NO-ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+        <results tags="ice" key="NO-ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+        <results tags="mlx5_core" key="NO-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+        <results tags="igb" key="NO-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+        <results tags="virtio-pci" key="NO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
@@ -208,27 +208,27 @@
         <arg name="sock_type"/>
         <arg name="if_down">FALSE</arg>
         <notes/>
-        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+        <results tags="i40e" key="NO-ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+        <results tags="ice" key="NO-ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+        <results tags="igb" key="NO-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+        <results tags="mlx5_core" key="NO-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+        <results tags="virtio-pci" key="NO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
@@ -246,27 +246,27 @@
         <arg name="sock_type"/>
         <arg name="if_down">TRUE</arg>
         <notes/>
-        <results tags="i40e" key="WONTFIX ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
+        <results tags="i40e" key="NO-ETHTOOL-RESET" notes="intel/i40e does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
+        <results tags="ice" key="NO-ETHTOOL-RESET" notes="intel/ice does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
+        <results tags="mlx5_core" key="NO-ETHTOOL-RESET" notes="mlx5_coredoes not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
+        <results tags="igb" key="NO-ETHTOOL-RESET" notes="igb does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
+        <results tags="virtio-pci" key="NO-ETHTOOL-RESET" notes="VirtIO net does not support reset via ethtool">
           <result value="SKIPPED">
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
@@ -319,27 +319,27 @@
             <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
           </result>
         </results>
-        <results tags="i40e" key="WONTFIX SYSFS-DEBUG" notes="intel/i40e does not provide debug in sysfs">
+        <results tags="i40e" key="NO-SYSFS-DEBUG" notes="intel/i40e does not provide debug in sysfs">
           <result value="FAILED">
             <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
           </result>
         </results>
-        <results tags="ice" key="WONTFIX SYSFS-DEBUG" notes="ice does not provide debug in sysfs">
+        <results tags="ice" key="NO-SYSFS-DEBUG" notes="ice does not provide debug in sysfs">
           <result value="FAILED">
             <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
           </result>
         </results>
-        <results tags="igb" key="WONTFIX IGB-SYSFS-DEBUG" notes="igb does not provide debug in sysfs">
+        <results tags="igb" key="NO-SYSFS-DEBUG" notes="igb does not provide debug in sysfs">
           <result value="FAILED">
             <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
           </result>
         </results>
-        <results tags="mlx5_core" key="WONTFIX MLX5-SYSFS-DEBUG" notes="mlx5_core does not provide debug in sysfs, it uses mlx5 instead">
+        <results tags="mlx5_core" key="NO-SYSFS-DEBUG" notes="mlx5_core does not provide debug in sysfs, it uses mlx5 instead">
           <result value="FAILED">
             <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
           </result>
         </results>
-        <results tags="virtio-pci" key="WONTFIX VIRTIO-SYSFS-DEBUG" notes="VirtIO net does not provide debug in sysfs">
+        <results tags="virtio-pci" key="NO-SYSFS-DEBUG" notes="VirtIO net does not provide debug in sysfs">
           <result value="FAILED">
             <verdict>driver/interface subdirectory cannot be opened in /sys/kernel/debug/</verdict>
           </result>
@@ -368,7 +368,7 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -388,7 +388,7 @@
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -413,7 +413,7 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -433,7 +433,7 @@
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -458,7 +458,7 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -478,7 +478,7 @@
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -513,7 +513,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -538,7 +538,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -573,7 +573,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -598,7 +598,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="WONTFIX X3-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
