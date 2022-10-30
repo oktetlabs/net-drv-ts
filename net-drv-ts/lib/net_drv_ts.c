@@ -311,7 +311,7 @@ net_drv_sendto_recv_check_gen(rcf_rpc_server *rpcs_sender,
                          vpref, RPC_ERROR_ARGS(rpcs_receiver));
         }
         total_len += rc;
-        if (total_len >= MAX_PKT_LEN)
+        if (total_len >= len)
             break;
         RPC_GET_READABILITY(readable, rpcs_receiver, s_receiver,
                             TAPI_WAIT_NETWORK_DELAY);
