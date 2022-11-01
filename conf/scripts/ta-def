@@ -6,6 +6,7 @@
 
 export TE_IUT_TA_NAME="NetDrv"
 export TE_TST1_TA_NAME="Peer"
+export TE_HYPERVISOR_TA_NAME="Hypervisor"
 export TE_LOG_LISTENER_TA_NAME="LogListener"
 export TE_TA_SIGNATURE_FIELDS="gcc-target kernel-version-full libc-version header-version"
 
@@ -20,11 +21,12 @@ fi
 
 source "${TE_BASE}"/engine/builder/te_ta_ssh_helper
 
-: ${TS_TEST_AGENTS:=TE_IUT TE_TST1 TE_LOG_LISTENER}
+: ${TS_TEST_AGENTS:=TE_IUT TE_TST1 TE_HYPERVISOR TE_LOG_LISTENER}
 
 te_ta_list_detect_type_with_signature ${TS_TEST_AGENTS}
 
 export_headers_num "TE_IUT"
 export_headers_num "TE_TST1"
+export_headers_num "TE_HYPERVISOR"
 export_headers_num "TE_LOG_LISTENER"
 export_kernel_version_num "TE_IUT"
