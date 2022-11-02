@@ -54,7 +54,7 @@
 /** Value of rx_coalesce_usecs interrupt coalescing parameter */
 #define RX_COALESCE_USECS 300
 
-/** Minimum share of coalesced packets */
+/** Minimum share of data in coalesced packets */
 #define MIN_COALESCED_SHARE 0.15
 
 /**
@@ -67,10 +67,16 @@
 /** Auxiliary structure to pass information to/from CSAP callback */
 typedef struct pkts_info {
     unsigned int mss;
+    unsigned int slow_start_pkts;
+
     unsigned int pkts_num;
     unsigned int first_big;
     unsigned int big_pkts_num;
     unsigned int max_size;
+
+    long unsigned int pkts_pld;
+    long unsigned int slow_start_pld;
+    long unsigned int big_pkts_pld;
     te_bool failed;
 } pkts_info;
 
@@ -92,6 +98,10 @@ process_pkts(asn_value *pkt, void *arg)
     }
 
     info->pkts_num++;
+    info->pkts_pld += pld_len;
+    if (info->pkts_num < info->slow_start_pkts)
+        info->slow_start_pld += pld_len;
+
     if (pld_len > info->mss)
     {
         info->big_pkts_num++;
@@ -100,6 +110,8 @@ process_pkts(asn_value *pkt, void *arg)
 
         if (pld_len > info->max_size)
             info->max_size = pld_len;
+
+        info->big_pkts_pld += pld_len;
     }
 
 cleanup:
@@ -137,7 +149,7 @@ main(int argc, char *argv[])
     pkts_info stats;
 
     int lro_slow_start_pkts = 0;
-    unsigned int eligible_pkts = 0;
+    long unsigned int eligible_data = 0;
     double coalesced_share = 0;
 
     int i;
@@ -315,6 +327,8 @@ main(int argc, char *argv[])
     csap_cb_data.callback = &process_pkts;
     csap_cb_data.user_data = &stats;
     stats.mss = mss;
+    if (lro_slow_start_pkts > 0)
+        stats.slow_start_pkts = lro_slow_start_pkts;
 
     TEST_STEP("Process packets captured by CSAP on IUT. Check that "
               "larger-than-MSS packets are encountered if and only if "
@@ -330,9 +344,10 @@ main(int argc, char *argv[])
     CHECK_RC(tapi_tad_trrecv_stop(iut_rpcs->ta, 0, csap_rx,
                                   &csap_cb_data, NULL));
 
-    RING("%u packets were received, of them %u were coalesced (larger "
-         "than MSS) with maximum size of %u bytes", stats.pkts_num,
-         stats.big_pkts_num, stats.max_size);
+    RING("%u packets with %lu bytes were received, of them %u packets "
+         "with %lu bytes were coalesced (larger than MSS) with maximum "
+         "size of %u bytes", stats.pkts_num, stats.pkts_pld,
+         stats.big_pkts_num, stats.big_pkts_pld, stats.max_size);
     if (stats.first_big > 0)
     {
         RING("The first big packet came after %u normal packets",
@@ -369,7 +384,7 @@ main(int argc, char *argv[])
                          "LRO and/or GRO were enabled");
         }
 
-        eligible_pkts = stats.pkts_num;
+        eligible_data = stats.pkts_pld;
         if (lro_works && lro_slow_start_pkts > 0)
         {
             if ((int)(stats.first_big) <
@@ -379,12 +394,15 @@ main(int argc, char *argv[])
                               "lro_slow_start_packets parameter allows");
             }
 
-            if ((int)eligible_pkts > lro_slow_start_pkts)
-                eligible_pkts -= lro_slow_start_pkts;
+            eligible_data -= stats.slow_start_pld;
+            RING("Only last %lu received bytes are counted when computing "
+                 "coalesced data share because of lro_slow_start_packets "
+                 "parameter", eligible_data);
         }
 
-        coalesced_share = (double)(stats.big_pkts_num) / eligible_pkts;
-        RING("%.2f%% of packets were coalesced", coalesced_share * 100.0);
+        coalesced_share = (double)(stats.big_pkts_pld) / eligible_data;
+        RING("%.2f%% of received bytes were in coalesced packets",
+             coalesced_share * 100.0);
 
         if (coalesced_share < MIN_COALESCED_SHARE)
             ERROR_VERDICT("Too few packets were coalesced");
