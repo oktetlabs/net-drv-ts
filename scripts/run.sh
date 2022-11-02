@@ -31,6 +31,13 @@ usage() {
 USAGE: run.sh [run.sh options] [dispatcher.sh options]
 Options:
   --cfg=<CFG>               Configuration to be used.
+  --cfg=virtio_virtio[:HV][:VM_NAME]
+                            Run on a pair of dynamically started VMs connected
+                            via Linux bridge. VMs are started on HV host
+                            (localhost by default).
+                            VM_NAME is a virtual machine name mapped to disk
+                            image and build host via environment variables
+                            (x86_64_debian11 by default, see ts-conf/README.md).
 EOF
 
     call_if_defined grab_cfg_print_help
@@ -45,12 +52,31 @@ EOF
     exit 1
 }
 
+function process_virtio() {
+    local hpv_var=$1 ; shift
+    local hypervisor=$1
+    local vm_name=$2
+
+    test -z "${hypervisor}" || eval export "${hpv_var}"="${hypervisor}"
+    test -z "${vm_name}" || export TE_VM_NAME="${vm_name}"
+
+    if test -z "${!hpv_var}" ; then
+        eval export "${hpv_var}"_LOCALHOST=true
+        eval export "${hpv_var}"_BUILD=local
+    fi
+}
+
 function process_cfg() {
     local cfg="$1" ; shift
     local run_conf
     local -a mod_opts
 
-    call_if_defined grab_cfg_process "${cfg}"
+    case "${cfg}" in
+        virtio_virtio)
+            process_virtio TE_HYPERVISOR "$@" ; CFG= ;;
+        *)
+            call_if_defined grab_cfg_process "${cfg}" || exit 1 ;;
+    esac
 
     # Support <cfg>-p0 etc modifiers to use only one port
     if test "${cfg}" != "${cfg%-p[0-9]}" ; then
@@ -103,7 +129,7 @@ while test -n "$1" ; do
 done
 
 if test -n "${CFG}" ; then
-    process_cfg ${CFG}
+    IFS=: ; process_cfg ${CFG} ; IFS=
 fi
 
 RUN_OPTS+=(--opts=opts.ts)
