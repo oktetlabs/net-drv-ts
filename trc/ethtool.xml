@@ -305,6 +305,14 @@
             <verdict>Some of the expected harware timestamps flags are not set: SOF_TIMESTAMPING_TX_HARDWARE | SOF_TIMESTAMPING_RX_HARDWARE | SOF_TIMESTAMPING_RAW_HARDWARE</verdict>
           </result>
         </results>
+        <results tags="virtio-pci" key="NO-PTP">
+          <result value="PASSED">
+            <verdict>No PHC device index is specified</verdict>
+            <verdict>Some of the expected TX types flags are not set: HWTSTAMP_TX_OFF | HWTSTAMP_TX_ON</verdict>
+            <verdict>Some of the expected RX filters flags are not set: HWTSTAMP_FILTER_NONE | HWTSTAMP_FILTER_ALL</verdict>
+            <verdict>Some of the expected harware timestamps flags are not set: SOF_TIMESTAMPING_TX_HARDWARE | SOF_TIMESTAMPING_RX_HARDWARE | SOF_TIMESTAMPING_RAW_HARDWARE</verdict>
+          </result>
+        </results>
       </iter>
     </test>
   </iter>
