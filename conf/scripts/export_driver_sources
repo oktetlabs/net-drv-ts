@@ -74,9 +74,9 @@ obtain_driver_sources() {
         x3_net_linux_src="${X3_NET_LINUX_SRC}"
     else
         if test -z "$driver_name" ; then
-            if test "$role" = "TST1" -a "$HWSIM" = "true" ; then
+            if test "$role" = "TST1" ; then
                 echo "INFO: driver name is empty, this is acceptable" \
-                     "for HWSIM + TST1" >&2
+                     "for TST1" >&2
             else
                 fail "driver name is not defined"
             fi
