@@ -111,16 +111,19 @@ check_fix_indir_table(const char *ta, const char *if_name,
 }
 
 /*
- * Determine whether standard Toeplitz hash is used or "symmetric
- * Toeplitz".
+ * Create a single connection which should be mapped to different Rx
+ * queues depending on whether standard Toeplitz hash is used or "symmetric
+ * Toeplitz". Find out which algorithm variant points to the actually
+ * used queue.
  */
 static void
-detect_toeplitz_variant(rcf_rpc_server *iut_rpcs, rcf_rpc_server *tst_rpcs,
-                        const struct sockaddr *iut_addr,
-                        const struct sockaddr *tst_addr,
-                        const char *iut_if_name, int *iut_s, int *tst_s,
-                        unsigned int bpf_id, unsigned int table_size,
-                        te_toeplitz_hash_cache *cache)
+try_detect_toeplitz_variant(rcf_rpc_server *iut_rpcs, rcf_rpc_server *tst_rpcs,
+                            const struct sockaddr *iut_addr,
+                            const struct sockaddr *tst_addr,
+                            const char *iut_if_name, int *iut_s, int *tst_s,
+                            unsigned int bpf_id, unsigned int table_size,
+                            te_toeplitz_hash_cache *cache,
+                            te_toeplitz_hash_variant *detected)
 {
     struct sockaddr_storage new_iut_addr_st;
     struct sockaddr_storage new_tst_addr_st;
@@ -139,9 +142,6 @@ detect_toeplitz_variant(rcf_rpc_server *iut_rpcs, rcf_rpc_server *tst_rpcs,
     int queue_sym;
     unsigned int queue_got;
     unsigned int i;
-    int toeplitz_variant = TE_TOEPLITZ_HASH_STANDARD;
-
-    cfg_obj_descr obj_descr;
 
     tapi_sockaddr_clone_exact(iut_addr, &new_iut_addr_st);
     tapi_sockaddr_clone_exact(tst_addr, &new_tst_addr_st);
@@ -150,6 +150,11 @@ detect_toeplitz_variant(rcf_rpc_server *iut_rpcs, rcf_rpc_server *tst_rpcs,
 
     for (i = 0; i < max_attempts; i++)
     {
+        iut_port = rand_range(min_port, 0xffff);
+        tst_port = rand_range(min_port, 0xffff);
+        te_sockaddr_set_port(new_iut_addr, htons(iut_port));
+        te_sockaddr_set_port(new_tst_addr, htons(tst_port));
+
         CHECK_RC(te_toeplitz_hash_sa(cache, new_tst_addr, new_iut_addr,
                                      TE_TOEPLITZ_HASH_STANDARD, &hash_std));
         CHECK_RC(te_toeplitz_hash_sa(cache, new_tst_addr, new_iut_addr,
@@ -176,11 +181,6 @@ detect_toeplitz_variant(rcf_rpc_server *iut_rpcs, rcf_rpc_server *tst_rpcs,
                     break;
             }
         }
-
-        iut_port = rand_range(min_port, 0xffff);
-        tst_port = rand_range(min_port, 0xffff);
-        te_sockaddr_set_port(new_iut_addr, htons(iut_port));
-        te_sockaddr_set_port(new_tst_addr, htons(tst_port));
     }
 
     GEN_CONNECTION(iut_rpcs, tst_rpcs, RPC_SOCK_DGRAM, RPC_PROTO_DEF,
@@ -205,17 +205,62 @@ detect_toeplitz_variant(rcf_rpc_server *iut_rpcs, rcf_rpc_server *tst_rpcs,
 
     if ((int)queue_got == queue_std)
     {
-        RING("NIC uses standard Toeplitz hash");
+        RING("Rx queue defined by standard Toeplitz hash matches");
+        *detected = TE_TOEPLITZ_HASH_STANDARD;
     }
     else if ((int)queue_got == queue_sym)
     {
-        RING_VERDICT("NIC uses symmetric-or-xor Toeplitz hash");
-        toeplitz_variant = TE_TOEPLITZ_HASH_SYM_OR_XOR;
+        RING("Rx queue defined by symmetric-or-xor Toeplitz hash matches");
+        *detected = TE_TOEPLITZ_HASH_SYM_OR_XOR;
     }
     else
     {
         TEST_VERDICT("Cannot detect Toeplitz hash variant");
     }
+
+    RPC_CLOSE(iut_rpcs, *iut_s);
+    RPC_CLOSE(tst_rpcs, *tst_s);
+}
+
+/*
+ * Determine whether standard Toeplitz hash is used or "symmetric
+ * Toeplitz".
+ */
+static void
+detect_toeplitz_variant(rcf_rpc_server *iut_rpcs, rcf_rpc_server *tst_rpcs,
+                        const struct sockaddr *iut_addr,
+                        const struct sockaddr *tst_addr,
+                        const char *iut_if_name, int *iut_s, int *tst_s,
+                        unsigned int bpf_id, unsigned int table_size,
+                        te_toeplitz_hash_cache *cache)
+{
+    static const unsigned int attempts_num = 10;
+    unsigned int i;
+    te_toeplitz_hash_variant prev_variant;
+    te_toeplitz_hash_variant variant;
+    cfg_obj_descr obj_descr;
+
+    /*
+     * Make multiple attempts to determine used algorithm to make
+     * improbable the possibility that some unknown algorithm
+     * variant is used that makes by chance the same predictions
+     * about Rx queues for tested connections as one of the known
+     * algorithm variants.
+     */
+    for (i = 0; i < attempts_num; i++)
+    {
+        try_detect_toeplitz_variant(iut_rpcs, tst_rpcs, iut_addr, tst_addr,
+                                    iut_if_name, iut_s, tst_s, bpf_id,
+                                    table_size, cache, &variant);
+
+        if (i > 0 && prev_variant != variant)
+            TEST_VERDICT("Cannot detect Toeplitz hash variant");
+
+        prev_variant = variant;
+    }
+
+    if (variant == TE_TOEPLITZ_HASH_SYM_OR_XOR)
+        RING_VERDICT("NIC uses symmetric-or-xor Toeplitz hash");
 
     /*
      * Save information about detected Toeplitz hash variant in
@@ -229,11 +274,8 @@ detect_toeplitz_variant(rcf_rpc_server *iut_rpcs, rcf_rpc_server *tst_rpcs,
 
     CHECK_RC(cfg_register_object_str("/local/iut_toeplitz_variant",
                                      &obj_descr, NULL));
-    CHECK_RC(cfg_add_instance_fmt(NULL, CFG_VAL(INT32, toeplitz_variant),
+    CHECK_RC(cfg_add_instance_fmt(NULL, CFG_VAL(INT32, variant),
                                   "/local:/iut_toeplitz_variant:"));
-
-    RPC_CLOSE(iut_rpcs, *iut_s);
-    RPC_CLOSE(tst_rpcs, *tst_s);
 }
 
 int
