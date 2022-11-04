@@ -278,6 +278,11 @@
             <verdict>Transmission of pause frames is disabled</verdict>
           </result>
         </results>
+        <results tags="virtio-pci" key="NO-ETHTOOL-PAUSE">
+          <result value="SKIPPED">
+            <verdict>Ethtool command is not supported</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="ts_info" type="script">
