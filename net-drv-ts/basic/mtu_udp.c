@@ -44,7 +44,7 @@
 #include "tapi_cfg_base.h"
 #include "tapi_mem.h"
 #include "tapi_eth.h"
-#include "tapi_tcp.h"
+#include "tapi_udp.h"
 #include "tad_common.h"
 
 /**
@@ -70,6 +70,7 @@ enum {
 typedef struct cb_args {
     /* Input arguments */
 
+    te_bool ipv4; /**< Whether this packet is IPv4 or IPv6 */
     int max_pld_size; /**< Maximum payload size */
     int max_frag_size; /**< Maximum IP fragment size
                             (in the case when fragmentation is expected) */
@@ -91,18 +92,46 @@ process_eth(asn_value *pkt, void *arg)
 {
     cb_args *args = (cb_args *)arg;
     int pld_len;
+    int next_hdr;
+    size_t field_len;
+    te_errno rc;
 
     if (args->pkts_num == 0)
         args->first_small_pkt = -1;
 
     args->pkts_num++;
 
-    pld_len = asn_get_length(pkt, "payload.#bytes");
-    if (pld_len < 0)
+    field_len = sizeof(pld_len);
+    if (args->ipv4)
     {
-        ERROR("Failed to get length of payload.#bytes");
+        rc = asn_read_value_field(pkt, &pld_len, &field_len,
+                                  "pdus.0.#ip4.total-length");
+    }
+    else
+    {
+        rc = asn_read_value_field(pkt, &pld_len, &field_len,
+                                  "pdus.0.#ip6.payload-length");
+        pld_len += TAD_IP6_HDR_LEN;
+    }
+
+    if (rc != 0)
+    {
+        ERROR("Failed to get length of payload: %r", rc);
         args->failed = TRUE;
         goto cleanup;
+    }
+
+    if (!args->ipv4)
+    {
+        field_len = sizeof(next_hdr);
+        rc = asn_read_value_field(pkt, &next_hdr, &field_len,
+                                  "pdus.0.#ip6.next-header");
+        if (next_hdr == IPPROTO_ICMPV6)
+        {
+            RING("Skipping ICMPv6 packet");
+            args->pkts_num--;
+            goto cleanup;
+        }
     }
 
     RING("An Ethernet packet with payload of %d bytes was captured",
@@ -179,6 +208,8 @@ main(int argc, char *argv[])
     int csap_recv_mode = 0;
     const uint8_t *csap_local_addr = NULL;
     const uint8_t *csap_remote_addr = NULL;
+    const struct sockaddr *csap_local_ip_addr = NULL;
+    const struct sockaddr *csap_remote_ip_addr = NULL;
 
     TEST_START;
     TEST_GET_PCO(iut_rpcs);
@@ -228,6 +259,8 @@ main(int argc, char *argv[])
         csap_recv_mode = TAD_ETH_RECV_HOST | TAD_ETH_RECV_NO_PROMISC;
         csap_remote_addr = (const uint8_t *)(iut_lladdr->sa_data);
         csap_local_addr = (const uint8_t *)(tst_lladdr->sa_data);
+        csap_remote_ip_addr = iut_addr;
+        csap_local_ip_addr = tst_addr;
     }
     else
     {
@@ -239,6 +272,8 @@ main(int argc, char *argv[])
         csap_recv_mode = TAD_ETH_RECV_OUT | TAD_ETH_RECV_NO_PROMISC;
         csap_remote_addr = (const uint8_t *)(tst_lladdr->sa_data);
         csap_local_addr = (const uint8_t *)(iut_lladdr->sa_data);
+        csap_remote_ip_addr = tst_addr;
+        csap_local_ip_addr = iut_addr;
     }
 
     if (pkt_size == PKT_SIZE_LESS)
@@ -266,13 +301,16 @@ main(int argc, char *argv[])
               "from (if @p tx is @c TRUE) or to (if @p tx is @c FALSE) "
               "IUT.");
 
-    CHECK_RC(tapi_eth_csap_create(
+    CHECK_RC(tapi_ip_eth_csap_create(
         tst_rpcs->ta, 0,
         tst_if->if_name,
         csap_recv_mode,
+        csap_local_addr,
         csap_remote_addr,
-        csap_local_addr, NULL,
-        &tst_csap));
+        csap_remote_ip_addr->sa_family,
+        te_sockaddr_get_netaddr(csap_local_ip_addr),
+        te_sockaddr_get_netaddr(csap_remote_ip_addr),
+        -1, &tst_csap));
 
     CHECK_RC(tapi_tad_trrecv_start(tst_rpcs->ta, 0, tst_csap,
                                    NULL, TAD_TIMEOUT_INF, 0,
@@ -284,6 +322,11 @@ main(int argc, char *argv[])
     csap_cb_data.user_data = &args;
 
     args.max_pld_size = mtu;
+
+    if (iut_addr->sa_family == AF_INET)
+        args.ipv4 = TRUE;
+    else
+        args.ipv4 = FALSE;
 
     if (pkt_size == PKT_SIZE_MORE)
     {
