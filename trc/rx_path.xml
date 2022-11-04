@@ -66,6 +66,12 @@
             <verdict>Failed to set use_adaptive_rx_coalesce, rc=CS-ENOENT</verdict>
           </result>
         </results>
+        <results tags="qemu-virtio-net" key="RX-COALESCE-0-UNSTABLE" notes="These iterations are unstable on QEMU Virtio-Net">
+          <result value="PASSED"/>
+          <result value="FAILED">
+            <verdict>Too many big delays between packets</verdict>
+          </result>
+        </results>
         <results tags="xilinx-virtio-net" key="NET-48" notes="These iterations are unstable on Xilinx Virtio-Net">
           <result value="PASSED"/>
           <result value="FAILED">
