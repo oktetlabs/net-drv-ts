@@ -17,6 +17,11 @@
             <verdict>RSS is not supported for IUT interface</verdict>
           </result>
         </results>
+        <results tags="ice&amp;linux-mm&lt;506" key="RSS-BROKEN" notes="ice driver progrmas HW filtering table since Linux 5.6">
+          <result value="FAILED">
+            <verdict>Cannot detect Toeplitz hash variant</verdict>
+          </result>
+        </results>
         <results tags="mlx5_core" key="MLX5-SYM-TOEPLITZ" notes="Mellanox uses nonstandard Toeplitz hash algorithm">
           <result value="PASSED">
             <verdict>NIC uses symmetric-or-xor Toeplitz hash</verdict>
