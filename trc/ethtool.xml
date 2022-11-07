@@ -265,7 +265,7 @@
             <verdict>Transmission of pause frames is disabled</verdict>
           </result>
         </results>
-        <results tags="ice&amp;linux-mm&lt;515">
+        <results tags="ice&amp;linux-mm&lt;511">
           <result value="PASSED">
             <verdict>Pause autonegotiation is disabled</verdict>
             <verdict>Reception of pause frames is disabled</verdict>
