@@ -17,6 +17,7 @@
 #include "tapi_bpf.h"
 #include "tapi_cfg_if_rss.h"
 #include "tapi_bpf_rxq_stats.h"
+#include "tapi_cfg_if.h"
 #include "common_rss.h"
 
 /* Send some packets and find out which Rx queue received them. */
@@ -304,6 +305,20 @@ main(int argc, char **argv)
     TEST_GET_IF(iut_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+
+    /*
+     * Try to disable flow-director-atr private flag if it is
+     * present. "Application Targeted Routing" on Intel NICs
+     * interferes with RSS hash indirection for TCP connections,
+     * it should be disabled for RSS tests.
+     */
+    rc = tapi_cfg_if_priv_flag_set(iut_rpcs->ta, iut_if->if_name,
+                                   "flow-director-atr", FALSE);
+    if (rc != 0 && rc != TE_RC(TE_CS, TE_ENOENT))
+    {
+        TEST_VERDICT("Attempt to disable flow-director-atr private "
+                     "flag failed unexpectedly: %r", rc);
+    }
 
     /*
      * There should be more than one Rx queue and more than one
