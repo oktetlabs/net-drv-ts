@@ -36,6 +36,9 @@ main(int argc, char **argv)
     CHECK_RC(tapi_bpf_rxq_stats_fini(iut_rpcs->ta, iut_if->if_name,
                                      bpf_id));
 
+    CHECK_RC(cfg_del_instance_fmt(FALSE, "/local:/iut_toeplitz_variant:"));
+    CHECK_RC(cfg_unregister_object_str("/local/iut_toeplitz_variant"));
+
     TEST_SUCCESS;
 
 cleanup:
