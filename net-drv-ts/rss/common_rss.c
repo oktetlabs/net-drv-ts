@@ -18,14 +18,17 @@
 /* Maximum number of packets to send when testing RSS */
 #define RSS_TEST_MAX_PKTS_NUM 30
 
-/* See description in common_rss.h */
-te_errno
-net_drv_rss_send_check_stats(rcf_rpc_server *sender_rpcs, int sender_s,
-                             const struct sockaddr *sender_addr,
-                             rcf_rpc_server *receiver_rpcs, int receiver_s,
-                             const struct sockaddr *receiver_addr,
-                             rpc_socket_type sock_type, unsigned int exp_queue,
-                             unsigned int bpf_id, const char *vpref)
+/*
+ * Common code for configuring XDP hook and sending/receiving
+ * some packets.
+ */
+static te_errno
+send_check_common(rcf_rpc_server *sender_rpcs, int sender_s,
+                  const struct sockaddr *sender_addr,
+                  rcf_rpc_server *receiver_rpcs, int receiver_s,
+                  const struct sockaddr *receiver_addr,
+                  rpc_socket_type sock_type, unsigned int bpf_id,
+                  unsigned int *sent_pkts, const char *vpref)
 {
     unsigned int i;
     unsigned int pkts_num;
@@ -64,9 +67,71 @@ net_drv_rss_send_check_stats(rcf_rpc_server *sender_rpcs, int sender_s,
                                 receiver_rpcs, receiver_s, vpref);
     }
 
+    *sent_pkts = pkts_num;
+    return 0;
+}
+
+/* See description in common_rss.h */
+te_errno
+net_drv_rss_send_check_stats(rcf_rpc_server *sender_rpcs, int sender_s,
+                             const struct sockaddr *sender_addr,
+                             rcf_rpc_server *receiver_rpcs, int receiver_s,
+                             const struct sockaddr *receiver_addr,
+                             rpc_socket_type sock_type, unsigned int exp_queue,
+                             unsigned int bpf_id, const char *vpref)
+{
+    te_errno rc;
+    unsigned int pkts_num;
+
+    rc = send_check_common(sender_rpcs, sender_s, sender_addr,
+                           receiver_rpcs, receiver_s, receiver_addr,
+                           sock_type, bpf_id, &pkts_num, vpref);
+    if (rc != 0)
+        return rc;
+
     return tapi_bpf_rxq_stats_check_single(receiver_rpcs->ta, bpf_id,
                                            exp_queue, pkts_num,
                                            sock_type, vpref);
+}
+
+/* See description in common_rss.h */
+te_errno
+net_drv_rss_send_get_stats(rcf_rpc_server *sender_rpcs, int sender_s,
+                           const struct sockaddr *sender_addr,
+                           rcf_rpc_server *receiver_rpcs, int receiver_s,
+                           const struct sockaddr *receiver_addr,
+                           rpc_socket_type sock_type, unsigned int bpf_id,
+                           tapi_bpf_rxq_stats **stats,
+                           unsigned int *stats_count,
+                           const char *vpref)
+{
+    te_errno rc;
+    unsigned int i;
+    uint64_t got_pkts = 0;
+    unsigned int pkts_num;
+
+    rc = send_check_common(sender_rpcs, sender_s, sender_addr,
+                           receiver_rpcs, receiver_s, receiver_addr,
+                           sock_type, bpf_id, &pkts_num, vpref);
+    if (rc != 0)
+        return rc;
+
+    rc = tapi_bpf_rxq_stats_read(receiver_rpcs->ta, bpf_id, stats,
+                                 stats_count);
+    if (rc != 0)
+        return rc;
+
+    tapi_bpf_rxq_stats_print(NULL, *stats, *stats_count);
+
+    for (i = 0; i < *stats_count; i++)
+        got_pkts += (*stats)[i].pkts;
+
+    if (got_pkts == 0)
+        TEST_VERDICT("%s: no packets was detected for any Rx queue", vpref);
+    else if (got_pkts < pkts_num)
+        TEST_VERDICT("%s: too few packets were detected", vpref);
+
+    return 0;
 }
 
 /* See description in common_rss.h */
