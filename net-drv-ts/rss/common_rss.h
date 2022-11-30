@@ -285,4 +285,19 @@ extern void net_drv_rx_rules_check_table_size(const char *ta,
 extern void net_drv_rx_rules_check_spec_loc(const char *ta,
                                             const char *if_name);
 
+/**
+ * Find appropriate location for a new rule, prefering
+ * TAPI_CFG_RX_RULE_ANY if special insert locations are
+ * supported.
+ *
+ * @param ta          Test Agent name
+ * @param if_name     Interface name
+ * @param location    Found location
+ *
+ * @return Status code.
+ */
+extern te_errno net_drv_rx_rules_find_loc(const char *ta,
+                                          const char *if_name,
+                                          int64_t *location);
+
 #endif /* !__TS_NET_DRV_COMMON_RSS_H__ */

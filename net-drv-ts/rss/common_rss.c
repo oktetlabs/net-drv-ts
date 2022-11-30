@@ -380,3 +380,24 @@ net_drv_rx_rules_check_spec_loc(const char *ta, const char *if_name)
                   "Rx rules");
     }
 }
+
+/* See description in common_rss.h */
+te_errno
+net_drv_rx_rules_find_loc(const char *ta, const char *if_name,
+                          int64_t *location)
+{
+    te_errno rc;
+    te_bool spec_loc;
+
+    rc = tapi_cfg_rx_rule_spec_loc_get(ta, if_name, &spec_loc);
+    if (rc != 0)
+        return rc;
+
+    if (spec_loc)
+    {
+        *location = TAPI_CFG_RX_RULE_ANY;
+        return 0;
+    }
+
+    return tapi_cfg_rx_rule_find_location(ta, if_name, 0, 0, location);
+}
