@@ -13,6 +13,7 @@
 #include "net_drv_test.h"
 #include "tapi_cfg_if_rss.h"
 #include "tapi_bpf.h"
+#include "tapi_bpf_rxq_stats.h"
 #include "te_toeplitz.h"
 
 /**
@@ -49,6 +50,44 @@ extern te_errno net_drv_rss_send_check_stats(
                                        rpc_socket_type sock_type,
                                        unsigned int exp_queue,
                                        unsigned int bpf_id,
+                                       const char *vpref);
+
+/**
+ * Send a few packets, retrieve Rx queues statistics.
+ * This function clears XDP hook statistics before sending.
+ *
+ * @note If both @p sender_addr and @p receiver_addr are @c NULL,
+ *       the function assumes that XDP hook is already configured.
+ *       If at least one of these parameters is not @c NULL,
+ *       XDP hook is reconfigured to count only packets matching
+ *       provided addresses and ports.
+ *
+ * @param sender_rpcs     Sender RPC server
+ * @param sender_s        Sender socket
+ * @param sender_addr     Sender address (may be @c NULL)
+ * @param receiver_rpcs   Receiver RPC server
+ * @param receiver_s      Receiver socket
+ * @param receiver_addr   Receiver address (may be @c NULL)
+ * @param sock_type       Socket type (@c RPC_SOCK_STREAM,
+ *                        @c RPC_SOCK_DGRAM)
+ * @param bpf_id          Id of XDP hook used to count packets
+ * @param stats           Array with retrieved statistics
+ * @param stats_count     Number of elements in the retrieved array
+ * @param vpref           Prefix to use in verdicts
+ *
+ * @return Status code.
+ */
+extern te_errno net_drv_rss_send_get_stats(
+                                       rcf_rpc_server *sender_rpcs,
+                                       int sender_s,
+                                       const struct sockaddr *sender_addr,
+                                       rcf_rpc_server *receiver_rpcs,
+                                       int receiver_s,
+                                       const struct sockaddr *receiver_addr,
+                                       rpc_socket_type sock_type,
+                                       unsigned int bpf_id,
+                                       tapi_bpf_rxq_stats **stats,
+                                       unsigned int *stats_count,
                                        const char *vpref);
 
 /**
