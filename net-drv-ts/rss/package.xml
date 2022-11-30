@@ -76,5 +76,16 @@
             </arg>
         </run>
 
+        <run>
+            <script name="rx_rules_full_part"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="sock_type" type="sock_stream_dgram"/>
+            <arg name="first_partial" type="boolean"/>
+            <arg name="partial_src" type="boolean"/>
+        </run>
+
     </session>
 </package>

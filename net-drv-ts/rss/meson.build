@@ -23,6 +23,7 @@ tests = [
     'indir_table_set',
     'prologue',
     'rx_rule_tcp_udp',
+    'rx_rules_full_part',
 ]
 
 foreach test : tests

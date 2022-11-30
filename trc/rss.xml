@@ -153,5 +153,55 @@
         </results>
       </iter>
     </test>
+    <test name="rx_rules_full_part" type="script">
+      <objective>Check what happens when there are two TCP or UDP Rx rules - one specifying both source and destination and another one specifying only source or destination.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="first_partial"/>
+        <arg name="partial_src">FALSE</arg>
+        <notes/>
+        <results tags="ice|i40e" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
+          <result value="FAILED">
+            <verdict>Failed to add the second Rx rule: TA_UNIX-EOPNOTSUPP</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="first_partial">FALSE</arg>
+        <arg name="partial_src">TRUE</arg>
+        <notes/>
+        <results tags="sfc" key="RX-RULE-NO-WIDLCARD-DST" notes="Rx rule must specify destination address/port">
+          <result value="FAILED">
+            <verdict>Failed to add the second Rx rule: TA_UNIX-EPROTONOSUPPORT</verdict>
+          </result>
+        </results>
+        <results tags="ice|i40e" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
+          <result value="FAILED">
+            <verdict>Failed to add the second Rx rule: TA_UNIX-EOPNOTSUPP</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="first_partial">TRUE</arg>
+        <arg name="partial_src">TRUE</arg>
+        <notes/>
+        <results tags="sfc" key="RX-RULE-NO-WIDLCARD-DST" notes="Rx rule must specify destination address/port">
+          <result value="FAILED">
+            <verdict>Failed to add the first Rx rule: TA_UNIX-EPROTONOSUPPORT</verdict>
+          </result>
+        </results>
+        <results tags="ice|i40e" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
+          <result value="FAILED">
+            <verdict>Failed to add the second Rx rule: TA_UNIX-EOPNOTSUPP</verdict>
+          </result>
+        </results>
+      </iter>
+    </test>
   </iter>
 </test>
