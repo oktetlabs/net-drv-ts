@@ -34,12 +34,6 @@
 #include "tapi_bpf_rxq_stats.h"
 #include "common_rss.h"
 
-/*
- * Minimum port number to use (to avoid conflicts with standard
- * services).
- */
-#define MIN_PORT 20000
-
 /* How many times to try to choose ports numbers */
 #define MAX_CHANGE_PORT_ATTEMPTS 100000
 
@@ -112,8 +106,8 @@ main(int argc, char *argv[])
                      "entry.");
         for (i = 0; i < MAX_CHANGE_PORT_ATTEMPTS; i++)
         {
-            iut_port = rand_range(MIN_PORT, 0xffff);
-            tst_port = rand_range(MIN_PORT, 0xffff);
+            iut_port = tapi_get_random_port();
+            tst_port = tapi_get_random_port();
             te_sockaddr_set_port(new_iut_addr, htons(iut_port));
             te_sockaddr_set_port(new_tst_addr, htons(tst_port));
 

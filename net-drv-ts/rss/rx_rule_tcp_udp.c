@@ -44,8 +44,6 @@
 
 /* Maximum number of loop iterations before giving up */
 #define MAX_ATTEMPTS 10000
-/* Do not bind to ports smaller than this one */
-#define MIN_PORT 20000
 
 int
 main(int argc, char *argv[])
@@ -141,8 +139,8 @@ main(int argc, char *argv[])
 
     for (i = 0; i < MAX_ATTEMPTS; i++)
     {
-        new_iut_port = rand_range(MIN_PORT, 0xffff);
-        new_tst_port = rand_range(MIN_PORT, 0xffff);
+        new_iut_port = tapi_get_random_port();
+        new_tst_port = tapi_get_random_port();
         if (new_iut_port == iut_port || new_tst_port == tst_port)
             continue;
 
