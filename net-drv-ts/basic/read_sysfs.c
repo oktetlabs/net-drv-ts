@@ -26,8 +26,10 @@
 #define TE_TEST_NAME "basic/read_sysfs"
 
 #include "net_drv_test.h"
+#include "te_file.h"
 #include "te_string.h"
 #include "tapi_rpc_dirent.h"
+#include "tapi_rpc_unistd.h"
 
 int
 main(int argc, char *argv[])
@@ -35,6 +37,8 @@ main(int argc, char *argv[])
     rcf_rpc_server *iut_rpcs = NULL;
     const struct if_nameindex *iut_if = NULL;
     char *iut_drv_name = NULL;
+
+    char bdf_buf[PATH_MAX];
 
     te_string path = TE_STRING_INIT;
     rpc_dir_p pdir = RPC_NULL;
@@ -45,8 +49,41 @@ main(int argc, char *argv[])
 
     CHECK_NOT_NULL(iut_drv_name = net_drv_driver_name(iut_rpcs->ta));
 
-    CHECK_RC(te_string_append(&path, "/sys/kernel/debug/%s/nic_%s/",
-                              iut_drv_name, iut_if->if_name));
+    if (strcmp(iut_drv_name, "xilinx_efct") == 0)
+    {
+        char     *device_path;
+        char     *bdf;
+        ssize_t   ret;
+        te_errno  rc;
+
+        device_path = te_string_fmt("/sys/class/net/%s/device",
+                                    iut_if->if_name);
+        if (device_path == NULL)
+            TEST_FAIL("Failed to allocate memory for device path");
+
+        ret = rpc_readlink(iut_rpcs, device_path, bdf_buf, sizeof(bdf_buf));
+        free(device_path);
+        if (ret == -1)
+            TEST_FAIL("Failed to read the interface's device symlink: %r",
+                      te_rc_os2te(errno));
+        else if (ret == sizeof(bdf_buf))
+            TEST_FAIL("Device symlink contents may have been truncated");
+
+        bdf_buf[ret + 1] = '\0';
+
+        bdf = te_basename(bdf_buf);
+        rc = te_string_append(&path, "/sys/kernel/debug/%s/%s/",
+                              iut_drv_name, bdf);
+        free(bdf);
+        if (rc != 0)
+            TEST_FAIL("Failed to construct xilinx_efct sysfs debug path");
+    }
+    else
+    {
+        CHECK_RC(te_string_append(&path, "/sys/kernel/debug/%s/nic_%s/",
+                                  iut_drv_name, iut_if->if_name));
+    }
+
 
     TEST_STEP("Check whether driver/interface subdirectory can be found "
               "in /sys/kernel/debug/.");
