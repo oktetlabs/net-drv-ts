@@ -136,5 +136,17 @@
             </arg>
         </run>
 
+        <run>
+            <script name="too_many_rx_rules"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="sock_type" type="sock_stream_dgram"/>
+            <arg name="iters">
+                <value>10</value>
+            </arg>
+        </run>
+
     </session>
 </package>

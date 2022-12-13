@@ -240,5 +240,15 @@
         <notes/>
       </iter>
     </test>
+    <test name="too_many_rx_rules" type="script">
+      <objective>Check that if Rx rules table is overfilled, nothing bad happens.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="iters"/>
+        <notes/>
+      </iter>
+    </test>
   </iter>
 </test>

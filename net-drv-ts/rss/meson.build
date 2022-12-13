@@ -28,6 +28,7 @@ tests = [
     'prologue',
     'rx_rule_tcp_udp',
     'rx_rules_full_part',
+    'too_many_rx_rules',
 ]
 
 foreach test : tests
