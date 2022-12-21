@@ -87,5 +87,15 @@
             <arg name="partial_src" type="boolean"/>
         </run>
 
+        <run>
+            <script name="change_channels"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="sock_type" type="sock_stream_dgram"/>
+            <arg name="two_power" type="boolean"/>
+        </run>
+
     </session>
 </package>

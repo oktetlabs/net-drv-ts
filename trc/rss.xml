@@ -203,5 +203,15 @@
         </results>
       </iter>
     </test>
+    <test name="change_channels" type="script">
+      <objective>Change number of combined channels and check that RSS indirection table works as expected after that.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="sock_type"/>
+        <arg name="two_power"/>
+        <notes/>
+      </iter>
+    </test>
   </iter>
 </test>

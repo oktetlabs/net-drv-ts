@@ -17,6 +17,7 @@ rss_test_deps += declare_dependency(include_directories: rss_tests_lib_dir,
                                     link_with: rss_tests_lib)
 
 tests = [
+    'change_channels',
     'epilogue',
     'hash_key_get',
     'hash_key_set',
