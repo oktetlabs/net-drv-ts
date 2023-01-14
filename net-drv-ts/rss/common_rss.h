@@ -360,6 +360,13 @@ typedef struct net_drv_xdp_cfg {
     { "copy", RPC_XDP_BIND_COPY },          \
     { "zerocopy", RPC_XDP_BIND_ZEROCOPY }
 
+/** Wait until AF_XDP sockets are fully configured */
+#define NET_DRV_XDP_WAIT_SOCKS \
+    do {                                                              \
+        te_motivated_msleep(500, "make sure that AF_XDP sockets "     \
+                            "are ready to receive data");             \
+    } while (0)
+
 /**
  * Create and configure AF_XDP socket.
  *

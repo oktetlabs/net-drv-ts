@@ -213,5 +213,14 @@
         <notes/>
       </iter>
     </test>
+    <test name="af_xdp" type="script">
+      <objective>Check that AF_XDP sockets can receive and send packets.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="copy_mode"/>
+        <notes/>
+      </iter>
+    </test>
   </iter>
 </test>
