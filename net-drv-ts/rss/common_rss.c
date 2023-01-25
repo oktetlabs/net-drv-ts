@@ -11,6 +11,10 @@
 #include "tapi_bpf.h"
 #include "tapi_bpf_rxq_stats.h"
 #include "tapi_cfg_rx_rule.h"
+#include "tapi_rpc_bpf.h"
+#include "tapi_mem.h"
+#include "tapi_file.h"
+#include "te_ipstack.h"
 
 /* Minimum number of packets to send when testing RSS */
 #define RSS_TEST_MIN_PKTS_NUM 3
@@ -400,4 +404,345 @@ net_drv_rx_rules_find_loc(const char *ta, const char *if_name,
     }
 
     return tapi_cfg_rx_rule_find_location(ta, if_name, 0, 0, location);
+}
+
+/* See description in common_rss.h */
+te_errno
+net_drv_xdp_create_sock(rcf_rpc_server *rpcs, const char *if_name,
+                        unsigned int queue_id, net_drv_xdp_cfg *cfg,
+                        int map_fd, net_drv_xdp_sock *sock)
+{
+    int rc;
+    size_t mem_len = cfg->frames_num * cfg->frame_len;
+    tarpc_xsk_umem_config umem_conf = { 0, };
+    tarpc_xsk_socket_config sock_conf = { 0, };
+    te_bool success = FALSE;
+
+    umem_conf.fill_size = cfg->fill_size;
+    umem_conf.comp_size = cfg->comp_size;
+    umem_conf.frame_size = cfg->frame_len;
+
+    sock_conf.rx_size = cfg->rx_size;
+    sock_conf.tx_size = cfg->tx_size;
+    sock_conf.libxdp_flags = RPC_XSK_LIBXDP_FLAGS__INHIBIT_PROG_LOAD;
+    sock_conf.bind_flags = cfg->bind_flags;
+
+    *sock = (net_drv_xdp_sock)NET_DRV_XDP_SOCK_INIT;
+
+    RPC_AWAIT_ERROR(rpcs);
+    rc = rpc_posix_memalign(rpcs, &sock->mem, cfg->frame_len, mem_len);
+    if (rc < 0)
+    {
+        ERROR_VERDICT("posix_memalign() failed: " RPC_ERROR_FMT,
+                      RPC_ERROR_ARGS(rpcs));
+        goto cleanup;
+    }
+
+    RPC_AWAIT_ERROR(rpcs);
+    rc = rpc_xsk_umem__create(rpcs, sock->mem, mem_len, &umem_conf,
+                              &sock->umem);
+    if (rc < 0)
+    {
+        ERROR_VERDICT("xsk_umem__create() failed: " RPC_ERROR_FMT,
+                      RPC_ERROR_ARGS(rpcs));
+        goto cleanup;
+    }
+
+    RPC_AWAIT_ERROR(rpcs);
+    rc = rpc_xsk_socket__create(rpcs, if_name, queue_id,
+                                sock->umem, TRUE,
+                                &sock_conf, &sock->sock);
+    if (rc < 0)
+    {
+        ERROR_VERDICT("xsk_socket__create() failed: " RPC_ERROR_FMT,
+                      RPC_ERROR_ARGS(rpcs));
+        goto cleanup;
+    }
+    sock->fd = rc;
+
+    RPC_AWAIT_ERROR(rpcs);
+    rc = rpc_xsk_map_set(rpcs, map_fd, queue_id, sock->fd);
+    if (rc < 0)
+    {
+        ERROR_VERDICT("rpc_xsk_map_set() failed: " RPC_ERROR_FMT,
+                      RPC_ERROR_ARGS(rpcs));
+        goto cleanup;
+    }
+
+    RPC_AWAIT_ERROR(rpcs);
+    rc = rpc_xsk_rx_fill_simple(rpcs, sock->sock, cfg->rx_frames);
+    if (rc < 0)
+    {
+        ERROR_VERDICT("rpc_xsk_rx_fill_simple() failed: " RPC_ERROR_FMT,
+                      RPC_ERROR_ARGS(rpcs));
+        goto cleanup;
+    }
+    else if (rc == 0)
+    {
+        ERROR_VERDICT("rpc_xsk_rx_fill_simple() could not submit "
+                      "any buffers");
+        goto cleanup;
+    }
+
+    success = TRUE;
+cleanup:
+
+    if (!success)
+    {
+        net_drv_xdp_destroy_sock(rpcs, sock);
+
+        return TE_EFAIL;
+    }
+
+    return 0;
+}
+
+/* See description in common_rss.h */
+te_errno
+net_drv_xdp_destroy_sock(rcf_rpc_server *rpcs, net_drv_xdp_sock *sock)
+{
+    te_errno rc;
+
+    if (sock == NULL)
+        return 0;
+
+    if (sock->sock != RPC_NULL)
+    {
+        RPC_AWAIT_ERROR(rpcs);
+        rc = rpc_xsk_socket__delete(rpcs, sock->sock);
+        if (rc < 0)
+        {
+            ERROR("xsk_socket__delete() failed: " RPC_ERROR_FMT,
+                  RPC_ERROR_ARGS(rpcs));
+            return RPC_ERRNO(rpcs);
+        }
+
+        sock->sock = RPC_NULL;
+        sock->fd = -1;
+    }
+
+    if (sock->umem != RPC_NULL)
+    {
+        RPC_AWAIT_ERROR(rpcs);
+        rc = rpc_xsk_umem__delete(rpcs, sock->umem);
+        if (rc < 0)
+        {
+            ERROR("xsk_umem__delete() failed: " RPC_ERROR_FMT,
+                  RPC_ERROR_ARGS(rpcs));
+            return RPC_ERRNO(rpcs);
+        }
+
+        sock->umem = RPC_NULL;
+    }
+
+    if (sock->mem != RPC_NULL)
+    {
+        rpc_free(rpcs, sock->mem);
+        sock->mem = RPC_NULL;
+    }
+
+    return 0;
+}
+
+/* See description in common_rss.h */
+void
+net_drv_xdp_create_socks(rcf_rpc_server *rpcs, const char *if_name,
+                         net_drv_xdp_cfg *cfg, int map_fd,
+                         unsigned int socks_num,
+                         net_drv_xdp_sock **socks_out)
+{
+    te_errno rc;
+    unsigned int i = 0;
+    unsigned int j = 0;
+    net_drv_xdp_sock *socks = NULL;
+    te_bool success = FALSE;
+
+    socks = tapi_calloc(socks_num, sizeof(*socks));
+
+    for (i = 0; i < socks_num; i++)
+    {
+        rc = net_drv_xdp_create_sock(rpcs, if_name, i, cfg, map_fd,
+                                     &socks[i]);
+        if (rc != 0)
+            goto cleanup;
+    }
+
+    success = TRUE;
+cleanup:
+
+    if (!success)
+    {
+        for (j = 0; j < i; j++)
+            net_drv_xdp_destroy_sock(rpcs, &socks[j]);
+
+        free(socks);
+        TEST_STOP;
+    }
+
+    *socks_out = socks;
+}
+
+/* See description in common_rss.h */
+te_errno
+net_drv_xdp_destroy_socks(rcf_rpc_server *rpcs, net_drv_xdp_sock *socks,
+                          unsigned int socks_num)
+{
+    unsigned int i;
+    te_errno rc;
+    te_errno res = 0;
+
+    if (socks == NULL)
+        return 0;
+
+    for (i = 0; i < socks_num; i++)
+    {
+        rc = net_drv_xdp_destroy_sock(rpcs, &socks[i]);
+        if (res == 0)
+            res = rc;
+    }
+
+    free(socks);
+    return res;
+}
+
+/* See description in common_rss.h */
+void
+net_drv_xdp_echo(rcf_rpc_server *rpcs_udp, int s_udp,
+                 const struct sockaddr *dst_addr,
+                 rcf_rpc_server *rpcs_xdp, net_drv_xdp_sock *socks,
+                 unsigned int socks_num, unsigned int exp_sock)
+{
+#define MAX_DATA_LEN 1024
+#define MAX_PKT_LEN (MAX_DATA_LEN + 200)
+    uint8_t send_buf[MAX_DATA_LEN];
+    uint8_t recv_buf[MAX_PKT_LEN];
+    int send_len;
+    int recv_len;
+    int rc;
+    unsigned int i;
+    te_bool success = FALSE;
+
+    struct rpc_pollfd *fds = NULL;
+    te_bool readable;
+
+    struct sockaddr_storage recv_addr;
+    socklen_t recv_addr_len;
+
+    fds = tapi_calloc(socks_num, sizeof(*fds));
+    for (i = 0; i < socks_num; i++)
+    {
+        fds[i].fd = socks[i].fd;
+        fds[i].events = RPC_POLLIN;
+    }
+
+    send_len = rand_range(1, MAX_DATA_LEN);
+    te_fill_buf(send_buf, send_len);
+
+    rc = rpc_sendto(rpcs_udp, s_udp, send_buf, send_len,
+                    0, dst_addr);
+    if (rc != send_len)
+        TEST_FAIL("sendto() returned unexpected number");
+
+    rc = rpc_poll(rpcs_xdp, fds, socks_num, TAPI_WAIT_NETWORK_DELAY);
+    if (rc == 0)
+    {
+        ERROR_VERDICT("poll() did not report events for AF_XDP sockets");
+        goto finish;
+    }
+    else if (rc > 1)
+    {
+        ERROR_VERDICT("poll() reported events for multiple AF_XDP sockets");
+        goto finish;
+    }
+
+    for (i = 0; i < socks_num; i++)
+    {
+        if (fds[i].revents != 0)
+            break;
+    }
+
+    if (i == socks_num)
+    {
+        ERROR_VERDICT("poll() returned positive number but all revents "
+                      "fields are zero");
+        goto finish;
+    }
+
+    if (i != exp_sock)
+    {
+        ERROR_VERDICT("poll() reported events for unexpected AF_XDP "
+                      "socket");
+        goto finish;
+    }
+
+    if (fds[i].revents != RPC_POLLIN)
+    {
+        ERROR_VERDICT("poll() reported unexpected events %s",
+                      poll_event_rpc2str(fds[i].revents));
+        goto finish;
+    }
+
+    recv_len = rpc_xsk_receive_simple(rpcs_xdp, socks[i].sock,
+                                      recv_buf, sizeof(recv_buf));
+    if (recv_len <= send_len)
+    {
+        ERROR_VERDICT("AF_XDP socket received too few bytes");
+        goto finish;
+    }
+
+    rc = te_ipstack_mirror_udp_packet(recv_buf, recv_len);
+    if (rc != 0)
+    {
+        ERROR("Failed to construct an echo response");
+        goto finish;
+    }
+
+    RPC_AWAIT_ERROR(rpcs_xdp);
+    rc = rpc_xsk_send_simple(rpcs_xdp, socks[i].sock,
+                             recv_buf, recv_len);
+    if (rc < 0)
+    {
+        ERROR_VERDICT("xsk_send_simple() failed with error " RPC_ERROR_FMT,
+                      RPC_ERROR_ARGS(rpcs_xdp));
+        goto finish;
+    }
+
+    RPC_GET_READABILITY(readable, rpcs_udp, s_udp,
+                        TAPI_WAIT_NETWORK_DELAY);
+    if (!readable)
+    {
+        ERROR_VERDICT("UDP socket did not become readable after "
+                      "echo packet was sent to it");
+        goto finish;
+    }
+
+    recv_addr_len = sizeof(recv_addr);
+    recv_len = rpc_recvfrom(rpcs_udp, s_udp, recv_buf,
+                            sizeof(recv_buf), 0,
+                            SA(&recv_addr), &recv_addr_len);
+    if (recv_len != send_len ||
+        memcmp(recv_buf, send_buf, send_len) != 0)
+    {
+        ERROR_VERDICT("UDP socket got back unexpected data");
+        goto finish;
+    }
+
+    if (tapi_sockaddr_cmp(dst_addr, SA(&recv_addr)) != 0)
+    {
+        ERROR_VERDICT("Source address of received echo packet does "
+                      "not match destination address");
+        goto finish;
+    }
+
+    success = TRUE;
+
+finish:
+
+    free(fds);
+
+    if (!success)
+        TEST_STOP;
+
+#undef MAX_DATA_LEN
+#undef MAX_PKT_LEN
 }

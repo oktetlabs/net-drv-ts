@@ -14,6 +14,7 @@
 #include "tapi_cfg_if_rss.h"
 #include "tapi_bpf.h"
 #include "tapi_bpf_rxq_stats.h"
+#include "te_rpc_bpf.h"
 #include "te_toeplitz.h"
 
 /**
@@ -299,5 +300,150 @@ extern void net_drv_rx_rules_check_spec_loc(const char *ta,
 extern te_errno net_drv_rx_rules_find_loc(const char *ta,
                                           const char *if_name,
                                           int64_t *location);
+
+/** Structure describing AF_XDP socket */
+typedef struct net_drv_xdp_sock {
+    /** Memory allocated for UMEM */
+    rpc_ptr mem;
+    /** Pointer to UMEM structure on TA */
+    rpc_ptr umem;
+    /** Pointer to socket structure on TA */
+    rpc_ptr sock;
+    /** Socket FD */
+    int fd;
+} net_drv_xdp_sock;
+
+/** Initializer for net_drv_xdp_sock */
+#define NET_DRV_XDP_SOCK_INIT \
+    {                         \
+        .mem = RPC_NULL,      \
+        .umem = RPC_NULL,     \
+        .sock = RPC_NULL,     \
+        .fd = -1,             \
+    }
+
+/** Configuration parameters for AF_XDP sockets */
+typedef struct net_drv_xdp_cfg {
+    /** Frame length */
+    unsigned int frame_len;
+    /** Number of frames in UMEM */
+    size_t frames_num;
+    /** Frames reserved for receiving */
+    unsigned int rx_frames;
+    /** Size of FILL ring */
+    unsigned int fill_size;
+    /** Size of COMPLETION ring */
+    unsigned int comp_size;
+    /** Size of Rx ring */
+    unsigned int rx_size;
+    /** Size of Tx ring */
+    unsigned int tx_size;
+    /** Flags passed when binding AF_XDP socket */
+    uint32_t bind_flags;
+} net_drv_xdp_cfg;
+
+/** Default configuration for AF_XDP sockets */
+#define NET_DRV_XDP_CFG_DEF \
+    {                         \
+        .frame_len = 1 << 12, \
+        .frames_num = 128,    \
+        .rx_frames = 64,      \
+        .fill_size = 128,     \
+        .comp_size = 128,     \
+        .rx_size = 128,       \
+        .tx_size = 128        \
+    }
+
+/** List of possible XDP copy mode flags for TEST_GET_ENUM_PARAM() */
+#define NET_DRV_XDP_COPY_MODE \
+    { "none", 0 },                          \
+    { "copy", RPC_XDP_BIND_COPY },          \
+    { "zerocopy", RPC_XDP_BIND_ZEROCOPY }
+
+/**
+ * Create and configure AF_XDP socket.
+ *
+ * @param rpcs        RPC server
+ * @param if_name     Interface name
+ * @param queue_id    Rx queue index
+ * @param cfg         Configuration parameters for UMEM and socket
+ * @param map_fd      XSK map file descriptor
+ * @param sock        Created socket data
+ *
+ * @return Status code.
+ */
+extern te_errno net_drv_xdp_create_sock(rcf_rpc_server *rpcs,
+                                        const char *if_name,
+                                        unsigned int queue_id,
+                                        net_drv_xdp_cfg *cfg, int map_fd,
+                                        net_drv_xdp_sock *sock);
+
+/**
+ * Destroy AF_XDP socket created with net_drv_xdp_create_sock().
+ *
+ * @param rpcs        RPC server
+ * @param sock        Pointer to socket structure
+ *
+ * @return Status code.
+ */
+extern te_errno net_drv_xdp_destroy_sock(rcf_rpc_server *rpcs,
+                                         net_drv_xdp_sock *sock);
+
+/**
+ * Create array of AF_XDP sockets. For every socket use Rx queue of the
+ * same index and set entry of XSK map with the same index to its file
+ * descriptor.
+ *
+ * @note This function prints verdict and exits in case of failure.
+ *
+ * @param rpcs        RPC server
+ * @param if_name     Interface name
+ * @param cfg         Configuration parameters for UMEM and socket
+ * @param map_fd      XSK map file descriptor
+ * @param socks_num   Number of sockets to create
+ * @param socks_out   Created sockets array
+ */
+extern void net_drv_xdp_create_socks(rcf_rpc_server *rpcs,
+                                     const char *if_name,
+                                     net_drv_xdp_cfg *cfg, int map_fd,
+                                     unsigned int socks_num,
+                                     net_drv_xdp_sock **socks_out);
+
+/**
+ * Destroy array of AF_XDP sockets created with net_drv_xdp_create_socks().
+ *
+ * @param rpcs        RPC server
+ * @param socks       Array of sockets
+ * @param socks_num   Number of sockets
+ *
+ * @return Status code.
+ */
+extern te_errno net_drv_xdp_destroy_socks(rcf_rpc_server *rpcs,
+                                          net_drv_xdp_sock *socks,
+                                          unsigned int socks_num);
+
+/**
+ * Send a packet from a UDP socket. Check that the expected AF_XDP socket
+ * gets that packet on a peer. Construct a reply by inverting addresses
+ * and ports of the received packet. Send it back to the UDP socket over
+ * the same AF_XDP socket. Check that the UDP socket gets it and its
+ * payload is the same as in the previously sent packet.
+ *
+ * @note This function can print verdict and fail the test.
+ *
+ * @param rpcs_udp            RPC server with UDP socket
+ * @param s_udp               UDP socket
+ * @param dst_addr            Destination address and port
+ * @param rpcs_xdp            RPC server with AF_XDP sockets
+ * @param socks               Array of AF_XDP sockets
+ * @param socks_num           Number of sockets in the array
+ * @param exp_socket          Index of the AF_XDP socket which should
+ *                            receive the packet
+ */
+extern void net_drv_xdp_echo(rcf_rpc_server *rpcs_udp, int s_udp,
+                             const struct sockaddr *dst_addr,
+                             rcf_rpc_server *rpcs_xdp,
+                             net_drv_xdp_sock *socks,
+                             unsigned int socks_num, unsigned int exp_sock);
 
 #endif /* !__TS_NET_DRV_COMMON_RSS_H__ */
