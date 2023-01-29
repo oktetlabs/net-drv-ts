@@ -106,6 +106,7 @@ check_fix_indir_table(const char *ta, const char *if_name,
     {
         CHECK_RC(tapi_cfg_if_rss_fill_indir_table(ta, if_name, 0,
                                                   0, rx_queues - 1));
+        CHECK_RC(tapi_cfg_if_rss_hash_indir_commit(ta, if_name, 0));
     }
 
     CHECK_RC(tapi_cfg_if_rss_print_indir_table(ta, if_name, 0));
