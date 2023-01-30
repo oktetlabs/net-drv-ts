@@ -185,6 +185,11 @@
             <verdict>PTP device index is not known</verdict>
           </result>
         </results>
+        <results tags="sfc" key="SWNETLINUX-4674">
+          <result value="SKIPPED">
+            <verdict>PTP_SYS_OFFSET_EXTENDED request is not supported</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="sys_offset_precise" type="script">
@@ -216,6 +221,11 @@
         <results tags="virtio-pci" key="NO-PTP" notes="Virtio does not support PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
+        <results tags="sfc" key="SWNETLINUX-2610">
+          <result value="SKIPPED">
+            <verdict>PTP_SYS_OFFSET_PRECISE request is not supported</verdict>
           </result>
         </results>
       </iter>
