@@ -110,5 +110,18 @@
             </arg>
         </run>
 
+        <run>
+            <script name="af_xdp_rx_rule"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+                <value ref="env.peer2peer_ipv6"/>
+            </arg>
+            <arg name="copy_mode">
+                <value>none</value>
+                <value>copy</value>
+                <value>zerocopy</value>
+            </arg>
+        </run>
+
     </session>
 </package>

@@ -222,5 +222,14 @@
         <notes/>
       </iter>
     </test>
+    <test name="af_xdp_rx_rule" type="script">
+      <objective>Check that a packet directed to Rx queue by Rx classification rule can be received and replied by AF_XDP socket.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="copy_mode"/>
+        <notes/>
+      </iter>
+    </test>
   </iter>
 </test>
