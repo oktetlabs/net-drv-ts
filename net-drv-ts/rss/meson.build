@@ -18,6 +18,7 @@ rss_test_deps += declare_dependency(include_directories: rss_tests_lib_dir,
 
 tests = [
     'af_xdp',
+    'af_xdp_rx_rule',
     'change_channels',
     'epilogue',
     'hash_key_get',
