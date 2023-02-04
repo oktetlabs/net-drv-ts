@@ -231,5 +231,14 @@
         <notes/>
       </iter>
     </test>
+    <test name="af_xdp_two_rules" type="script">
+      <objective>Check that two AF_XDP sockets can work simultaneously each receiving packets from a different Rx queue specified by a Rx classification rule.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="copy_mode"/>
+        <notes/>
+      </iter>
+    </test>
   </iter>
 </test>
