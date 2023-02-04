@@ -407,6 +407,57 @@ net_drv_rx_rules_find_loc(const char *ta, const char *if_name,
 }
 
 /* See description in common_rss.h */
+void
+net_drv_add_tcpudp_rx_rule(const char *ta, const char *if_name,
+                           rpc_socket_type sock_type,
+                           const struct sockaddr *src_addr,
+                           const struct sockaddr *src_mask,
+                           const struct sockaddr *dst_addr,
+                           const struct sockaddr *dst_mask,
+                           unsigned int queue, const char *rule_name)
+{
+    te_errno rc;
+    int64_t location;
+    tapi_cfg_rx_rule_flow flow_type;
+    int af;
+
+    if (src_addr != NULL)
+    {
+        af = src_addr->sa_family;
+    }
+    else if (dst_addr != NULL)
+    {
+        af = dst_addr->sa_family;
+    }
+    else
+    {
+        TEST_FAIL("%s(): both src_addr and dst_addr cannot be NULL",
+                  __FUNCTION__);
+    }
+
+    flow_type = tapi_cfg_rx_rule_flow_by_socket(af, sock_type);
+
+    CHECK_RC(net_drv_rx_rules_find_loc(ta, if_name, &location));
+
+    CHECK_RC(tapi_cfg_rx_rule_add(ta, if_name, location, flow_type));
+
+    CHECK_RC(tapi_cfg_rx_rule_fill_ip_addrs_ports(
+                                         ta, if_name, location,
+                                         af, src_addr, src_mask,
+                                         dst_addr, dst_mask));
+
+    CHECK_RC(tapi_cfg_rx_rule_rx_queue_set(ta, if_name, location, queue));
+
+    rc = tapi_cfg_rx_rule_commit(ta, if_name, location);
+    if (rc != 0)
+    {
+        TEST_VERDICT("Failed to add %s%sRx rule: %r", rule_name,
+                     te_str_is_null_or_empty(rule_name) ? "" : " ",
+                     rc);
+    }
+}
+
+/* See description in common_rss.h */
 te_errno
 net_drv_xdp_create_sock(rcf_rpc_server *rpcs, const char *if_name,
                         unsigned int queue_id, net_drv_xdp_cfg *cfg,

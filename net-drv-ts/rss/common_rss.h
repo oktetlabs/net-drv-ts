@@ -301,6 +301,28 @@ extern te_errno net_drv_rx_rules_find_loc(const char *ta,
                                           const char *if_name,
                                           int64_t *location);
 
+/**
+ * Add a new TCP/UDP Rx classification rule at any available location.
+ *
+ * @param ta          Test Agent name
+ * @param if_name     Interface name
+ * @param sock_type   Socket type (@c RPC_SOCK_STREAM or @c RPC_SOCK_DGRAM)
+ * @param src_addr    Source address (may be @c NULL)
+ * @param src_mask    Source address mask (may be @c NULL)
+ * @param dst_addr    Destination address (may be @c NULL)
+ * @param dst_mask    Destination address mask (may be @c NULL)
+ * @param queue       Rx queue to which to redirect packets
+ * @param rule_name   Rule name to print in verdicts (may be empty)
+ */
+extern void net_drv_add_tcpudp_rx_rule(const char *ta, const char *if_name,
+                                       rpc_socket_type sock_type,
+                                       const struct sockaddr *src_addr,
+                                       const struct sockaddr *src_mask,
+                                       const struct sockaddr *dst_addr,
+                                       const struct sockaddr *dst_mask,
+                                       unsigned int queue,
+                                       const char *rule_name);
+
 /** Structure describing AF_XDP socket */
 typedef struct net_drv_xdp_sock {
     /** Memory allocated for UMEM */
