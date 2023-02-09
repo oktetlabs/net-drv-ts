@@ -93,6 +93,12 @@
             <verdict>rx_coalesce_usecs=300 is not supported</verdict>
           </result>
         </results>
+        <results tags="xilinx_efct" key="XNET-423">
+          <result value="PASSED"/>
+          <result value="FAILED">
+            <verdict>Actual timestamps of received packets differ too much from the expected distribution</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -111,6 +117,12 @@
         <results tags="virtio-pci" key="NO-RX-IRQ-MODER-CONTROL" notes="VirtIO net does not support interrupt moderation control">
           <result value="SKIPPED">
             <verdict>rx_coalesce_usecs=511 is not supported</verdict>
+          </result>
+        </results>
+        <results tags="xilinx_efct" key="XNET-423">
+          <result value="PASSED"/>
+          <result value="FAILED">
+            <verdict>Actual timestamps of received packets differ too much from the expected distribution</verdict>
           </result>
         </results>
       </iter>
