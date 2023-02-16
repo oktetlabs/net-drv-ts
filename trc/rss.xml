@@ -27,7 +27,7 @@
             <verdict>NIC uses symmetric-or-xor Toeplitz hash</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="X3-1288" notes="X3 net does not support RSS">
+        <results tags="efct" key="X3-1288" notes="X3 net does not support RSS">
           <result value="SKIPPED">
             <verdict>There is no multiple indirection table entries</verdict>
           </result>

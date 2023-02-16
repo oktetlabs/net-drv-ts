@@ -42,7 +42,7 @@
             <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-RX-FCS" notes="xilinx_efct does not support FCS on Rx on EA release: XN-200494-PD-1D/NPT-450">
+        <results tags="efct" key="NO-RX-FCS" notes="efct does not support FCS on Rx on EA release: XN-200494-PD-1D/NPT-450">
           <result value="SKIPPED">
             <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
           </result>
@@ -93,7 +93,7 @@
             <verdict>rx_coalesce_usecs=300 is not supported</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="XNET-423">
+        <results tags="efct" key="XNET-423">
           <result value="PASSED"/>
           <result value="FAILED">
             <verdict>Actual timestamps of received packets differ too much from the expected distribution</verdict>
@@ -119,7 +119,7 @@
             <verdict>rx_coalesce_usecs=511 is not supported</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="XNET-423">
+        <results tags="efct" key="XNET-423">
           <result value="PASSED"/>
           <result value="FAILED">
             <verdict>Actual timestamps of received packets differ too much from the expected distribution</verdict>

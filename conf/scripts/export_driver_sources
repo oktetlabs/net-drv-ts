@@ -48,7 +48,7 @@ guess_driver_sources() {
 # Get and export paths to driver sources for IUT/TST1
 #
 # @param    Role: IUT, TST1
-# @param    driver name: sfc, xilinx_efct
+# @param    driver name: sfc, efct
 #
 obtain_driver_sources() {
     local role=$1 ; shift
@@ -63,7 +63,7 @@ obtain_driver_sources() {
             guess_driver_sources SFC_LINUX_NET_SRC sfc-linux-net "${role}"
         fi
         sfc_linux_net_src="${SFC_LINUX_NET_SRC}"
-    elif test "${driver_name}" = "xilinx_efct" ; then
+    elif test "${driver_name}" = "efct" ; then
         if test -z "${CNS_AUX_BUS_SRC}" ; then
             guess_driver_sources CNS_AUX_BUS_SRC cns-auxiliary-bus "${role}"
         fi

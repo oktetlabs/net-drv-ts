@@ -233,7 +233,7 @@
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="X3-1105" notes="On X3 sometimes in_errors isn't zeroed">
+        <results tags="efct" key="X3-1105" notes="On X3 sometimes in_errors isn't zeroed">
           <result value="PASSED"/>
           <result value="PASSED">
             <verdict>Interface statistic in_errors was not zeroed</verdict>
@@ -271,7 +271,7 @@
             <verdict>ETHTOOL_RESET is not supported</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="X3-1105" notes="On X3 sometimes in_errors isn't zeroed">
+        <results tags="efct" key="X3-1105" notes="On X3 sometimes in_errors isn't zeroed">
           <result value="PASSED"/>
           <result value="PASSED">
             <verdict>Interface statistic in_errors was not zeroed</verdict>
@@ -368,7 +368,7 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -388,7 +388,7 @@
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -413,7 +413,7 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -433,7 +433,7 @@
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -458,7 +458,7 @@
         <arg name="pkt_size"/>
         <arg name="sends_num"/>
         <notes/>
-        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -478,7 +478,7 @@
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -513,7 +513,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -538,7 +538,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -573,7 +573,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -598,7 +598,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -618,7 +618,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
+        <results tags="efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
           <result value="FAILED">
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
@@ -638,7 +638,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
+        <results tags="efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
           <result value="FAILED">
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
@@ -658,7 +658,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
+        <results tags="efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
           <result value="FAILED">
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
@@ -683,7 +683,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
+        <results tags="efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
           <result value="FAILED">
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
@@ -755,7 +755,7 @@
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
+        <results tags="efct" key="NET-44" notes="X3 NIC: MTU can be configured to be between 576 and 1960 bytes">
           <result value="FAILED">
             <verdict>Failed to set MTU on IUT, rc=TA_UNIX-EINVAL</verdict>
           </result>

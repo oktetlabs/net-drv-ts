@@ -14,7 +14,7 @@
         <arg name="sock_type"/>
         <arg name="rx_csum">FALSE</arg>
         <notes/>
-        <results tags="xilinx_efct" key="NO-TX-CKSUM" notes="TCP/IP checksum offload on transmit will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-TX-CKSUM" notes="TCP/IP checksum offload on transmit will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-checksum-ip-generic' cannot be modified</verdict>
           </result>
@@ -25,7 +25,7 @@
         <arg name="sock_type"/>
         <arg name="rx_csum">FALSE</arg>
         <notes/>
-        <results tags="xilinx_efct" key="NO-TX-CKSUM" notes="TCP/IP checksum offload on transmit will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-TX-CKSUM" notes="TCP/IP checksum offload on transmit will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-checksum-ip-generic' cannot be modified</verdict>
           </result>
@@ -71,7 +71,7 @@
             <verdict>Feature 'rx-gro-hw' is enabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -94,7 +94,7 @@
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
@@ -182,7 +182,7 @@
             <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
@@ -220,7 +220,7 @@
             <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
@@ -263,7 +263,7 @@
             <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
@@ -332,7 +332,7 @@
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
@@ -375,7 +375,7 @@
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
+        <results tags="efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>

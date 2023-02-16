@@ -122,7 +122,7 @@
             <verdict>PTP device index is not known</verdict>
           </result>
         </results>
-        <results tags="xilinx_efct" key="X3-893">
+        <results tags="efct" key="X3-893">
           <result value="PASSED">
             <verdict>Frequency adjustment range is less than expected</verdict>
           </result>

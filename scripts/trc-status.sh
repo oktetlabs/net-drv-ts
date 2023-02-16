@@ -56,11 +56,11 @@ te-trc-diff \
 
 
 #
-# X3 xilinx_efct driver status
+# X3 efct driver status
 #
 
 declare -a X3_XLNX_EFCT_TAGS
-X3_XLNX_EFCT_TAGS+=(xilinx_efct)
+X3_XLNX_EFCT_TAGS+=(efct)
 X3_XLNX_EFCT_TAGS+=(pci-10ee pci-10ee-5084)
 
 declare -a X3_XLNX_EFCT_OPTS2
@@ -76,13 +76,13 @@ declare -a X3_XLNX_EFCT_STATUS_OPTS
 X3_XLNX_EFCT_STATUS_OPTS+=("${COMMON_OPTS[@]}")
 X3_XLNX_EFCT_STATUS_OPTS+=(--1-name="Reference")
 X3_XLNX_EFCT_STATUS_OPTS+=("${REF_OPTS[@]}")
-X3_XLNX_EFCT_STATUS_OPTS+=(--2-name="X3 xilinx_efct")
+X3_XLNX_EFCT_STATUS_OPTS+=(--2-name="X3 efct")
 X3_XLNX_EFCT_STATUS_OPTS+=(--2-show-keys)
 X3_XLNX_EFCT_STATUS_OPTS+=("${X3_XLNX_EFCT_OPTS2[@]}")
 
 te-trc-diff \
-    --html=X3-xilinx_efct.html \
-    --title="X3 xilinx_efct driver status" \
+    --html=X3-efct.html \
+    --title="X3 efct driver status" \
     "${X3_XLNX_EFCT_STATUS_OPTS[@]}"
 
 
