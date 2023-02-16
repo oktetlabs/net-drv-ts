@@ -23,6 +23,7 @@ te_libs = [
     'tapi_rpc',
     'rpc_types',
     'rcfrpc',
+    'rpcxdr',
     'tapi',
     'tapi_tad',
     'confapi',

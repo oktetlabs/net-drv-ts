@@ -40,5 +40,6 @@
 #include "net_drv_data_flow.h"
 #include "net_drv_ethtool.h"
 #include "net_drv_ptp.h"
+#include "net_drv_rpc.h"
 
 #endif /* !__TS_NET_DRV_TEST_H__ */
