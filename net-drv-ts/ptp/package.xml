@@ -99,6 +99,8 @@
                 <!-- This test is run only if TE_ENV_SFPTPD in
                      environment is set to path to sfptpd -->
                 <req id="SFPTPD"/>
+                <!-- See X3-1304 -->
+                <req id="!X3_BROKEN"/>
             </script>
             <arg name="env">
                 <value ref="env.peer2peer"/>
