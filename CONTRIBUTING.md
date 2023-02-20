@@ -59,9 +59,10 @@ The summary line should:
     - `conf` (for generic changes in configuration files)
     - `doc`
     - `scripts`
-    - `trc`
-    - `rss|basic|stress|...` (for changes in tests of a specific package)
-    - `rss/hash_key_set` (for changes in a specific test)
+    - `rss|basic|stress|...` (for changes related to a specific package)
+    - `rss/hash_key_set` (for changes related to a specific test)
+      - **Note:** changes to TRC, package.xml and other similar files
+                  should be attributed to the relevant package/test
  - start with the imperative of a verb, for example:
 
    ```
