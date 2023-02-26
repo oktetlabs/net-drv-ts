@@ -65,3 +65,59 @@ rpc_net_drv_too_many_rx_rules(rcf_rpc_server *rpcs,
 
     RETVAL_INT(net_drv_too_many_rx_rules, out.retval);
 }
+
+/* See description in net_drv_rpc.h */
+int64_t
+rpc_net_drv_send_pkts_exact_delay(rcf_rpc_server *rpcs,
+                                  int s,
+                                  unsigned int delay,
+                                  unsigned int time2run)
+{
+    struct tarpc_net_drv_send_pkts_exact_delay_in in;
+    struct tarpc_net_drv_send_pkts_exact_delay_out out;
+
+    memset(&in, 0, sizeof(in));
+    memset(&out, 0, sizeof(out));
+
+    in.s = s;
+    in.delay = delay;
+    in.time2run = time2run;
+
+    rcf_rpc_call(rpcs, "net_drv_send_pkts_exact_delay", &in, &out);
+
+    CHECK_RETVAL_VAR_IS_GTE_MINUS_ONE(net_drv_send_pkts_exact_delay,
+                                      out.retval);
+
+    TAPI_RPC_LOG(rpcs, net_drv_send_pkts_exact_delay,
+                 "socket=%d, delay=%u us, time2run=%u ms", "%jd",
+                 s, delay, time2run, (intmax_t)out.retval);
+
+    RETVAL_INT64(net_drv_send_pkts_exact_delay, out.retval);
+}
+
+/* See description in net_drv_rpc.h */
+int64_t
+rpc_net_drv_recv_pkts_exact_delay(rcf_rpc_server *rpcs,
+                                  int s,
+                                  unsigned int time2wait)
+{
+    struct tarpc_net_drv_recv_pkts_exact_delay_in in;
+    struct tarpc_net_drv_recv_pkts_exact_delay_out out;
+
+    memset(&in, 0, sizeof(in));
+    memset(&out, 0, sizeof(out));
+
+    in.s = s;
+    in.time2wait = time2wait;
+
+    rcf_rpc_call(rpcs, "net_drv_recv_pkts_exact_delay", &in, &out);
+
+    CHECK_RETVAL_VAR_IS_GTE_MINUS_ONE(net_drv_recv_pkts_exact_delay,
+                                      out.retval);
+
+    TAPI_RPC_LOG(rpcs, net_drv_recv_pkts_exact_delay,
+                 "socket=%d, time2wait=%u ms", "%jd",
+                 s, time2wait, (intmax_t)out.retval);
+
+    RETVAL_INT64(net_drv_recv_pkts_exact_delay, out.retval);
+}
