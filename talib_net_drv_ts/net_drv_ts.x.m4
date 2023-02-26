@@ -21,10 +21,39 @@ struct tarpc_net_drv_too_many_rx_rules_out {
     tarpc_int retval;
 };
 
+struct tarpc_net_drv_send_pkts_exact_delay_in {
+    struct tarpc_in_arg common;
+
+    tarpc_int s;
+    uint32_t delay;
+    uint32_t time2run;
+};
+
+struct tarpc_net_drv_send_pkts_exact_delay_out {
+    struct tarpc_out_arg common;
+
+    int64_t retval;
+};
+
+struct tarpc_net_drv_recv_pkts_exact_delay_in {
+    struct tarpc_in_arg common;
+
+    tarpc_int s;
+    uint32_t time2wait;
+};
+
+struct tarpc_net_drv_recv_pkts_exact_delay_out {
+    struct tarpc_out_arg common;
+
+    int64_t retval;
+};
+
 program net_drv_ts
 {
     version ver0
     {
         RPC_DEF(net_drv_too_many_rx_rules)
+        RPC_DEF(net_drv_send_pkts_exact_delay)
+        RPC_DEF(net_drv_recv_pkts_exact_delay)
     } = 1;
 } = 2;

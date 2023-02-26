@@ -12,6 +12,8 @@
 #include "config.h"
 
 #include <linux/sockios.h>
+#include <byteswap.h>
+#include <poll.h>
 
 #include "logger_api.h"
 #include "rpc_server.h"
@@ -22,6 +24,8 @@
 #include "te_str.h"
 #include "te_vector.h"
 #include "te_ethtool.h"
+#include "te_sleep.h"
+#include "te_time.h"
 
 /*
  * Create a lot of Rx classification rules until trying to add the next
@@ -214,4 +218,180 @@ finish:
 TARPC_FUNC_STANDALONE(net_drv_too_many_rx_rules, {},
 {
     MAKE_CALL(out->retval = too_many_rx_rules(in, out));
+})
+
+/**
+ * Payload of a packet sent by rpc_net_drv_send_pkts_exact_delay()
+ * and received by rpc_net_drv_recv_pkts_exact_delay().
+ */
+typedef struct net_drv_exact_delay_payload {
+    /** Packet Id (ordinal number) */
+    uint64_t id;
+    /**
+     * Last byte of payload - set to nonzero value, is useful when
+     * detecting Ethernet padding added at the end of short frames.
+     */
+    uint8_t last_byte;
+} __attribute__((packed)) net_drv_exact_delay_payload;
+
+static int64_t
+send_pkts_exact_delay(tarpc_net_drv_send_pkts_exact_delay_in *in)
+{
+    uint64_t id = 0;
+    te_bool swap_required = (htonl(1) != 1);
+    net_drv_exact_delay_payload pld = { 0, };
+    te_errno rc;
+    int os_rc;
+
+    struct timeval tv_start;
+    struct timeval tv_now;
+    long int time_diff = 0;
+    long int exp_diff = 0;
+
+    rc = te_gettimeofday(&tv_start, NULL);
+    if (rc != 0)
+        TE_FATAL_ERROR("gettimeofday() failed: %r", rc);
+
+    pld.last_byte = 0xff;
+
+    while (TRUE)
+    {
+        if (swap_required)
+            pld.id = bswap_64(id);
+        else
+            pld.id = id;
+
+        /*
+         * Try to send a packet at moments d, 2d, 3d, 4d, 5d ...
+         * where d is requested delay. If we are already past
+         * some sending moment, skip it to avoid enqueueing too many
+         * packets and causing bursts of packets without delays.
+         */
+        if (in->delay > 0)
+            exp_diff = (time_diff / in->delay + 1) * in->delay;
+
+        /*
+         * Unfortunately functions like usleep() appear to be
+         * very imprecise for short delays (like 10 us). Because
+         * of this busy loop is used here.
+         */
+        while (TRUE)
+        {
+            rc = te_gettimeofday(&tv_now, NULL);
+            if (rc != 0)
+                TE_FATAL_ERROR("gettimeofday() failed: %r", rc);
+
+            time_diff = TIMEVAL_SUB(tv_now, tv_start);
+            if (time_diff > exp_diff)
+                break;
+        }
+
+        if (TE_US2MS(time_diff) > in->time2run)
+            break;
+
+        os_rc = send(in->s, &pld, sizeof(pld), 0);
+        if (os_rc < 0)
+        {
+            te_rpc_error_set(TE_OS_RC(TE_TA_UNIX, errno),
+                             "send() failed");
+            return -1;
+        }
+        else if (os_rc != sizeof(pld))
+        {
+            te_rpc_error_set(TE_RC(TE_TA_UNIX, TE_EMSGSIZE),
+                             "send() returned incorrect value");
+            return -1;
+        }
+
+        id++;
+    }
+
+    return id;
+}
+
+TARPC_FUNC_STANDALONE(net_drv_send_pkts_exact_delay, {},
+{
+    MAKE_CALL(out->retval = send_pkts_exact_delay(in));
+})
+
+static int64_t
+recv_pkts_exact_delay(tarpc_net_drv_recv_pkts_exact_delay_in *in)
+{
+    uint64_t id = 0;
+    int64_t last_id = -1;
+    uint64_t pkts_count = 0;
+    te_bool swap_required = (htonl(1) != 1);
+    net_drv_exact_delay_payload pld;
+    int os_rc;
+    struct pollfd pfd;
+
+    memset(&pfd, 0, sizeof(pfd));
+
+    pfd.fd = in->s;
+    pfd.events = POLLIN;
+
+    while (TRUE)
+    {
+        os_rc = poll(&pfd, 1, in->time2wait);
+        if (os_rc < 0)
+        {
+            te_rpc_error_set(TE_OS_RC(TE_TA_UNIX, errno),
+                             "poll() failed");
+            return -1;
+        }
+        else if (os_rc == 0)
+        {
+            break;
+        }
+        else if (pfd.revents != POLLIN)
+        {
+            te_rpc_error_set(TE_RC(TE_TA_UNIX, TE_EFAIL),
+                             "poll() returned unexpected events");
+            return -1;
+        }
+
+        os_rc = recv(in->s, &pld, sizeof(pld), 0);
+        if (os_rc < 0)
+        {
+            te_rpc_error_set(TE_OS_RC(TE_TA_UNIX, errno),
+                             "recv() failed");
+            return -1;
+        }
+        else if (os_rc != sizeof(pld))
+        {
+            te_rpc_error_set(TE_RC(TE_TA_UNIX, TE_EMSGSIZE),
+                             "recv() returned incorrect value");
+            return -1;
+        }
+
+        if (swap_required)
+            id = bswap_64(pld.id);
+        else
+            id = pld.id;
+
+        if ((int64_t)id < last_id)
+        {
+            ERROR("Packet %ju was received after packet %ju",
+                  (uintmax_t)id, (uintmax_t)last_id);
+            te_rpc_error_set(TE_RC(TE_TA_UNIX, TE_EILSEQ),
+                             "received packet is out of order");
+            return -1;
+        }
+        else if (id == last_id)
+        {
+            te_rpc_error_set(TE_RC(TE_TA_UNIX, TE_EILSEQ),
+                             "received packet is a duplicate");
+            return -1;
+        }
+
+        last_id = id;
+        pkts_count++;
+    }
+
+    return pkts_count;
+}
+
+TARPC_FUNC_STANDALONE(net_drv_recv_pkts_exact_delay, {},
+{
+    MAKE_CALL(out->retval = recv_pkts_exact_delay(in));
 })
