@@ -144,6 +144,11 @@
             <verdict>Feature 'rx-checksum' is enabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="efct" key="X3-1308" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -295,6 +300,11 @@
           </result>
         </results>
         <results tags="mlx5_core" key="NO-RX-GRO-HW" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="efct" key="X3-1308" notes="rx-gro-hw offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
           </result>
