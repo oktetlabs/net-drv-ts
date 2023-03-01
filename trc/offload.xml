@@ -129,6 +129,11 @@
             <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="sfc" key="SWNETLINUX-4961" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
         <results tags="ice" key="NO-RX-GRO-HW" notes="rx-gro-hw offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
@@ -273,6 +278,11 @@
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="sfc" key="SWNETLINUX-4961" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -309,6 +319,11 @@
             <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="sfc" key="SWNETLINUX-4961" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -388,6 +403,11 @@
         <results tags="efct" key="NO-RX-LRO" notes="LRO (large receive offload) will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="sfc" key="SWNETLINUX-4961" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
           </result>
         </results>
       </iter>
