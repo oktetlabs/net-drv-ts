@@ -185,11 +185,6 @@
             <verdict>PTP device index is not known</verdict>
           </result>
         </results>
-        <results tags="sfc" key="SWNETLINUX-4674">
-          <result value="SKIPPED">
-            <verdict>PTP_SYS_OFFSET_EXTENDED request is not supported</verdict>
-          </result>
-        </results>
       </iter>
     </test>
     <test name="sys_offset_precise" type="script">
