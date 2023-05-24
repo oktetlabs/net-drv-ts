@@ -38,7 +38,7 @@
 #include "tapi_cfg_phy.h"
 
 /** How many milliseconds to wait for interface to be UP again */
-#define MAX_IF_WAIT 80000
+#define MAX_IF_WAIT 160000
 
 /** Maximum value of packets counter after reset */
 #define MAX_PKTS_AFTER_RESET 50
