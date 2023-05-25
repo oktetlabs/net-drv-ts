@@ -145,6 +145,7 @@ main(int argc, char *argv[])
 
 cleanup:
 
+    NET_DRV_CLEANUP_SET_UP_WAIT(iut_rpcs->ta, iut_if->if_name);
     CLEANUP_RPC_CLOSE(iut_rpcs, iut_s);
     CLEANUP_RPC_CLOSE(tst_rpcs, tst_s);
 
