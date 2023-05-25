@@ -18,6 +18,7 @@
 #include "tapi_cfg_modules.h"
 #include "tapi_cfg_base.h"
 #include "te_ethernet.h"
+#include "tapi_cfg_phy.h"
 
 #define MAX_PKT_LEN 1024
 
@@ -576,4 +577,33 @@ net_drv_set_pci_param_uint(const char *pci_oid,
         TEST_VERDICT("%s: parameter %s has unexpected value after "
                      "setting it", vpref, param_name);
     }
+}
+
+/* See description in net_drv_ts.h */
+void
+net_drv_wait_up_gen(const char *ta, const char *if_name, te_bool cleanup)
+{
+/*
+ * Maximum timeout in second for waiting for interface is UP. For more info
+ * see SWNETLINUX-4827.
+ */
+#define MAX_IF_WAIT_MS 160000
+
+    te_errno rc;
+
+    rc = tapi_cfg_phy_state_wait_up(ta, if_name, MAX_IF_WAIT_MS);
+    if (rc != 0)
+    {
+        if (cleanup)
+        {
+            ERROR_VERDICT("Failed to wait until interface becomes UP, "
+                          "rc=%r", rc);
+        }
+        else
+        {
+            TEST_VERDICT("Failed to wait until interface becomes UP, rc=%r",
+                         rc);
+        }
+    }
+#undef MAX_IF_WAIT_MS
 }

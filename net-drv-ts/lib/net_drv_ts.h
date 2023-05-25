@@ -274,4 +274,35 @@ extern void net_drv_set_pci_param_uint(const char *pci_oid,
                                        uint64_t value,
                                        const char *vpref);
 
+/**
+ * Wait until link status for the IUT interface is reported to be UP in
+ * configuration tree.
+ *
+ * @param ta        Test Agent name
+ * @param if_name   Interface name
+ * @oaram cleanup   Whether to use verdict suitable for test section or
+ *                  for cleanup section
+ */
+extern void net_drv_wait_up_gen(const char *ta, const char *if_name,
+                                te_bool cleanup);
+
+static inline void net_drv_wait_up(const char *ta, const char *if_name)
+{
+    return net_drv_wait_up_gen(ta, if_name, FALSE);
+}
+
+/**
+ * Cleanup macro for bringing up interface and waiting until link status
+ * for the IUT interface is reported to be UP in configuration tree.
+ *
+ * @param ta        Test Agent name
+ * @param if_name   Interface name
+ */
+#define NET_DRV_CLEANUP_SET_UP_WAIT(_ta, _if_name) \
+do {                                                      \
+    CLEANUP_CHECK_RC(tapi_cfg_base_if_up(_ta, _if_name)); \
+    CFG_WAIT_CHANGES;                                     \
+    net_drv_wait_up_gen(_ta, _if_name, TRUE);             \
+} while (0)
+
 #endif /* !__TS_NET_DRV_TS_H__ */
