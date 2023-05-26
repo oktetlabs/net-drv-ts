@@ -218,6 +218,7 @@ main(int argc, char *argv[])
                   "again.");
         CHECK_RC(tapi_cfg_base_if_up(iut_rpcs->ta, iut_if->if_name));
         CFG_WAIT_CHANGES;
+        net_drv_wait_up(iut_rpcs->ta, iut_if->if_name);
     }
 
     TEST_STEP("Send some data from IUT socket to peer, receive "

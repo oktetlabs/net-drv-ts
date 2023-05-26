@@ -91,6 +91,7 @@ main(int argc, char *argv[])
 
 cleanup:
 
+    NET_DRV_CLEANUP_SET_UP_WAIT(iut_rpcs->ta, iut_if->if_name);
     tapi_ethtool_destroy_report(&report);
     tapi_job_factory_destroy(factory);
 
