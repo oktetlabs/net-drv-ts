@@ -60,7 +60,7 @@ te-trc-diff \
 #
 
 declare -a X3_XLNX_EFCT_TAGS
-X3_XLNX_EFCT_TAGS+=(efct)
+X3_XLNX_EFCT_TAGS+=(xilinx_efct)
 X3_XLNX_EFCT_TAGS+=(pci-10ee pci-10ee-5084)
 
 declare -a X3_XLNX_EFCT_OPTS2

@@ -49,11 +49,13 @@ load_required_modules(const char *ta, void *cookie)
         {
             rc = tapi_cfg_module_add_from_ta_dir_or_fallback(ta, "sfc", TRUE);
         }
-        else if (strcmp("efct", driver) == 0)
+        else if (strcmp(NET_DRV_X3_DRIVER_NAME, driver) == 0)
         {
             rc = tapi_cfg_module_add_from_ta_dir(ta, "auxiliary", TRUE);
             if (rc == 0)
-                rc = tapi_cfg_module_add_from_ta_dir(ta, "efct", TRUE);
+                rc = tapi_cfg_module_add_from_ta_dir(ta,
+                                                     NET_DRV_X3_DRIVER_NAME,
+                                                     TRUE);
         }
         else
         {
@@ -106,7 +108,7 @@ net_drv_cfg_pci_get_net_if(const char *pci_oid, const char *agent,
         return rc;
     }
 
-    if (strcmp(driver, "efct") != 0)
+    if (strcmp(driver, NET_DRV_X3_DRIVER_NAME) != 0)
     {
         rc = cfg_get_instance_fmt(&type, interface, "%s/net:", pci_oid);
         if (rc != 0)

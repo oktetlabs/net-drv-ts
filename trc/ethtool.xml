@@ -198,7 +198,7 @@
             <verdict>Preset maximums RX: 4096, TX: 4096</verdict>
           </result>
         </results>
-        <results tags="efct">
+        <results tags="xilinx_efct">
           <result value="PASSED">
             <verdict>Current ring sizes RX: 2048, TX: 512</verdict>
             <verdict>Preset maximums RX: 6144, TX: 512</verdict>
@@ -253,7 +253,7 @@
             <verdict>Pause autonegotiation is disabled</verdict>
           </result>
         </results>
-        <results tags="efct" key="X3-892">
+        <results tags="xilinx_efct" key="X3-892">
           <result value="PASSED">
             <verdict>Pause autonegotiation is disabled</verdict>
           </result>

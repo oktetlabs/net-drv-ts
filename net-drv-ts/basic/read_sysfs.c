@@ -49,7 +49,7 @@ main(int argc, char *argv[])
 
     CHECK_NOT_NULL(iut_drv_name = net_drv_driver_name(iut_rpcs->ta));
 
-    if (strcmp(iut_drv_name, "efct") == 0)
+    if (strcmp(iut_drv_name, NET_DRV_X3_DRIVER_NAME) == 0)
     {
         char     *device_path;
         char     *bdf;

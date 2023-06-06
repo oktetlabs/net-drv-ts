@@ -19,6 +19,9 @@
 #include "te_sleep.h"
 #include "tapi_cfg_pci.h"
 
+/* X3 driver name */
+#define NET_DRV_X3_DRIVER_NAME "xilinx_efct"
+
 /**
  * Wait until interface statistics are updated after sending or
  * receiving something. Increase sleep time from 1 to 2 according
