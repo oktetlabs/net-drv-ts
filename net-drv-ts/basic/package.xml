@@ -40,7 +40,7 @@
         </run>
 
         <run>
-            <script name="mac_change_tx"/>
+            <script name="mac_change_tx" track_conf="nohistory|sync"/>
             <arg name="env">
                 <value ref="env.peer2peer"/>
                 <value ref="env.peer2peer_ipv6"/>
