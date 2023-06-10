@@ -206,6 +206,8 @@ main(int argc, char **argv)
 
 cleanup:
 
+    NET_DRV_CLEANUP_SET_UP_WAIT(iut_rpcs->ta, iut_if->if_name);
+
     if (tx_traffic)
         CLEANUP_CHECK_RC(net_drv_flow_destroy(&tx_flow));
     if (rx_traffic)
