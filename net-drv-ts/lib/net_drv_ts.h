@@ -197,11 +197,14 @@ extern void net_drv_conn_check(rcf_rpc_server *rpcs1,
  * files at all.
  *
  * @param rpcs          RPC server.
+ * @param timeout       Timeout for logging all files call, if it is @c 0
+ *                      then use default
  * @param path_fmt...   Path format string and arguments.
  *
  * @return Status code.
  */
 extern te_errno net_drv_cat_all_files(rcf_rpc_server *rpcs,
+                                      uint32_t timeout,
                                       const char *path_fmt, ...);
 
 /**

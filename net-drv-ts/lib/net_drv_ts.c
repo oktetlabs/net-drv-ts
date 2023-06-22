@@ -383,7 +383,8 @@ net_drv_conn_check(rcf_rpc_server *rpcs1,
 
 /* See description in net_drv_ts.h */
 te_errno
-net_drv_cat_all_files(rcf_rpc_server *rpcs, const char *path_fmt, ...)
+net_drv_cat_all_files(rcf_rpc_server *rpcs, uint32_t timeout,
+                      const char *path_fmt, ...)
 {
 #define FIND_FMT "find '%s' -perm /a+r ! -type d ! -type l ! -name \".*\""
 
@@ -412,6 +413,8 @@ net_drv_cat_all_files(rcf_rpc_server *rpcs, const char *path_fmt, ...)
     }
 
     RPC_AWAIT_ERROR(rpcs);
+    if (timeout != 0)
+        rpcs->timeout = timeout;
     status = rpc_system_ex(rpcs,
                            FIND_FMT " | xargs -I {} "
                            "bash -c \"echo cat {}; cat {}\"",

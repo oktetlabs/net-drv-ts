@@ -31,6 +31,12 @@
 #include "tapi_rpc_dirent.h"
 #include "tapi_rpc_unistd.h"
 
+/**
+ * Timeout in seconds for call which logs all founded files in
+ * /sys/kernel/debug/[driver_module]/nic_[ifname]/
+ */
+#define LOG_TIMEOUT 100
+
 int
 main(int argc, char *argv[])
 {
@@ -101,7 +107,7 @@ main(int argc, char *argv[])
 
     TEST_STEP("Read contents of all readable files under "
               "/sys/kernel/debug/[driver_module]/nic_[ifname]/.");
-    rc = net_drv_cat_all_files(iut_rpcs, path.ptr);
+    rc = net_drv_cat_all_files(iut_rpcs, TE_SEC2MS(LOG_TIMEOUT), path.ptr);
     if (rc != 0)
         TEST_VERDICT("Failed to read files from /sys/kernel/debug/");
 
@@ -124,7 +130,7 @@ main(int argc, char *argv[])
 
     TEST_STEP("Read contents of all readable files under "
               "/sys/module/[driver_module]/.");
-    rc = net_drv_cat_all_files(iut_rpcs, path.ptr);
+    rc = net_drv_cat_all_files(iut_rpcs, 0, path.ptr);
     if (rc != 0)
         TEST_VERDICT("Failed to read files from /sys/kernel/module/");
 
