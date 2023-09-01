@@ -16,6 +16,7 @@ teTsPipeline {
 
     tsconf = true
     publish_logs = true
+    concurrent_builds = true
 
     optionsProvider = {
         def opts = [
