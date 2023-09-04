@@ -27,7 +27,7 @@
             <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
           </result>
         </results>
-        <results tags="ice" key="NO-RX-FCS" notes="intel/ice does not support FCS on Rx">
+        <results tags="ice&amp;linux-mm&lt;601" key="NO-RX-FCS" notes="intel/ice does not support FCS on Rx">
           <result value="SKIPPED">
             <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
           </result>
