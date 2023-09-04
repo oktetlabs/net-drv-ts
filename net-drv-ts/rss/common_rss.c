@@ -500,6 +500,22 @@ net_drv_xdp_create_sock(rcf_rpc_server *rpcs, const char *if_name,
     }
 
     RPC_AWAIT_ERROR(rpcs);
+    rc = rpc_xsk_rx_fill_simple(rpcs, sock->umem, if_name, queue_id,
+                                cfg->rx_frames);
+    if (rc < 0)
+    {
+        ERROR_VERDICT("rpc_xsk_rx_fill_simple() failed: " RPC_ERROR_FMT,
+                      RPC_ERROR_ARGS(rpcs));
+        goto cleanup;
+    }
+    else if (rc == 0)
+    {
+        ERROR_VERDICT("rpc_xsk_rx_fill_simple() could not submit "
+                      "any buffers");
+        goto cleanup;
+    }
+
+    RPC_AWAIT_ERROR(rpcs);
     rc = rpc_xsk_socket__create(rpcs, if_name, queue_id,
                                 sock->umem, TRUE,
                                 &sock_conf, &sock->sock);
@@ -517,21 +533,6 @@ net_drv_xdp_create_sock(rcf_rpc_server *rpcs, const char *if_name,
     {
         ERROR_VERDICT("rpc_xsk_map_set() failed: " RPC_ERROR_FMT,
                       RPC_ERROR_ARGS(rpcs));
-        goto cleanup;
-    }
-
-    RPC_AWAIT_ERROR(rpcs);
-    rc = rpc_xsk_rx_fill_simple(rpcs, sock->sock, cfg->rx_frames);
-    if (rc < 0)
-    {
-        ERROR_VERDICT("rpc_xsk_rx_fill_simple() failed: " RPC_ERROR_FMT,
-                      RPC_ERROR_ARGS(rpcs));
-        goto cleanup;
-    }
-    else if (rc == 0)
-    {
-        ERROR_VERDICT("rpc_xsk_rx_fill_simple() could not submit "
-                      "any buffers");
         goto cleanup;
     }
 
