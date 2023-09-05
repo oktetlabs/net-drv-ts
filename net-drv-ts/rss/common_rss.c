@@ -11,6 +11,7 @@
 #include "tapi_bpf.h"
 #include "tapi_bpf_rxq_stats.h"
 #include "tapi_cfg_rx_rule.h"
+#include "tapi_cfg_if.h"
 #include "tapi_rpc_bpf.h"
 #include "tapi_mem.h"
 #include "tapi_file.h"
@@ -455,6 +456,27 @@ net_drv_add_tcpudp_rx_rule(const char *ta, const char *if_name,
                      te_str_is_null_or_empty(rule_name) ? "" : " ",
                      rc);
     }
+}
+
+/* See description in common_rss.h */
+te_errno
+net_drv_xdp_adjust_rx_size(const char *ta, const char *if_name,
+                           net_drv_xdp_cfg *cfg)
+{
+    te_errno rc;
+    int64_t number;
+
+    rc = tapi_cfg_if_get_ring_size(ta, if_name, TRUE,
+                                   &number);
+    if (rc != 0)
+        return rc;
+
+    cfg->rx_frames = number;
+    cfg->rx_size = number;
+    cfg->fill_size = number;
+    cfg->frames_num = number + cfg->tx_size;
+
+    return 0;
 }
 
 /* See description in common_rss.h */

@@ -66,6 +66,9 @@ main(int argc, char **argv)
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_ENUM_PARAM(copy_mode, NET_DRV_XDP_COPY_MODE);
 
+    CHECK_RC(net_drv_xdp_adjust_rx_size(iut_rpcs->ta, iut_if->if_name,
+                                        &xdp_cfg));
+
     TEST_STEP("Create UDP socket on Tester, bind it to @p tst_addr.");
     tst_s = rpc_create_and_bind_socket(tst_rpcs, RPC_SOCK_DGRAM,
                                        RPC_PROTO_DEF, FALSE, FALSE,

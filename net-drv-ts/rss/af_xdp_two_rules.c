@@ -118,6 +118,9 @@ main(int argc, char **argv)
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_ENUM_PARAM(copy_mode, NET_DRV_XDP_COPY_MODE);
 
+    CHECK_RC(net_drv_xdp_adjust_rx_size(iut_rpcs->ta, iut_if->if_name,
+                                        &xdp_cfg));
+
     net_drv_rss_ctx_prepare(&rss_ctx, iut_rpcs->ta, iut_if->if_name, 0);
     if (rss_ctx.rx_queues < 2)
         TEST_FAIL("At least two Rx queues should be available");

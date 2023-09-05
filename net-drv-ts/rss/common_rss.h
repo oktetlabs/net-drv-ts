@@ -390,6 +390,22 @@ typedef struct net_drv_xdp_cfg {
     } while (0)
 
 /**
+ * Adjust number of Rx frames and size of Rx ring taking
+ * into account current size of Rx ring. Intel NICs drivers
+ * (X710, E810) do not work correctly unless we add enough
+ * buffers to FILL ring.
+ *
+ * @param ta        Test Agent name.
+ * @param if_name   Interface name.
+ * @param cfg       XDP configuration structure where to adjust fields.
+ *
+ * @return Status code.
+ */
+extern te_errno net_drv_xdp_adjust_rx_size(const char *ta,
+                                           const char *if_name,
+                                           net_drv_xdp_cfg *cfg);
+
+/**
  * Create and configure AF_XDP socket.
  *
  * @param rpcs        RPC server
