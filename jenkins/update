@@ -13,6 +13,7 @@ teTsPipeline {
 
     tsconf = true
     sticky_repo_params = true
+    email_conditions = [ 'unsuccessful', 'fixed' ]
 
     optionsProvider = {
         return [
