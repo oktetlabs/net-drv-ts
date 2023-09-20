@@ -25,5 +25,7 @@ ta.LogListener
 ta.NetDrv
 ta.Peer
 ta.list
+ta_cores.*
+vg.test.*
 trc-report.html
 trc-brief.html
