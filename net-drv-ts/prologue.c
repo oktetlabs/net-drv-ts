@@ -124,6 +124,7 @@ add_nic_tags(const char *ta,
     FUNC_CHECK_RC(tapi_tags_add_tag(te_string_value(&str), NULL));
 
 finish:
+    free(pci_oid);
 
     return rc;
 }
