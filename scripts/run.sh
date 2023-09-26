@@ -9,11 +9,13 @@ source "$(dirname "$(which "$0")")"/guess.sh
 
 source "${TE_BASE}/scripts/lib"
 source "${TE_BASE}/scripts/lib.grab_cfg"
+source "${TE_BASE}/scripts/lib.meta"
 
 if [[ -e "${TE_TS_RIGSDIR}/scripts/lib/grab_cfg_handlers" ]] ; then
     source "${TE_TS_RIGSDIR}/scripts/lib/grab_cfg_handlers"
 fi
 
+TE_RUN_META=yes
 CFG=
 
 run_fail() {
@@ -46,6 +48,7 @@ EOF
   --reuse-pco               Do not restart RPC servers in each test
                             (it makes testing significantly faster)
   --net-driver-ndebug       Build net drivers with NDEBUG=1 option
+  --no-meta                 Do not generate testing metadata
 
 EOF
     "${TE_BASE}"/dispatcher.sh --help
@@ -123,6 +126,11 @@ while test -n "$1" ; do
             export NET_DRIVER_MAKE_ARGS
             ;;
 
+        --no-meta)
+            RUN_OPTS+=("$1")
+            TE_RUN_META=no
+            ;;
+
         *)  RUN_OPTS+=("$1") ;;
     esac
     shift 1
@@ -130,6 +138,13 @@ done
 
 if test -n "${CFG}" ; then
     IFS=: ; process_cfg ${CFG} ; IFS=
+fi
+
+if [[ "${TE_RUN_META}" = "yes" ]] ; then
+    te_meta_test_suite "net-drv-ts"
+
+    te_meta_set CFG "${CFG}"
+    te_meta_set_git "${SF_TS_CONFDIR}" TSCONF
 fi
 
 RUN_OPTS+=(--opts=opts.ts)
