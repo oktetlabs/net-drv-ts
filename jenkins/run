@@ -31,10 +31,6 @@ teTsPipeline {
         return opts
     }
 
-    preRunHook = {
-        metas.REUSE_PCO = params.reuse_pco ? 'true' : 'false'
-    }
-
     postAlwaysHook = {
         teEmail.email_set_prefix(teCtx, "[CI NET-DRV]")
     }
