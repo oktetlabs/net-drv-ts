@@ -76,7 +76,7 @@ function process_cfg() {
 
     case "${cfg}" in
         virtio_virtio)
-            process_virtio TE_HYPERVISOR "$@" ; CFG= ;;
+            process_virtio TE_HYPERVISOR "$@" ;;
         *)
             call_if_defined grab_cfg_process "${cfg}" || exit 1 ;;
     esac
