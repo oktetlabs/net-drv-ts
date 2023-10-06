@@ -49,6 +49,7 @@ EOF
                             (it makes testing significantly faster)
   --net-driver-ndebug       Build net drivers with NDEBUG=1 option
   --no-meta                 Do not generate testing metadata
+  --publish                 Publish testing logs to Bublik
 
 EOF
     "${TE_BASE}"/dispatcher.sh --help
@@ -129,6 +130,12 @@ while test -n "$1" ; do
         --no-meta)
             RUN_OPTS+=("$1")
             TE_RUN_META=no
+            ;;
+
+        --publish)
+            source "${TE_TS_RIGSDIR}/scripts/publish_logs/ts_publish"
+            pscript="$(tsrigs_publish_get net-drv-ts)"
+            RUN_OPTS+=("--publish=${pscript}")
             ;;
 
         *)  RUN_OPTS+=("$1") ;;
