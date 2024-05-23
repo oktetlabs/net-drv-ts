@@ -225,7 +225,22 @@
       <notes/>
       <iter result="PASSED">
         <arg name="env"/>
-        <arg name="copy_mode"/>
+        <arg name="copy_mode">copy</arg>
+        <notes/>
+        <results tags="sfc" key="SWNETLINUX-5173">
+          <result value="FAILED">
+            <verdict>xsk_receive_simple() unexpectedly failed with error TA_UNIX-ENOBUFS (error message 'xsk_ring_prod__reserve() did not reserve requested number of descriptors')</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="copy_mode">zerocopy</arg>
+        <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="copy_mode">none</arg>
         <notes/>
       </iter>
     </test>
@@ -234,7 +249,22 @@
       <notes/>
       <iter result="PASSED">
         <arg name="env"/>
-        <arg name="copy_mode"/>
+        <arg name="copy_mode">copy</arg>
+        <notes/>
+        <results tags="sfc" key="SWNETLINUX-5173">
+          <result value="FAILED">
+            <verdict>xsk_receive_simple() unexpectedly failed with error TA_UNIX-ENOBUFS (error message 'xsk_ring_prod__reserve() did not reserve requested number of descriptors')</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="copy_mode">zerocopy</arg>
+        <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="copy_mode">none</arg>
         <notes/>
       </iter>
     </test>
@@ -243,7 +273,22 @@
       <notes/>
       <iter result="PASSED">
         <arg name="env"/>
-        <arg name="copy_mode"/>
+        <arg name="copy_mode">copy</arg>
+        <notes/>
+        <results tags="sfc" key="SWNETLINUX-5173">
+          <result value="FAILED">
+            <verdict>xsk_receive_simple() unexpectedly failed with error TA_UNIX-ENOBUFS (error message 'xsk_ring_prod__reserve() did not reserve requested number of descriptors')</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="copy_mode">zerocopy</arg>
+        <notes/>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="copy_mode">none</arg>
         <notes/>
       </iter>
     </test>
