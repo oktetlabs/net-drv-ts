@@ -211,6 +211,13 @@
         <arg name="sock_type"/>
         <arg name="two_power"/>
         <notes/>
+        <results tags="sfc" key="SWNETLINUX-5172">
+          <result value="FAILED">
+              <verdict>Cannot change indirection table after changing number of combined channels</verdict>
+              <verdict>Indirection table can be changed if only Rx queues allowed by the initial number of combined channels are used</verdict>
+          </result>
+	  <result value="PASSED"/>
+        </results>
       </iter>
     </test>
     <test name="af_xdp" type="script">
