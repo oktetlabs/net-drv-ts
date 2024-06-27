@@ -118,12 +118,14 @@
                 <value>1280</value>
                 <value>1500</value>
                 <value>1600</value>
-                <value>1960</value>
+                <!-- See NET-80 -->
+                <value>1948</value>
                 <value>9000</value>
                 <value>1280</value>
                 <value>1500</value>
                 <value>1600</value>
-                <value>1960</value>
+                <!-- See NET-80 -->
+                <value>1948</value>
                 <value>9000</value>
             </arg>
             <arg name="tx" type="boolean" list="offloads">
@@ -190,7 +192,8 @@
                 <value>1280</value>
                 <value>1500</value>
                 <value>1600</value>
-                <value>1960</value>
+                <!-- See NET-80 -->
+                <value>1948</value>
                 <value>9000</value>
             </arg>
             <arg name="tx" type="boolean"/>
