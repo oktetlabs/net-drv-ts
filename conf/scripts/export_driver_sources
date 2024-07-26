@@ -57,6 +57,7 @@ obtain_driver_sources() {
     local sfc_linux_net_src=
     local cns_auxiliary_bus_src=
     local x3_net_linux_src=
+    local ionic_linux_net_src=
 
     if test "${driver_name}" = "sfc" -o "${driver_name}" = "sfc_ef100" ; then
         if test -z "${SFC_LINUX_NET_SRC}" ; then
@@ -72,6 +73,11 @@ obtain_driver_sources() {
             guess_driver_sources X3_NET_LINUX_SRC x3-net-linux "${role}"
         fi
         x3_net_linux_src="${X3_NET_LINUX_SRC}"
+    elif test "${driver_name}" = "ionic" ; then
+        if test -z "${IONIC_LINUX_SRC}" ; then
+            guess_driver_sources IONIC_LINUX_SRC linux-ionic "${role}"
+        fi
+        ionic_linux_net_src="${IONIC_LINUX_SRC}"
     else
         if test -z "$driver_name" ; then
             if test "$role" = "TST1" ; then
@@ -89,6 +95,8 @@ obtain_driver_sources() {
         && eval "export TE_${role}_CNS_AUX_BUS_SRC=\"${cns_auxiliary_bus_src}\""
     test -n "${x3_net_linux_src}" \
         && eval "export TE_${role}_X3_NET_LINUX_SRC=\"${x3_net_linux_src}\""
+    test -n "${ionic_linux_net_src}" \
+        && eval "export TE_${role}_IONIC_LINUX_SRC=\"${ionic_linux_net_src}\""
 }
 
 obtain_driver_sources IUT "${TE_ENV_IUT_NET_DRIVER}"
@@ -111,6 +119,11 @@ if test "${TE_IUT_TA_TYPE}" = "${TE_TST1_TA_TYPE}" ; then
         test -z "${TE_IUT_X3_NET_LINUX_SRC}" \
             && export TE_IUT_X3_NET_LINUX_SRC="${TE_TST1_X3_NET_LINUX_SRC}" \
             || export TE_TST1_X3_NET_LINUX_SRC="${TE_IUT_X3_NET_LINUX_SRC}"
+    fi
+    if test "${TE_IUT_IONIC_LINUX_SRC}" != "${TE_TST1_IONIC_LINUX_SRC}" ; then
+        test -z "${TE_IUT_IONIC_LINUX_SRC}" \
+            && export TE_IUT_IONIC_LINUX_SRC="${TE_TST1_IONIC_LINUX_SRC}" \
+            || export TE_TST1_IONIC_LINUX_SRC="${TE_IUT_IONIC_LINUX_SRC}"
     fi
 fi
 
