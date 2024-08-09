@@ -601,12 +601,13 @@
         <results tags="xilinx_efct" key="NO-TSO" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
-        </result>
+          </result>
         </results>
         <results tags="ice&amp;linux-mm&lt;508" key="TSO6">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
           </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env">VAR.env.peer2peer</arg>
