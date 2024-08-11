@@ -253,6 +253,11 @@
             <verdict>Pause autonegotiation is disabled</verdict>
           </result>
         </results>
+        <results tags="ionic">
+          <result value="PASSED">
+            <verdict>Pause autonegotiation is disabled</verdict>
+          </result>
+        </results>
         <results tags="xilinx_efct" key="X3-892">
           <result value="PASSED">
             <verdict>Pause autonegotiation is disabled</verdict>
