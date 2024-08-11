@@ -22,6 +22,8 @@
 /* X3 driver name */
 #define NET_DRV_X3_DRIVER_NAME "xilinx_efct"
 
+#define NET_DRV_IONIC_DRIVER_NAME "ionic"
+
 /**
  * Wait until interface statistics are updated after sending or
  * receiving something. Increase sleep time from 1 to 2 according
