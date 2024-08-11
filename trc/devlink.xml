@@ -43,6 +43,11 @@
             <verdict>dist_layout parameter is not present</verdict>
           </result>
         </results>
+        <results tags="ionic" key="NO-DEVLINK" notes="ionic does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>dist_layout parameter is not present</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="ct_thresh" type="script">
@@ -72,6 +77,11 @@
           </result>
         </results>
         <results tags="sfc|sfc_ef100" key="NO-DEVLINK" notes="sfc does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>ct_thresh parameter is not present</verdict>
+          </result>
+        </results>
+        <results tags="ionic" key="NO-DEVLINK" notes="ionic does not provide devlink parameters">
           <result value="SKIPPED">
             <verdict>ct_thresh parameter is not present</verdict>
           </result>
@@ -111,6 +121,11 @@
           </result>
         </results>
         <results tags="sfc|sfc_ef100" key="NO-DEVLINK" notes="sfc does not provide devlink parameters">
+          <result value="SKIPPED">
+            <verdict>separated_cpu parameter is not present</verdict>
+          </result>
+        </results>
+        <results tags="ionic" key="NO-DEVLINK" notes="ionic does not provide devlink parameters">
           <result value="SKIPPED">
             <verdict>separated_cpu parameter is not present</verdict>
           </result>
