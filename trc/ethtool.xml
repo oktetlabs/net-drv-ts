@@ -240,6 +240,12 @@
             <verdict>Preset maximums RX: 8192, TX: 8192</verdict>
           </result>
         </results>
+        <results tags="ionic">
+          <result value="PASSED">
+            <verdict>Current ring sizes RX: 1024, TX: 1024</verdict>
+            <verdict>Preset maximums RX: 16384, TX: 8192</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="show_pause" type="script">
