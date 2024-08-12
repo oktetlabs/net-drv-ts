@@ -231,6 +231,11 @@
             <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="ionic" key="PS-12186" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -275,6 +280,11 @@
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="ionic" key="PS-12186" notes="rx-lro offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -314,6 +324,11 @@
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="ionic" key="PS-12186" notes="rx-lro offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -363,6 +378,11 @@
             <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="ionic" key="PS-12186" notes="rx-lro offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -420,6 +440,11 @@
             <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="ionic" key="PS-12186" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -457,6 +482,11 @@
         <results tags="virtio-pci" key="RX-VLAN-HW-PARSE" notes="VirtIO net does not support Rx VLAN strip">
           <result value="SKIPPED">
             <verdict>Feature 'rx-vlan-hw-parse' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="ionic" key="PS-12186" notes="rx-gro-hw offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
           </result>
         </results>
       </iter>
@@ -498,6 +528,11 @@
             <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="ionic" key="PS-12186" notes="rx-lro offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -545,6 +580,11 @@
         <results tags="sfc" key="SWNETLINUX-4961" notes="rx-gro-hw offload is not supported">
           <result value="SKIPPED">
             <verdict>Feature 'rx-gro-hw' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="ionic" key="PS-12186" notes="rx-lro offload is not supported">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-lro' is disabled and cannot be modified</verdict>
           </result>
         </results>
       </iter>
