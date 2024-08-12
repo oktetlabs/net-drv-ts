@@ -47,6 +47,11 @@
             <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="ionic" key="PS-12189" notes="ionic does not support FCS on Rx">
+          <result value="SKIPPED">
+            <verdict>Feature 'rx-fcs' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
       </iter>
     </test>
     <test name="rx_coalesce_usecs" type="script">
