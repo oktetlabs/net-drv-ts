@@ -89,6 +89,11 @@
             <verdict>Special insert locations are not supported for Rx rules</verdict>
           </result>
         </results>
+        <results tags="ionic" key="PS-12357">
+          <result value="SKIPPED">
+            <verdict>Rx rules are not supported</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -107,6 +112,11 @@
             <verdict>Special insert locations are not supported for Rx rules</verdict>
           </result>
         </results>
+        <results tags="ionic" key="PS-12357">
+          <result value="SKIPPED">
+            <verdict>Rx rules are not supported</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -120,6 +130,11 @@
             <verdict>Special insert locations are not supported for Rx rules</verdict>
           </result>
         </results>
+        <results tags="ionic" key="PS-12357">
+          <result value="SKIPPED">
+            <verdict>Rx rules are not supported</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -131,6 +146,11 @@
         <results tags="sfc" key="RX-RULE-NO-SET-LOC" notes="User cannot choose location for a rule">
           <result value="FAILED">
             <verdict>Failed to add Rx rule: TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="ionic" key="PS-12357">
+          <result value="SKIPPED">
+            <verdict>Rx rules are not supported</verdict>
           </result>
         </results>
       </iter>
@@ -149,6 +169,11 @@
         <results tags="i40e|ice|mlx5_core" key="RX-RULE-NO-SPEC-LOC">
           <result value="SKIPPED">
             <verdict>Special insert locations are not supported for Rx rules</verdict>
+          </result>
+        </results>
+        <results tags="ionic" key="PS-12357">
+          <result value="SKIPPED">
+            <verdict>Rx rules are not supported</verdict>
           </result>
         </results>
       </iter>
