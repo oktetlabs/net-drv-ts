@@ -167,6 +167,11 @@
             <verdict>Failed to add the second Rx rule: TA_UNIX-EOPNOTSUPP</verdict>
           </result>
         </results>
+        <results tags="ionic" key="PS-12357">
+          <result value="SKIPPED">
+            <verdict>Rx rules are not supported</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -184,6 +189,11 @@
             <verdict>Failed to add the second Rx rule: TA_UNIX-EOPNOTSUPP</verdict>
           </result>
         </results>
+        <results tags="ionic" key="PS-12357">
+          <result value="SKIPPED">
+            <verdict>Rx rules are not supported</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -199,6 +209,11 @@
         <results tags="ice|i40e" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
           <result value="FAILED">
             <verdict>Failed to add the second Rx rule: TA_UNIX-EOPNOTSUPP</verdict>
+          </result>
+        </results>
+        <results tags="ionic" key="PS-12357">
+          <result value="SKIPPED">
+            <verdict>Rx rules are not supported</verdict>
           </result>
         </results>
       </iter>

@@ -53,7 +53,14 @@ add_rule(const char *ta, const char *if_name,
     te_errno rc;
     int64_t location;
 
-    CHECK_RC(net_drv_rx_rules_find_loc(ta, if_name, &location));
+    rc = net_drv_rx_rules_find_loc(ta, if_name, &location);
+    if (rc != 0)
+    {
+        if (rc == TE_RC(TE_CS, TE_ENOENT))
+            TEST_SKIP("Rx rules are not supported");
+        else
+            TEST_VERDICT("Failed to find location for a new rule: %r", rc);
+    }
 
     CHECK_RC(tapi_cfg_rx_rule_add(ta, if_name, location, flow_type));
 
