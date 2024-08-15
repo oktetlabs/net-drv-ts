@@ -98,7 +98,9 @@
         </run>
 
         <run>
-            <script name="af_xdp"/>
+            <script name="af_xdp">
+                <req id="AF_XDP"/>
+            </script>
             <arg name="env">
                 <value ref="env.peer2peer"/>
                 <value ref="env.peer2peer_ipv6"/>
@@ -111,7 +113,9 @@
         </run>
 
         <run>
-            <script name="af_xdp_rx_rule"/>
+            <script name="af_xdp_rx_rule">
+                <req id="AF_XDP"/>
+            </script>
             <arg name="env">
                 <value ref="env.peer2peer"/>
                 <value ref="env.peer2peer_ipv6"/>
@@ -124,7 +128,9 @@
         </run>
 
         <run>
-            <script name="af_xdp_two_rules"/>
+            <script name="af_xdp_two_rules">
+                <req id="AF_XDP"/>
+            </script>
             <arg name="env">
                 <value ref="env.peer2peer"/>
                 <value ref="env.peer2peer_ipv6"/>
