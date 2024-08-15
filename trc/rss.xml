@@ -340,6 +340,11 @@
         <arg name="sock_type"/>
         <arg name="iters"/>
         <notes/>
+        <results tags="ionic" key="PS-12357">
+          <result value="SKIPPED">
+            <verdict>Rx rules are not supported</verdict>
+          </result>
+        </results>
       </iter>
     </test>
   </iter>

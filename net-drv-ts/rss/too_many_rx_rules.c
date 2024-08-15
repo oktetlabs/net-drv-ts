@@ -84,8 +84,16 @@ main(int argc, char *argv[])
 
     net_drv_rss_ctx_prepare(&rss_ctx, iut_rpcs->ta, iut_if->if_name, 0);
 
-    CHECK_RC(tapi_cfg_rx_rule_spec_loc_get(iut_rpcs->ta,
-                                           iut_if->if_name, &spec_loc));
+    rc = tapi_cfg_rx_rule_spec_loc_get(iut_rpcs->ta,
+                                       iut_if->if_name, &spec_loc);
+    if (rc != 0)
+    {
+        if (rc == TE_RC(TE_CS, TE_ENOENT))
+            TEST_SKIP("Rx rules are not supported");
+        else
+            TEST_VERDICT("Failed to check special location for a "
+                         "RX rules: %r", rc);
+    }
 
     TEST_STEP("Iterate @p iters times:");
     for (i = 0; i < iters; i++)
