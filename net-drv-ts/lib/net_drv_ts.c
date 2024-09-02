@@ -57,6 +57,10 @@ net_drv_driver_unloadable(const char *ta, const char *module)
 {
     te_errno rc;
     te_bool all_grabbed = FALSE;
+    const char *allow_unsafe = getenv("TE_ALLOW_UNSAFE_UNLOAD");
+
+    if (allow_unsafe != NULL && strcmp(allow_unsafe, "yes") == 0)
+        return TRUE;
 
     rc = tapi_cfg_module_check_devices(ta, module, &all_grabbed);
     if (rc == 0 && all_grabbed)
