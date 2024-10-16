@@ -26,6 +26,7 @@
         <arg name="tx_vlan_insert"/>
         <arg name="rx_coalesce_usecs"/>
         <arg name="rx_max_coalesced_frames"/>
+        <arg name="rx_ring"/>
         <notes/>
       </iter>
     </test>
@@ -49,6 +50,7 @@
         <arg name="tx_vlan_insert"/>
         <arg name="rx_coalesce_usecs"/>
         <arg name="rx_max_coalesced_frames"/>
+        <arg name="rx_ring"/>
         <notes/>
       </iter>
     </test>
@@ -72,6 +74,7 @@
         <arg name="tx_vlan_insert"/>
         <arg name="rx_coalesce_usecs"/>
         <arg name="rx_max_coalesced_frames"/>
+        <arg name="rx_ring"/>
         <notes/>
       </iter>
     </test>
@@ -95,6 +98,7 @@
         <arg name="tx_vlan_insert"/>
         <arg name="rx_coalesce_usecs"/>
         <arg name="rx_max_coalesced_frames"/>
+        <arg name="rx_ring"/>
         <notes/>
       </iter>
     </test>
@@ -118,6 +122,7 @@
         <arg name="tx_vlan_insert"/>
         <arg name="rx_coalesce_usecs"/>
         <arg name="rx_max_coalesced_frames"/>
+        <arg name="rx_ring"/>
         <notes/>
       </iter>
     </test>
@@ -141,6 +146,7 @@
         <arg name="tx_vlan_insert"/>
         <arg name="rx_coalesce_usecs"/>
         <arg name="rx_max_coalesced_frames"/>
+        <arg name="rx_ring"/>
         <notes/>
       </iter>
     </test>
@@ -164,6 +170,31 @@
         <arg name="tx_vlan_insert"/>
         <arg name="rx_coalesce_usecs"/>
         <arg name="rx_max_coalesced_frames"/>
+        <arg name="rx_ring"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="tcp_perf3_rx_ring" type="script">
+      <objective>Report TCP or UDP performance</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="perf_bench"/>
+        <arg name="dual_mode"/>
+        <arg name="protocol"/>
+        <arg name="n_perf_insts"/>
+        <arg name="n_streams"/>
+        <arg name="bandwidth"/>
+        <arg name="rx_csum"/>
+        <arg name="rx_gro"/>
+        <arg name="rx_vlan_strip"/>
+        <arg name="tx_csum"/>
+        <arg name="tx_gso"/>
+        <arg name="tso"/>
+        <arg name="tx_vlan_insert"/>
+        <arg name="rx_coalesce_usecs"/>
+        <arg name="rx_max_coalesced_frames"/>
+        <arg name="rx_ring"/>
         <notes/>
       </iter>
     </test>

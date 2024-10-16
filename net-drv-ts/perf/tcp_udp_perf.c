@@ -43,6 +43,12 @@
  *                                   - @c -1 (keep default settings)
  *                                   - @c 0 (do not coalesce based on it)
  *                                   - @c 1 (interrupt moderation is disabled)
+ * @param rx_ring           Rx rings size:
+ *                           - @c -1 (keep default)
+ *                           - @c 0 (maximum)
+ *                           - @c 64
+ *                           - @c 512
+ *                           - @c 1024
  *
  * @type performance
  *
@@ -62,6 +68,7 @@
 #include "tapi_rpc_params.h"
 #include "tapi_job_factory_rpc.h"
 #include "tapi_cfg_cpu.h"
+#include "tapi_cfg_if.h"
 #include "tapi_cfg_if_coalesce.h"
 
 #define TEST_BENCH_DURATION_SEC 6
@@ -153,6 +160,7 @@ main(int argc, char *argv[])
     te_bool3                                tx_vlan_insert;
     int                                     rx_coalesce_usecs;
     int                                     rx_max_coalesced_frames;
+    int                                     rx_ring;
 
     rcf_rpc_server                         *server_rpcs = NULL;
     rcf_rpc_server                         *client_rpcs = NULL;
@@ -206,6 +214,7 @@ main(int argc, char *argv[])
     TEST_GET_BOOL_WITH_DEFAULT(tx_vlan_insert);
     TEST_GET_INT_PARAM(rx_coalesce_usecs);
     TEST_GET_INT_PARAM(rx_max_coalesced_frames);
+    TEST_GET_INT_PARAM(rx_ring);
     TEST_GET_PCO(server_rpcs);
     TEST_GET_PCO(client_rpcs);
     TEST_GET_IF(server_if);
@@ -284,6 +293,23 @@ main(int argc, char *argv[])
             TEST_SKIP("Requested Rx coalesce settings are not supported");
         if (rc != 0)
             TEST_VERDICT("Failed to set rx_coalesce_usecs, rc=%r", rc);
+    }
+
+    if (rx_ring != -1)
+    {
+        TEST_STEP("Set Rx ring size according to @p rx_ring on IUT interface.");
+        if (rx_ring == 0)
+            rc = tapi_cfg_if_set_ring_size_to_max(iut_rpcs->ta,
+                                                  iut_if->if_name,
+                                                  TRUE, NULL);
+        else
+            rc = tapi_cfg_if_set_ring_size(iut_rpcs->ta, iut_if->if_name,
+                                           TRUE, rx_ring);
+
+        if (TE_RC_GET_ERROR(rc) == TE_EOPNOTSUPP)
+            TEST_SKIP("Cannot change Rx ring size");
+        else if (rc != 0)
+            TEST_VERDICT("Failed to set Rx ring size: %r", rc);
     }
 
     TEST_STEP("If @p rx_vlan_strip or @p tx_vlan_insert is not default, "
