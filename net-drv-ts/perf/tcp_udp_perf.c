@@ -34,6 +34,15 @@
  *                          preserve default
  * @param tx_vlan_insert    Enable, disable Tx VLAN insertion offload or
  *                          preserve default
+ * @param rx_coalesce_usecs Value to set for @b rx_coalesce_usecs:
+ *                           - @c -1 (keep default settings)
+ *                           - @c 0 (interrupt moderation is disabled)
+ *                           - @c 30
+ *                           - @c 150
+ * @param rx_max_coalesced_frames   Value to set @b  rx_max_coalesced_frames:
+ *                                   - @c -1 (keep default settings)
+ *                                   - @c 0 (do not coalesce based on it)
+ *                                   - @c 1 (interrupt moderation is disabled)
  *
  * @type performance
  *
@@ -53,6 +62,7 @@
 #include "tapi_rpc_params.h"
 #include "tapi_job_factory_rpc.h"
 #include "tapi_cfg_cpu.h"
+#include "tapi_cfg_if_coalesce.h"
 
 #define TEST_BENCH_DURATION_SEC 6
 #define MAX_PERF_INSTS 32
@@ -141,6 +151,8 @@ main(int argc, char *argv[])
     te_bool3                                tx_gso;
     te_bool3                                tso;
     te_bool3                                tx_vlan_insert;
+    int                                     rx_coalesce_usecs;
+    int                                     rx_max_coalesced_frames;
 
     rcf_rpc_server                         *server_rpcs = NULL;
     rcf_rpc_server                         *client_rpcs = NULL;
@@ -192,6 +204,8 @@ main(int argc, char *argv[])
     TEST_GET_BOOL_WITH_DEFAULT(tx_gso);
     TEST_GET_BOOL_WITH_DEFAULT(tso);
     TEST_GET_BOOL_WITH_DEFAULT(tx_vlan_insert);
+    TEST_GET_INT_PARAM(rx_coalesce_usecs);
+    TEST_GET_INT_PARAM(rx_max_coalesced_frames);
     TEST_GET_PCO(server_rpcs);
     TEST_GET_PCO(client_rpcs);
     TEST_GET_IF(server_if);
@@ -234,6 +248,43 @@ main(int argc, char *argv[])
     TEST_STEP("Configure HW VLAN insertion on IUT interface if specified");
     test_set_if_feature(iut_rpcs->ta, iut_if->if_name, "tx-vlan-hw-insert",
                         tx_vlan_insert);
+
+    TEST_STEP("If @p rx_coalesce_usecs or @p rx_max_coalesced_frames is not "
+              "-1, configure Rx coalesce on IUT interface.");
+    if (rx_coalesce_usecs != -1 || rx_max_coalesced_frames != -1)
+    {
+        TEST_SUBSTEP("Disable @b use_adaptive_rx_coalesce on IUT interface.");
+
+        rc = tapi_cfg_if_coalesce_set(iut_rpcs->ta, iut_if->if_name,
+                                      "use_adaptive_rx_coalesce", 0);
+        if (rc != 0)
+            TEST_VERDICT("Failed to set use_adaptive_rx_coalesce, rc=%r", rc);
+
+        if (rx_coalesce_usecs != -1)
+        {
+            TEST_SUBSTEP("If @p rx_coalesce_usecs is not -1, "
+                         "configure it IUT interface.");
+            CHECK_RC(tapi_cfg_if_coalesce_set_local(iut_rpcs->ta,
+                                                    iut_if->if_name,
+                                                    "rx_coalesce_usecs",
+                                                    rx_coalesce_usecs));
+        }
+        if (rx_max_coalesced_frames != -1)
+        {
+            TEST_SUBSTEP("If @p rx_max_coalesced_frames is not -1, "
+                         "configure it IUT interface.");
+            CHECK_RC(tapi_cfg_if_coalesce_set_local(iut_rpcs->ta,
+                                                    iut_if->if_name,
+                                                    "rx_max_coalesced_frames",
+                                                    rx_max_coalesced_frames));
+        }
+
+        rc = tapi_cfg_if_coalesce_commit(iut_rpcs->ta, iut_if->if_name);
+        if (TE_RC_GET_ERROR(rc) == TE_EOPNOTSUPP)
+            TEST_SKIP("Requested Rx coalesce settings are not supported");
+        if (rc != 0)
+            TEST_VERDICT("Failed to set rx_coalesce_usecs, rc=%r", rc);
+    }
 
     TEST_STEP("If @p rx_vlan_strip or @p tx_vlan_insert is not default, "
               "create VLANs, assign addresses and use it for traffic "
