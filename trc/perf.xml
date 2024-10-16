@@ -19,6 +19,7 @@
         <arg name="bandwidth"/>
         <arg name="rx_csum"/>
         <arg name="rx_gro"/>
+        <arg name="rx_vlan_strip"/>
         <notes/>
       </iter>
     </test>
@@ -35,6 +36,7 @@
         <arg name="bandwidth"/>
         <arg name="rx_csum"/>
         <arg name="rx_gro"/>
+        <arg name="rx_vlan_strip"/>
         <notes/>
       </iter>
     </test>
@@ -51,6 +53,7 @@
         <arg name="bandwidth"/>
         <arg name="rx_csum"/>
         <arg name="rx_gro"/>
+        <arg name="rx_vlan_strip"/>
         <notes/>
       </iter>
     </test>
@@ -67,6 +70,7 @@
         <arg name="bandwidth"/>
         <arg name="rx_csum"/>
         <arg name="rx_gro"/>
+        <arg name="rx_vlan_strip"/>
         <notes/>
       </iter>
     </test>
@@ -83,6 +87,7 @@
         <arg name="bandwidth"/>
         <arg name="rx_csum"/>
         <arg name="rx_gro"/>
+        <arg name="rx_vlan_strip"/>
         <notes/>
       </iter>
     </test>

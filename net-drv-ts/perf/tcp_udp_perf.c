@@ -24,6 +24,8 @@
  *                          preserve default
  * @param rx_gro            Enable, disable Rx GRO offload or
  *                          preserve default
+ * @param rx_vlan_strip     Enable, disable Rx VLAN stripping offload or
+ *                          preserve default
  *
  * @type performance
  *
@@ -126,9 +128,12 @@ main(int argc, char *argv[])
     const struct if_nameindex              *iut_if = NULL;
     te_bool3                                rx_csum;
     te_bool3                                rx_gro;
+    te_bool3                                rx_vlan_strip;
 
     rcf_rpc_server                         *server_rpcs = NULL;
     rcf_rpc_server                         *client_rpcs = NULL;
+    const struct if_nameindex              *server_if = NULL;
+    const struct if_nameindex              *client_if = NULL;
     const struct sockaddr                  *server_addr = NULL;
     const struct sockaddr                  *client_addr = NULL;
     uint16_t                                server_ports[MAX_PERF_INSTS];
@@ -170,8 +175,11 @@ main(int argc, char *argv[])
     TEST_GET_IF(iut_if);
     TEST_GET_BOOL_WITH_DEFAULT(rx_csum);
     TEST_GET_BOOL_WITH_DEFAULT(rx_gro);
+    TEST_GET_BOOL_WITH_DEFAULT(rx_vlan_strip);
     TEST_GET_PCO(server_rpcs);
     TEST_GET_PCO(client_rpcs);
+    TEST_GET_IF(server_if);
+    TEST_GET_IF(client_if);
     TEST_GET_ADDR(server_rpcs, server_addr);
     TEST_GET_ADDR_NO_PORT(client_addr);
     TEST_GET_PERF_BENCH(perf_bench);
@@ -181,8 +189,6 @@ main(int argc, char *argv[])
     TEST_GET_INT64_PARAM(bandwidth);
     TEST_GET_PROTOCOL(protocol);
 
-    CHECK_NOT_NULL(server_addr_str = te_ip2str(server_addr));
-    CHECK_NOT_NULL(client_addr_str = te_ip2str(client_addr));
     CHECK_RC(n_perf_insts < MAX_PERF_INSTS ? 0 : TE_EINVAL);
 
     TEST_STEP("Configure Rx checksum offload on IUT interface if specified");
@@ -190,6 +196,32 @@ main(int argc, char *argv[])
 
     TEST_STEP("Configure GRO on IUT interface if specified");
     test_set_if_feature(iut_rpcs->ta, iut_if->if_name, "rx-gro", rx_gro);
+
+    TEST_STEP("Configure HW VLAN stripping on IUT interface if specified");
+    test_set_if_feature(iut_rpcs->ta, iut_if->if_name, "rx-vlan-hw-parse",
+                        rx_vlan_strip);
+
+    TEST_STEP("If @p rx_vlan_strip is not default, create VLANs, "
+              "assign addresses and use it for traffic checks below.");
+    if (rx_vlan_strip != TE_BOOL3_UNKNOWN)
+    {
+        struct sockaddr *client_addr2 = NULL;
+        struct sockaddr *server_addr2 = NULL;
+
+        net_drv_ts_add_vlan(client_rpcs->ta, server_rpcs->ta,
+                            client_if->if_name, server_if->if_name,
+                            client_addr->sa_family, NULL,
+                            &client_addr2, &server_addr2);
+
+        te_sockaddr_set_port(client_addr2, te_sockaddr_get_port(client_addr));
+        client_addr = client_addr2;
+        te_sockaddr_set_port(server_addr2, te_sockaddr_get_port(server_addr));
+        server_addr = server_addr2;
+
+        CFG_WAIT_CHANGES;
+    }
+    CHECK_NOT_NULL(server_addr_str = te_ip2str(server_addr));
+    CHECK_NOT_NULL(client_addr_str = te_ip2str(client_addr));
 
     TEST_STEP("Set default perf options");
     tapi_perf_opts_init(&perf_opts);

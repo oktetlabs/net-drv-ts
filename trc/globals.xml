@@ -28,11 +28,14 @@
                 },
                 'client_host'{
                     {'tst_rpcs':tester},
+                    if:'tst_if',
                     addr:'client_addr':inet:unicast
                 }
             },
             'client_rpcs'='tst_rpcs',
-            'server_rpcs'='iut_rpcs'
+            'client_if'='tst_if',
+            'server_rpcs'='iut_rpcs',
+            'server_if'='iut_if'
         </value>
     </global>
 
@@ -46,11 +49,14 @@
                 },
                 'server_host'{
                     {'tst_rpcs':tester},
+                    if:'tst_if',
                     addr:'server_addr':inet:unicast
                 }
             },
             'client_rpcs'='iut_rpcs',
-            'server_rpcs'='tst_rpcs'
+            'client_if'='iut_if',
+            'server_rpcs'='tst_rpcs',
+            'server_if'='tst_if'
         </value>
     </global>
 
@@ -64,11 +70,14 @@
                 },
                 'client_host'{
                     {'tst_rpcs':tester},
+                    if:'tst_if',
                     addr:'client_addr':inet6:unicast
                 }
             },
             'client_rpcs'='tst_rpcs',
-            'server_rpcs'='iut_rpcs'
+            'client_if'='tst_if',
+            'server_rpcs'='iut_rpcs',
+            'server_if'='iut_if'
         </value>
     </global>
 
@@ -82,11 +91,14 @@
                 },
                 'server_host'{
                     {'tst_rpcs':tester},
+                    if:'tst_if',
                     addr:'server_addr':inet6:unicast
                 }
             },
             'client_rpcs'='iut_rpcs',
-            'server_rpcs'='tst_rpcs'
+            'client_if'='iut_if',
+            'server_rpcs'='tst_rpcs',
+            'server_if'='tst_if'
         </value>
     </global>
 
