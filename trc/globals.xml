@@ -23,6 +23,7 @@
             'net':IUT{
                 'server_host'{
                     {'iut_rpcs':IUT},
+                    if:'iut_if',
                     addr:'server_addr':inet:unicast
                 },
                 'client_host'{
@@ -40,6 +41,7 @@
             'net':IUT{
                 'client_host'{
                     {'iut_rpcs':IUT},
+                    if:'iut_if',
                     addr:'client_addr':inet:unicast
                 },
                 'server_host'{
@@ -57,6 +59,7 @@
             'net':IUT{
                 'server_host'{
                     {'iut_rpcs':IUT},
+                    if:'iut_if',
                     addr:'server_addr':inet6:unicast
                 },
                 'client_host'{
@@ -74,6 +77,7 @@
             'net':IUT{
                 'client_host'{
                     {'iut_rpcs':IUT},
+                    if:'iut_if',
                     addr:'client_addr':inet6:unicast
                 },
                 'server_host'{

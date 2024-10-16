@@ -20,6 +20,8 @@
  * @param bandwidth         Target bandwidth in Mbps, negative means
  *                          some internal tool value for UDP,
  *                          unlimited for TCP
+ * @param rx_csum           Enable, disable Rx checksum offload or
+ *                          preserve default
  *
  * @type performance
  *
@@ -42,6 +44,32 @@
 
 #define TEST_BENCH_DURATION_SEC 6
 #define MAX_PERF_INSTS 32
+
+/**
+ * The list of values allowed for parameter of type 'bool_with_default'
+ */
+#define BOOL_WITH_DEFAULT_MAPPING_LIST  \
+    { "DEFAULT", TE_BOOL3_UNKNOWN },    \
+    { "FALSE",   TE_BOOL3_FALSE },      \
+    { "TRUE",    TE_BOOL3_TRUE }
+
+/**
+ * Get the value of parameter of type 'bool_with_default'
+ *
+ * @param var_name_  Name of the variable used to get the value of
+ *                   "var_name_" parameter of type 'bool_with_default' (OUT)
+ */
+#define TEST_GET_BOOL_WITH_DEFAULT(var_name_) \
+    TEST_GET_ENUM_PARAM(var_name_, BOOL_WITH_DEFAULT_MAPPING_LIST)
+
+static void
+test_set_if_feature(const char *ta, const char *if_name,
+                    const char *feature_name, te_bool3 value)
+{
+    if (value != TE_BOOL3_UNKNOWN)
+        net_drv_set_if_feature(ta, if_name, feature_name,
+                               value == TE_BOOL3_FALSE ? 0 : 1);
+}
 
 static void
 init_perf_insts(tapi_perf_server **servers, tapi_perf_client **clients)
@@ -92,6 +120,10 @@ perf_summary_throughput_mi_log(const double server_throughput,
 int
 main(int argc, char *argv[])
 {
+    rcf_rpc_server                         *iut_rpcs = NULL;
+    const struct if_nameindex              *iut_if = NULL;
+    te_bool3                                rx_csum;
+
     rcf_rpc_server                         *server_rpcs = NULL;
     rcf_rpc_server                         *client_rpcs = NULL;
     const struct sockaddr                  *server_addr = NULL;
@@ -131,6 +163,9 @@ main(int argc, char *argv[])
     init_perf_insts(perf_servers, perf_clients);
 
     TEST_START;
+    TEST_GET_PCO(iut_rpcs);
+    TEST_GET_IF(iut_if);
+    TEST_GET_BOOL_WITH_DEFAULT(rx_csum);
     TEST_GET_PCO(server_rpcs);
     TEST_GET_PCO(client_rpcs);
     TEST_GET_ADDR(server_rpcs, server_addr);
@@ -145,6 +180,9 @@ main(int argc, char *argv[])
     CHECK_NOT_NULL(server_addr_str = te_ip2str(server_addr));
     CHECK_NOT_NULL(client_addr_str = te_ip2str(client_addr));
     CHECK_RC(n_perf_insts < MAX_PERF_INSTS ? 0 : TE_EINVAL);
+
+    TEST_STEP("Configure Rx checksum offload on IUT interface if specified");
+    test_set_if_feature(iut_rpcs->ta, iut_if->if_name, "rx-checksum", rx_csum);
 
     TEST_STEP("Set default perf options");
     tapi_perf_opts_init(&perf_opts);

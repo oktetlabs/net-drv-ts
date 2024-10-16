@@ -12,11 +12,19 @@
 
     <session track_conf="silent" track_conf_handdown="descendants">
 
+        <enum name="bool_with_default">
+            <!--- Boolean parameter with unspecified default. -->
+            <value>DEFAULT</value>
+            <value>FALSE</value>
+            <value>TRUE</value>
+        </enum>
+
         <var name="env.peer2peer.iut_server" global="true">
             <value reqs="IP4">
                 'net':IUT{
                     'server_host'{
                         {'iut_rpcs':IUT},
+                        if:'iut_if',
                         addr:'server_addr':inet:unicast
                     },
                     'client_host'{
@@ -34,6 +42,7 @@
                 'net':IUT{
                     'client_host'{
                         {'iut_rpcs':IUT},
+                        if:'iut_if',
                         addr:'client_addr':inet:unicast
                     },
                     'server_host'{
@@ -51,6 +60,7 @@
                 'net':IUT{
                     'server_host'{
                         {'iut_rpcs':IUT},
+                        if:'iut_if',
                         addr:'server_addr':inet6:unicast
                     },
                     'client_host'{
@@ -68,6 +78,7 @@
                 'net':IUT{
                     'client_host'{
                         {'iut_rpcs':IUT},
+                        if:'iut_if',
                         addr:'client_addr':inet6:unicast
                     },
                     'server_host'{
@@ -118,6 +129,9 @@
                     <arg name="bandwidth">
                         <value>-1</value>
                     </arg>
+                    <arg name="rx_csum" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="tcp_perf3">
@@ -155,6 +169,9 @@
                     <arg name="bandwidth">
                         <value>-1</value>
                     </arg>
+                    <arg name="rx_csum" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="udp_perf2">
@@ -187,6 +204,9 @@
                     </arg>
                     <arg name="bandwidth">
                         <value>1000</value>
+                    </arg>
+                    <arg name="rx_csum" type="bool_with_default">
+                        <value>DEFAULT</value>
                     </arg>
                 </run>
 
@@ -224,6 +244,41 @@
                     </arg>
                     <arg name="bandwidth">
                         <value>1000</value>
+                    </arg>
+                    <arg name="rx_csum" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
+                </run>
+
+                <run name="tcp_perf3_rx_offloads">
+                    <script name="tcp_udp_perf">
+                        <objective>Measure TCP performace using iperf3 depending on Rx offloads</objective>
+                    </script>
+                    <arg name="env">
+                      <value ref="env.peer2peer.iut_server"/>
+                      <value ref="env.peer2peer.iut_server_ip6"/>
+                    </arg>
+                    <arg name="perf_bench" type="perf_bench.all">
+                        <value>iperf3</value>
+                    </arg>
+                    <arg name="dual_mode" type="boolean">
+                        <value>FALSE</value>
+                    </arg>
+                    <arg name="protocol">
+                        <value>IPPROTO_TCP</value>
+                    </arg>
+                    <arg name="n_perf_insts">
+                        <value>1</value>
+                    </arg>
+                    <arg name="n_streams">
+                        <value>1</value>
+                    </arg>
+                    <arg name="bandwidth">
+                        <value>-1</value>
+                    </arg>
+                    <arg name="rx_csum" type="bool_with_default">
+                        <value>FALSE</value>
+                        <value>TRUE</value>
                     </arg>
                 </run>
 

@@ -17,6 +17,7 @@
         <arg name="n_perf_insts"/>
         <arg name="n_streams"/>
         <arg name="bandwidth"/>
+        <arg name="rx_csum"/>
         <notes/>
       </iter>
     </test>
@@ -31,6 +32,7 @@
         <arg name="n_perf_insts"/>
         <arg name="n_streams"/>
         <arg name="bandwidth"/>
+        <arg name="rx_csum"/>
         <notes/>
       </iter>
     </test>
@@ -45,6 +47,7 @@
         <arg name="n_perf_insts"/>
         <arg name="n_streams"/>
         <arg name="bandwidth"/>
+        <arg name="rx_csum"/>
         <notes/>
       </iter>
     </test>
@@ -59,6 +62,22 @@
         <arg name="n_perf_insts"/>
         <arg name="n_streams"/>
         <arg name="bandwidth"/>
+        <arg name="rx_csum"/>
+        <notes/>
+      </iter>
+    </test>
+    <test name="tcp_perf3_rx_offloads" type="script">
+      <objective>Report TCP or UDP performance</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="perf_bench"/>
+        <arg name="dual_mode"/>
+        <arg name="protocol"/>
+        <arg name="n_perf_insts"/>
+        <arg name="n_streams"/>
+        <arg name="bandwidth"/>
+        <arg name="rx_csum"/>
         <notes/>
       </iter>
     </test>
