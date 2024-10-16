@@ -32,6 +32,8 @@
  *                          preserve default
  * @param tso               Enable, disable TSO offload or
  *                          preserve default
+ * @param tx_vlan_insert    Enable, disable Tx VLAN insertion offload or
+ *                          preserve default
  *
  * @type performance
  *
@@ -138,6 +140,7 @@ main(int argc, char *argv[])
     te_bool3                                tx_csum;
     te_bool3                                tx_gso;
     te_bool3                                tso;
+    te_bool3                                tx_vlan_insert;
 
     rcf_rpc_server                         *server_rpcs = NULL;
     rcf_rpc_server                         *client_rpcs = NULL;
@@ -188,6 +191,7 @@ main(int argc, char *argv[])
     TEST_GET_BOOL_WITH_DEFAULT(tx_csum);
     TEST_GET_BOOL_WITH_DEFAULT(tx_gso);
     TEST_GET_BOOL_WITH_DEFAULT(tso);
+    TEST_GET_BOOL_WITH_DEFAULT(tx_vlan_insert);
     TEST_GET_PCO(server_rpcs);
     TEST_GET_PCO(client_rpcs);
     TEST_GET_IF(server_if);
@@ -227,9 +231,14 @@ main(int argc, char *argv[])
                         "tx-tcp-segmentation" : "tx-tcp6-segmentation",
                         tso);
 
-    TEST_STEP("If @p rx_vlan_strip is not default, create VLANs, "
-              "assign addresses and use it for traffic checks below.");
-    if (rx_vlan_strip != TE_BOOL3_UNKNOWN)
+    TEST_STEP("Configure HW VLAN insertion on IUT interface if specified");
+    test_set_if_feature(iut_rpcs->ta, iut_if->if_name, "tx-vlan-hw-insert",
+                        tx_vlan_insert);
+
+    TEST_STEP("If @p rx_vlan_strip or @p tx_vlan_insert is not default, "
+              "create VLANs, assign addresses and use it for traffic "
+              "checks below.");
+    if (rx_vlan_strip != TE_BOOL3_UNKNOWN || tx_vlan_insert != TE_BOOL3_UNKNOWN)
     {
         struct sockaddr *client_addr2 = NULL;
         struct sockaddr *server_addr2 = NULL;

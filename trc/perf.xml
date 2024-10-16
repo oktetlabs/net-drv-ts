@@ -23,6 +23,7 @@
         <arg name="tx_csum"/>
         <arg name="tx_gso"/>
         <arg name="tso"/>
+        <arg name="tx_vlan_insert"/>
         <notes/>
       </iter>
     </test>
@@ -43,6 +44,7 @@
         <arg name="tx_csum"/>
         <arg name="tx_gso"/>
         <arg name="tso"/>
+        <arg name="tx_vlan_insert"/>
         <notes/>
       </iter>
     </test>
@@ -63,6 +65,7 @@
         <arg name="tx_csum"/>
         <arg name="tx_gso"/>
         <arg name="tso"/>
+        <arg name="tx_vlan_insert"/>
         <notes/>
       </iter>
     </test>
@@ -83,6 +86,7 @@
         <arg name="tx_csum"/>
         <arg name="tx_gso"/>
         <arg name="tso"/>
+        <arg name="tx_vlan_insert"/>
         <notes/>
       </iter>
     </test>
@@ -103,6 +107,7 @@
         <arg name="tx_csum"/>
         <arg name="tx_gso"/>
         <arg name="tso"/>
+        <arg name="tx_vlan_insert"/>
         <notes/>
       </iter>
     </test>
@@ -123,6 +128,7 @@
         <arg name="tx_csum"/>
         <arg name="tx_gso"/>
         <arg name="tso"/>
+        <arg name="tx_vlan_insert"/>
         <notes/>
       </iter>
     </test>

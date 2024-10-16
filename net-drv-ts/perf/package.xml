@@ -159,6 +159,9 @@
                     <arg name="tso" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="tx_vlan_insert" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="tcp_perf3">
@@ -214,6 +217,9 @@
                     <arg name="tso" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="tx_vlan_insert" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="udp_perf2">
@@ -263,6 +269,9 @@
                         <value>DEFAULT</value>
                     </arg>
                     <arg name="tso" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
+                    <arg name="tx_vlan_insert" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
                 </run>
@@ -320,6 +329,9 @@
                     <arg name="tso" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="tx_vlan_insert" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="tcp_perf3_rx_offloads">
@@ -364,6 +376,9 @@
                         <value>DEFAULT</value>
                     </arg>
                     <arg name="tso" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
+                    <arg name="tx_vlan_insert" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
                 </run>
@@ -424,6 +439,7 @@
                         <value>FALSE</value>
                         <value>TRUE</value>
                     </arg>
+                    <arg name="tx_vlan_insert" type="bool_with_default"/>
                 </run>
 
             </session>
