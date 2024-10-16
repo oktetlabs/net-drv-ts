@@ -26,6 +26,8 @@
  *                          preserve default
  * @param rx_vlan_strip     Enable, disable Rx VLAN stripping offload or
  *                          preserve default
+ * @param tx_csum           Enable, disable Tx checksum offload or
+ *                          preserve default
  *
  * @type performance
  *
@@ -129,6 +131,7 @@ main(int argc, char *argv[])
     te_bool3                                rx_csum;
     te_bool3                                rx_gro;
     te_bool3                                rx_vlan_strip;
+    te_bool3                                tx_csum;
 
     rcf_rpc_server                         *server_rpcs = NULL;
     rcf_rpc_server                         *client_rpcs = NULL;
@@ -176,6 +179,7 @@ main(int argc, char *argv[])
     TEST_GET_BOOL_WITH_DEFAULT(rx_csum);
     TEST_GET_BOOL_WITH_DEFAULT(rx_gro);
     TEST_GET_BOOL_WITH_DEFAULT(rx_vlan_strip);
+    TEST_GET_BOOL_WITH_DEFAULT(tx_csum);
     TEST_GET_PCO(server_rpcs);
     TEST_GET_PCO(client_rpcs);
     TEST_GET_IF(server_if);
@@ -200,6 +204,10 @@ main(int argc, char *argv[])
     TEST_STEP("Configure HW VLAN stripping on IUT interface if specified");
     test_set_if_feature(iut_rpcs->ta, iut_if->if_name, "rx-vlan-hw-parse",
                         rx_vlan_strip);
+
+    TEST_STEP("Configure Tx checksum offload on IUT interface if specified");
+    test_set_if_feature(iut_rpcs->ta, iut_if->if_name,
+                        "tx-checksum-ip-generic", tx_csum);
 
     TEST_STEP("If @p rx_vlan_strip is not default, create VLANs, "
               "assign addresses and use it for traffic checks below.");
