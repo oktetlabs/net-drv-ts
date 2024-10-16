@@ -21,6 +21,7 @@
         <arg name="rx_gro"/>
         <arg name="rx_vlan_strip"/>
         <arg name="tx_csum"/>
+        <arg name="tx_gso"/>
         <notes/>
       </iter>
     </test>
@@ -39,6 +40,7 @@
         <arg name="rx_gro"/>
         <arg name="rx_vlan_strip"/>
         <arg name="tx_csum"/>
+        <arg name="tx_gso"/>
         <notes/>
       </iter>
     </test>
@@ -57,6 +59,7 @@
         <arg name="rx_gro"/>
         <arg name="rx_vlan_strip"/>
         <arg name="tx_csum"/>
+        <arg name="tx_gso"/>
         <notes/>
       </iter>
     </test>
@@ -75,6 +78,7 @@
         <arg name="rx_gro"/>
         <arg name="rx_vlan_strip"/>
         <arg name="tx_csum"/>
+        <arg name="tx_gso"/>
         <notes/>
       </iter>
     </test>
@@ -93,6 +97,7 @@
         <arg name="rx_gro"/>
         <arg name="rx_vlan_strip"/>
         <arg name="tx_csum"/>
+        <arg name="tx_gso"/>
         <notes/>
       </iter>
     </test>
@@ -111,6 +116,7 @@
         <arg name="rx_gro"/>
         <arg name="rx_vlan_strip"/>
         <arg name="tx_csum"/>
+        <arg name="tx_gso"/>
         <notes/>
       </iter>
     </test>

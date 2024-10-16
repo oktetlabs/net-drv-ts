@@ -153,6 +153,9 @@
                     <arg name="tx_csum" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="tx_gso" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="tcp_perf3">
@@ -202,6 +205,9 @@
                     <arg name="tx_csum" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="tx_gso" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="udp_perf2">
@@ -245,6 +251,9 @@
                         <value>DEFAULT</value>
                     </arg>
                     <arg name="tx_csum" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
+                    <arg name="tx_gso" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
                 </run>
@@ -296,6 +305,9 @@
                     <arg name="tx_csum" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="tx_gso" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="tcp_perf3_rx_offloads">
@@ -336,6 +348,9 @@
                     <arg name="tx_csum" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="tx_gso" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="tcp_perf3_tx_offloads">
@@ -373,7 +388,15 @@
                     <arg name="rx_vlan_strip" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
-                    <arg name="tx_csum" type="bool_with_default">
+                    <arg name="tx_csum" type="bool_with_default"
+                        list="offloads">
+                        <value>FALSE</value>
+                        <value>TRUE</value>
+                        <value>TRUE</value>
+                    </arg>
+                    <arg name="tx_gso" type="bool_with_default"
+                        list="offloads">
+                        <value>FALSE</value>
                         <value>FALSE</value>
                         <value>TRUE</value>
                     </arg>
