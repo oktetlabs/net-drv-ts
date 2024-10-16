@@ -156,6 +156,9 @@
                     <arg name="tx_gso" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="tso" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="tcp_perf3">
@@ -208,6 +211,9 @@
                     <arg name="tx_gso" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="tso" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="udp_perf2">
@@ -254,6 +260,9 @@
                         <value>DEFAULT</value>
                     </arg>
                     <arg name="tx_gso" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
+                    <arg name="tso" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
                 </run>
@@ -308,6 +317,9 @@
                     <arg name="tx_gso" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="tso" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="tcp_perf3_rx_offloads">
@@ -349,6 +361,9 @@
                         <value>DEFAULT</value>
                     </arg>
                     <arg name="tx_gso" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
+                    <arg name="tso" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
                 </run>
@@ -393,9 +408,18 @@
                         <value>FALSE</value>
                         <value>TRUE</value>
                         <value>TRUE</value>
+                        <value>TRUE</value>
                     </arg>
                     <arg name="tx_gso" type="bool_with_default"
                         list="offloads">
+                        <value>FALSE</value>
+                        <value>FALSE</value>
+                        <value>TRUE</value>
+                        <value>FALSE</value>
+                    </arg>
+                    <arg name="tso" type="bool_with_default"
+                        list="offloads">
+                        <value>FALSE</value>
                         <value>FALSE</value>
                         <value>FALSE</value>
                         <value>TRUE</value>
