@@ -132,6 +132,9 @@
                     <arg name="rx_csum" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="rx_gro" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="tcp_perf3">
@@ -172,6 +175,9 @@
                     <arg name="rx_csum" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="rx_gro" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="udp_perf2">
@@ -206,6 +212,9 @@
                         <value>1000</value>
                     </arg>
                     <arg name="rx_csum" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
+                    <arg name="rx_gro" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
                 </run>
@@ -248,6 +257,9 @@
                     <arg name="rx_csum" type="bool_with_default">
                         <value>DEFAULT</value>
                     </arg>
+                    <arg name="rx_gro" type="bool_with_default">
+                        <value>DEFAULT</value>
+                    </arg>
                 </run>
 
                 <run name="tcp_perf3_rx_offloads">
@@ -277,6 +289,10 @@
                         <value>-1</value>
                     </arg>
                     <arg name="rx_csum" type="bool_with_default">
+                        <value>FALSE</value>
+                        <value>TRUE</value>
+                    </arg>
+                    <arg name="rx_gro" type="bool_with_default">
                         <value>FALSE</value>
                         <value>TRUE</value>
                     </arg>

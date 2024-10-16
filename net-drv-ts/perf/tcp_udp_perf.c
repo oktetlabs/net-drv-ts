@@ -22,6 +22,8 @@
  *                          unlimited for TCP
  * @param rx_csum           Enable, disable Rx checksum offload or
  *                          preserve default
+ * @param rx_gro            Enable, disable Rx GRO offload or
+ *                          preserve default
  *
  * @type performance
  *
@@ -123,6 +125,7 @@ main(int argc, char *argv[])
     rcf_rpc_server                         *iut_rpcs = NULL;
     const struct if_nameindex              *iut_if = NULL;
     te_bool3                                rx_csum;
+    te_bool3                                rx_gro;
 
     rcf_rpc_server                         *server_rpcs = NULL;
     rcf_rpc_server                         *client_rpcs = NULL;
@@ -166,6 +169,7 @@ main(int argc, char *argv[])
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_BOOL_WITH_DEFAULT(rx_csum);
+    TEST_GET_BOOL_WITH_DEFAULT(rx_gro);
     TEST_GET_PCO(server_rpcs);
     TEST_GET_PCO(client_rpcs);
     TEST_GET_ADDR(server_rpcs, server_addr);
@@ -183,6 +187,9 @@ main(int argc, char *argv[])
 
     TEST_STEP("Configure Rx checksum offload on IUT interface if specified");
     test_set_if_feature(iut_rpcs->ta, iut_if->if_name, "rx-checksum", rx_csum);
+
+    TEST_STEP("Configure GRO on IUT interface if specified");
+    test_set_if_feature(iut_rpcs->ta, iut_if->if_name, "rx-gro", rx_gro);
 
     TEST_STEP("Set default perf options");
     tapi_perf_opts_init(&perf_opts);

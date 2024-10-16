@@ -18,6 +18,7 @@
         <arg name="n_streams"/>
         <arg name="bandwidth"/>
         <arg name="rx_csum"/>
+        <arg name="rx_gro"/>
         <notes/>
       </iter>
     </test>
@@ -33,6 +34,7 @@
         <arg name="n_streams"/>
         <arg name="bandwidth"/>
         <arg name="rx_csum"/>
+        <arg name="rx_gro"/>
         <notes/>
       </iter>
     </test>
@@ -48,6 +50,7 @@
         <arg name="n_streams"/>
         <arg name="bandwidth"/>
         <arg name="rx_csum"/>
+        <arg name="rx_gro"/>
         <notes/>
       </iter>
     </test>
@@ -63,6 +66,7 @@
         <arg name="n_streams"/>
         <arg name="bandwidth"/>
         <arg name="rx_csum"/>
+        <arg name="rx_gro"/>
         <notes/>
       </iter>
     </test>
@@ -78,6 +82,7 @@
         <arg name="n_streams"/>
         <arg name="bandwidth"/>
         <arg name="rx_csum"/>
+        <arg name="rx_gro"/>
         <notes/>
       </iter>
     </test>
