@@ -56,11 +56,13 @@ load_required_modules(const char *ta, void *cookie)
         }
         else if (strcmp(NET_DRV_X3_DRIVER_NAME, driver) == 0)
         {
-            rc = tapi_cfg_module_add_from_ta_dir(ta, "auxiliary", TRUE);
-            if (rc == 0)
-                rc = tapi_cfg_module_add_from_ta_dir(ta,
-                                                     NET_DRV_X3_DRIVER_NAME,
-                                                     TRUE);
+            /**
+             * On new kernels auxiliary module is not necessary, so in case of
+             * failure let's try to go forth.
+             */
+            (void)tapi_cfg_module_add_from_ta_dir(ta, "auxiliary", TRUE);
+            rc = tapi_cfg_module_add_from_ta_dir(ta, NET_DRV_X3_DRIVER_NAME,
+                                                 TRUE);
         }
         else
         {
