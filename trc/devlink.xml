@@ -137,5 +137,13 @@
         </results>
       </iter>
     </test>
+    <test name="serialno" type="script">
+      <objective>Check that device serial number is non-empty string.</objective>
+      <notes/>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <notes/>
+      </iter>
+    </test>
   </iter>
 </test>

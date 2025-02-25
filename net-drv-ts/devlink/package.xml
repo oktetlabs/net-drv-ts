@@ -41,5 +41,12 @@
             <arg name="if_down" type="do_if_down"/>
         </run>
 
+        <run>
+            <script name="serialno"/>
+            <arg name="env">
+                <value ref="env.peer2peer"/>
+            </arg>
+        </run>
+
     </session>
 </package>

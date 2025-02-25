@@ -5,6 +5,7 @@ tests = [
     'ct_thresh',
     'dist_layout',
     'separated_cpu',
+    'serialno',
 ]
 
 foreach test : tests
