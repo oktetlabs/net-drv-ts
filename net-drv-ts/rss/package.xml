@@ -88,7 +88,10 @@
         </run>
 
         <run>
-            <script name="change_channels"/>
+            <script name="change_channels">
+                <!-- FWRIVERHD-11597 -->
+                <req id="XF_BROKEN"/>
+            </script>
             <arg name="env">
                 <value ref="env.peer2peer"/>
                 <value ref="env.peer2peer_ipv6"/>
