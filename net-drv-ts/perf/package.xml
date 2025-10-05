@@ -359,8 +359,6 @@
                 <run name="tcp_perf3_rx_ring" template="tcp_udp_perf">
                     <script name="tcp_udp_perf">
                         <objective>Measure TCP performace using iperf3 depending on Rx ring size</objective>
-                        <!-- FWRIVERHD-11597 -->
-                        <req id="XF_BROKEN"/>
                     </script>
                     <arg name="env">
                       <value ref="env.peer2peer.iut_server"/>
