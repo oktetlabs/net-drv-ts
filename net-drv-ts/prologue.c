@@ -104,12 +104,17 @@ cleanup:
 }
 
 static te_errno
-disable_fw_lldp(cfg_net_t *, cfg_net_node_t *, const char *,
-                cfg_oid *oid, void *)
+disable_fw_lldp(cfg_net_t *net, cfg_net_node_t *node, const char *str,
+                cfg_oid *oid, void *cookie)
 {
     const char *agent = CFG_OID_GET_INST_NAME(oid, 1);
     const char *iface = CFG_OID_GET_INST_NAME(oid, 2);
     te_errno rc;
+
+    UNUSED(net);
+    UNUSED(node);
+    UNUSED(str);
+    UNUSED(cookie);
 
     /*
      * Try to disable FW LLDP using private flag if it is present.
