@@ -81,6 +81,7 @@ main(int argc, char *argv[])
     rcf_rpc_server *iut_rpcs = NULL;
     rcf_rpc_server *tst_rpcs = NULL;
     const struct if_nameindex *iut_if = NULL;
+    const struct if_nameindex *tst_if = NULL;
 
     const struct sockaddr *iut_addr = NULL;
     const struct sockaddr *tst_addr = NULL;
@@ -107,6 +108,7 @@ main(int argc, char *argv[])
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
+    TEST_GET_IF(tst_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_BIT_MASK_PARAM(flag, NET_DRV_RESET_FLAGS);
@@ -275,13 +277,21 @@ main(int argc, char *argv[])
         CFG_WAIT_CHANGES;
     }
 
-    TEST_STEP("Wait until link status for the IUT interface is reported to "
-              "be UP in configuration tree.");
+    TEST_STEP("Wait until the link status of the IUT and Tester interfaces is "
+              "reported as UP in the configuration tree.");
+    rc = tapi_cfg_phy_state_wait_up(tst_rpcs->ta, tst_if->if_name,
+                                    MAX_IF_WAIT);
+    if (rc != 0)
+    {
+        TEST_VERDICT("Failed to wait until interface on Tester becomes UP "
+                     "after reset, rc = %r", rc);
+    }
+
     rc = tapi_cfg_phy_state_wait_up(iut_rpcs->ta, iut_if->if_name,
                                     MAX_IF_WAIT);
     if (rc != 0)
     {
-        TEST_VERDICT("Failed to wait until interface becomes UP "
+        TEST_VERDICT("Failed to wait until interface on IUT becomes UP "
                      "after reset, rc = %r", rc);
     }
 
