@@ -325,6 +325,11 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
+        <results tags="sfc">
+          <result value="SKIPPED">
+            <verdict>Rx pause frames counter is not available</verdict>
+          </result>
+        </results>
         <results tags="i40e">
           <result value="SKIPPED">
             <verdict>Reception of pause frames is disabled</verdict>
