@@ -35,6 +35,8 @@
 #include "tapi_cfg_rx_rule.h"
 #include "common_rss.h"
 
+#define TEST_TOO_MANY_RX_RULES_TIMEOUT 90000
+
 int
 main(int argc, char *argv[])
 {
@@ -105,6 +107,7 @@ main(int argc, char *argv[])
                      "iteration.");
 
         RPC_AWAIT_ERROR(iut_rpcs);
+        iut_rpcs->timeout = TEST_TOO_MANY_RX_RULES_TIMEOUT;
         rc = rpc_net_drv_too_many_rx_rules(iut_rpcs, iut_s, iut_if->if_name,
                                            tst_addr, iut_addr, sock_type,
                                            spec_loc, rss_ctx.rx_queues,
