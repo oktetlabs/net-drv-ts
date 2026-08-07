@@ -75,6 +75,11 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
+        <results tags="x4" key="SWNETLINUX-5788">
+          <result value="PASSED">
+            <verdict>Frequency adjustment range is less than expected</verdict>
+          </result>
+        </results>
         <results tags="iut-no-ptp" key="NO-PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
