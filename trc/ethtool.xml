@@ -402,6 +402,11 @@
       <iter result="PASSED">
         <arg name="env"/>
         <notes/>
+        <results tags="x4" key="SWLINUX_NET-5597">
+          <result value="FAILED">
+            <verdict>Nothing was printed to stdout</verdict>
+          </result>
+        </results>
         <results tags="mlx5_core|virtio-pci" key="NO-REG-DUMP">
           <result value="FAILED">
             <verdict>Ethtool command did not terminate successfully</verdict>
