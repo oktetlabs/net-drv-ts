@@ -59,6 +59,11 @@
             <verdict>Feature 'rx-gro-hw' is enabled and cannot be modified</verdict>
           </result>
         </results>
+        <results tags="sfc" key="SWNETLINUX-5575">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-vlan-hw-insert' is enabled and cannot be modified</verdict>
+          </result>
+        </results>
       </iter>
       <iter result="PASSED">
         <arg name="env"/>
@@ -95,6 +100,11 @@
         <results tags="xilinx_efct" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="sfc" key="SWNETLINUX-5575">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-vlan-hw-insert' is enabled and cannot be modified</verdict>
           </result>
         </results>
       </iter>
@@ -143,6 +153,11 @@
         <results tags="xilinx_efct" notes="TCP segmentation offload will not be implemented: XN-200494-PD-1D/KD-070">
           <result value="SKIPPED">
             <verdict>Feature 'tx-tcp6-segmentation' is disabled and cannot be modified</verdict>
+          </result>
+        </results>
+        <results tags="sfc" key="SWNETLINUX-5575">
+          <result value="SKIPPED">
+            <verdict>Feature 'tx-vlan-hw-insert' is enabled and cannot be modified</verdict>
           </result>
         </results>
       </iter>
