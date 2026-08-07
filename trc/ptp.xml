@@ -118,6 +118,11 @@
         <arg name="master_cfg"/>
         <arg name="slave_cfg"/>
         <notes/>
+        <results tags="x4" key="SWNETLINUX-5958">
+          <result value="PASSED">
+            <verdict>Sum of PTP statistics after running sfptpd did not increase</verdict>
+          </result>
+        </results>
         <results tags="iut-no-ptp" key="NO-PTP">
           <result value="SKIPPED">
             <verdict>PTP device index is not known</verdict>
