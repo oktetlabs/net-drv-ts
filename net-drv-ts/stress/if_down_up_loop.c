@@ -13,22 +13,6 @@
  * @objective Check that setting interface DOWN/UP does not break
  *            the driver.
  *
- * @param env                 Testing environment:
- *                            - @ref env-peer2peer
- *                            - @ref env-peer2peer_ipv6
- * @param duration            How long to run the loop setting interface
- *                            DOWN/UP, in seconds:
- *                            - @c 0 (run the loop exactly once)
- *                            - @c 100
- * @param wait_after_if_up    How long to wait after bringing interface UP,
- *                            in milliseconds:
- *                            - @c 0
- *                            - @c 500
- * @param tx_traffic          If @c TRUE, data should be sent continuously
- *                            from IUT to Tester during the testing.
- * @param rx_traffic          If @c TRUE, data should be sent continuously
- *                            from Tester to IUT during the testing.
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-SYS06, X3-STR03, X3-STR12.
@@ -76,14 +60,30 @@ main(int argc, char **argv)
     net_drv_flow rx_flow = NET_DRV_FLOW_INIT;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_IF(iut_if);
+    TEST_PARAM_DOC(duration,
+        "How long to run the loop setting interface DOWN/UP, in seconds:",
+        "- `0`: run the loop exactly once",
+        "- `100`");
     TEST_GET_INT_PARAM(duration);
+    TEST_PARAM_DOC(wait_after_if_up,
+        "How long to wait after bringing interface UP, in milliseconds:",
+        "- `0`",
+        "- `500`");
     TEST_GET_INT_PARAM(wait_after_if_up);
+    TEST_PARAM_DOC(tx_traffic,
+        "If @c TRUE, data should be sent continuously from IUT to Tester during the testing.");
     TEST_GET_BOOL_PARAM(tx_traffic);
+    TEST_PARAM_DOC(rx_traffic,
+        "If @c TRUE, data should be sent continuously from Tester to IUT during the testing.");
     TEST_GET_BOOL_PARAM(rx_traffic);
 
     if (tx_traffic || rx_traffic)

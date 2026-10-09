@@ -12,14 +12,6 @@
  *
  * @objective Check that unloading network driver works fine.
  *
- * @param env             Testing environment:
- *                        - @ref env-peer2peer
- * @param if_status       Interface status before unloading the driver:
- *                        - @c down
- *                        - @c up
- *                        - @c up_down (first set it UP, then DOWN)
- * @param iters           How many times to unload/load the driver.
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-ST02, X3-STR01, X3-STR04, X3-STR05.
@@ -63,9 +55,18 @@ main(int argc, char **argv)
     unsigned int neigh_nodes_num = 0;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_HOST(iut_host);
     TEST_GET_IF(iut_if);
+    TEST_PARAM_DOC(iters, "How many times to unload/load the driver.");
     TEST_GET_INT_PARAM(iters);
+    TEST_PARAM_DOC(if_status,
+        "Interface status before unloading the driver:",
+        "- `down`",
+        "- `up`",
+        "- `up_down`: first set it UP, then DOWN");
     TEST_GET_ENUM_PARAM(if_status, TEST_IF_STATUS);
 
     CHECK_NOT_NULL(iut_drv_name = net_drv_driver_name(iut_host->ta));

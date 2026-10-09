@@ -13,16 +13,6 @@
  * @objective Check that unloading network driver works fine when data is
  *            received and transmitted over an interface.
  *
- * @param env             Testing environment:
- *                        - @ref env-peer2peer
- *                        - @ref env-peer2peer_ipv6
- * @param send_time       How long to send/receive data, in seconds.
- * @param unload_once     If @c TRUE, unload and reload the driver once,
- *                        if @c FALSE - do it many times in a loop until
- *                        @p send_time expires.
- * @param conns_num       How many connections should send and receive
- *                        data.
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-SYS09, X3-STR13.
@@ -77,12 +67,21 @@ main(int argc, char **argv)
     unsigned int neigh_nodes_num = 0;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(send_time, "How long to send/receive data, in seconds.");
     TEST_GET_INT_PARAM(send_time);
+    TEST_PARAM_DOC(unload_once,
+        "If @c TRUE, unload and reload the driver once, if @c FALSE - do it many times in a loop until @p send_time expires.");
     TEST_GET_BOOL_PARAM(unload_once);
+    TEST_PARAM_DOC(conns_num,
+        "How many connections should send and receive data.");
     TEST_GET_INT_PARAM(conns_num);
 
     CHECK_NOT_NULL(iut_drv_name = net_drv_driver_name(iut_rpcs->ta));
