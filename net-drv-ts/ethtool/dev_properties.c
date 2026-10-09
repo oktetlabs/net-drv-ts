@@ -12,9 +12,6 @@
  *
  * @objective Check that ethtool shows interface properties.
  *
- * @param env            Testing environment:
- *                       - @ref env-peer2peer
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-ET001, X3-ET010.
@@ -40,6 +37,9 @@ main(int argc, char *argv[])
     tapi_ethtool_opt opts = tapi_ethtool_default_opt;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
 

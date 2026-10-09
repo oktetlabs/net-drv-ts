@@ -12,13 +12,6 @@
  *
  * @objective Check that ethtool shows interface statistics.
  *
- * @param env            Testing environment:
- *                       - @ref env-peer2peer
- *                       - @ref env-peer2peer_ipv6
- * @param sock_type      Socket type:
- *                       - @c SOCK_STREAM
- *                       - @c SOCK_DGRAM
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-ET003.
@@ -122,11 +115,19 @@ main(int argc, char *argv[])
     tapi_ethtool_opt opts = tapi_ethtool_default_opt;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(sock_type,
+        "Socket type:",
+        "- `SOCK_STREAM`: TCP socket",
+        "- `SOCK_DGRAM`: UDP socket");
     TEST_GET_SOCK_TYPE(sock_type);
 
     CHECK_RC(tapi_job_factory_rpc_create(iut_rpcs, &factory));

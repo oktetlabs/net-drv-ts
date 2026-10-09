@@ -13,9 +13,6 @@
  * @objective Check that ethtool can show EEE parameters for
  *            a tested interface.
  *
- * @param env            Testing environment:
- *                       - @ref env-peer2peer
- *
  * @par Scenario:
  *
  * @author Andrew Rybchenko <andrew.rybchenko@oktetlabs.ru>
@@ -38,6 +35,9 @@ main(int argc, char *argv[])
     tapi_ethtool_report report = tapi_ethtool_default_report;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
 

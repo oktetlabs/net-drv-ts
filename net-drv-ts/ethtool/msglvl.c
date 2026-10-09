@@ -13,9 +13,6 @@
  * @objective Check that changing driver message level affects logs
  *            printed by the driver.
  *
- * @param env           Testing environment:
- *                      - @ref env-peer2peer
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-ET009.
@@ -92,6 +89,9 @@ main(int argc, char *argv[])
     te_string pattern_str = TE_STRING_INIT;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
 

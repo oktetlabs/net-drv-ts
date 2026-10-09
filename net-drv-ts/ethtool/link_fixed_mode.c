@@ -13,9 +13,6 @@
  * @objective Check that traffic passes in all common forceable fixed PHY
  *            modes.
  *
- * @param env            Testing environment:
- *                       - @ref env-peer2peer
- *
  * @author Denis Pryazhennikov <denis.pryazhennikov@oktetlabs.ru>
  *
  * @par Scenario:
@@ -120,6 +117,9 @@ main(int argc, char *argv[])
     te_string tst_where = TE_STRING_INIT;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);

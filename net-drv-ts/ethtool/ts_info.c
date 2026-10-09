@@ -13,9 +13,6 @@
  * @objective Check that ethtool provides information about packets
  *            timestamping capabilities and PHC device index.
  *
- * @param env            Testing environment:
- *                       - @ref env-peer2peer
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-PTP013.
@@ -63,6 +60,9 @@ main(int argc, char *argv[])
     int iut_s;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
 

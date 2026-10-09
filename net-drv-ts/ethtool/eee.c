@@ -13,9 +13,6 @@
  * @objective Check that Energy Efficient Ethernet configuration works
  *            as expected.
  *
- * @param env           Testing environment:
- *                      - @ref env-peer2peer
- *
  * @par Scenario:
  *
  * @author Dmitry Izbitsky <Dmitry.Izbitsky@oktetlabs.ru>
@@ -194,6 +191,9 @@ main(int argc, char *argv[])
     int cmp_r;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);

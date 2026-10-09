@@ -12,9 +12,6 @@
  *
  * @objective Check that register dump can be obtained.
  *
- * @param env            Testing environment:
- *                       - @ref env-iut_only
- *
  * @par Scenario:
  *
  * @author Dmitry Izbitsky <dmitry.izbitsky@oktetlabs.ru>
@@ -37,6 +34,9 @@ main(int argc, char *argv[])
     tapi_ethtool_report report = tapi_ethtool_default_report;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-iut_only");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
 

@@ -12,10 +12,6 @@
  *
  * @objective Check that loopback mode works correctly.
  *
- * @param env           Testing environment:
- *                       - @ref env-peer2peer
- * @param tmpl          Traffic template
- *
  * @par Scenario:
  *
  * @author Ilia Ismailov <ilia.ismailov@oktetlabs.ru>
@@ -54,10 +50,14 @@ main(int argc, char *argv[])
     bool                        disable_source_pruning;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_IF(tst_if);
+    TEST_PARAM_DOC(tmpl, "Traffic template");
     TEST_GET_NDN_TRAFFIC_TEMPLATE(tmpl);
 
     /*

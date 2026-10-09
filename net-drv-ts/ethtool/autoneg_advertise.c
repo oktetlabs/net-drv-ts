@@ -14,11 +14,6 @@
  *            PHY mode and renegotiates to a lower-priority common mode after
  *            advertised modes are changed on one side.
  *
- * @param env            Testing environment:
- *                       - @c env.peer2peer.an_iut_change
- *                       - @c env.peer2peer.an_tst_change
- * @param if_down        If @c TRUE, restart IUT interface after PHY changes.
- *
  * @author Denis Pryazhennikov <denis.pryazhennikov@oktetlabs.ru>
  *
  * @par Scenario:
@@ -178,6 +173,10 @@ main(int argc, char *argv[])
     rcf_rpc_server *peer_rpcs = NULL;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @c env.peer2peer.an_iut_change",
+        "- @c env.peer2peer.an_tst_change");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_PCO(changed_rpcs);
@@ -188,6 +187,8 @@ main(int argc, char *argv[])
     TEST_GET_IF(peer_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(if_down,
+        "If @c TRUE, restart IUT interface after PHY changes");
     TEST_GET_BOOL_PARAM(if_down);
 
     changed_saved = (changed_rpcs == iut_rpcs) ? &iut_phy_saved :

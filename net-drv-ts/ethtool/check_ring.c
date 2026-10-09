@@ -12,9 +12,6 @@
  *
  * @objective Check ring size with ethtool
  *
- * @param env            Testing environment:
- *                       - @ref env-iut_only
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-ET014, X3-ET015.
@@ -40,6 +37,9 @@ main(int argc, char *argv[])
 
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-iut_only");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
 

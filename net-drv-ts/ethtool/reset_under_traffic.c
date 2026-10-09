@@ -13,11 +13,6 @@
  * @objective Check that NIC can be reset when data is transmitted over it
  *            and that data transmission resumes after NIC is reset.
  *
- * @param env            Testing environment:
- *                       - @ref env-peer2peer
- *                       - @ref env-peer2peer_ipv6
- * @param flags          Ethtool reset flags to check.
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-ET021.
@@ -50,11 +45,16 @@ main(int argc, char **argv)
     int flags;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_IF(iut_if);
+    TEST_PARAM_DOC(flags, "Ethtool reset flags to check");
     TEST_GET_BIT_MASK_PARAM(flags, NET_DRV_RESET_FLAGS);
 
     if (iut_addr->sa_family == AF_INET6)

@@ -13,25 +13,6 @@
  * @objective Check that Tx interrupt coalescing parameters are applied
  *            on a tested interface.
  *
- * @param env                     Testing environment:
- *                                - @ref env-iut_only
- * @param profile                 Tx coalescing settings profile:
- *                                - @c disabled
- *                                - @c time_only
- *                                - @c frames_only
- *                                - @c time_frames
- *                                - @c irq
- *                                - @c irq_usecs
- *                                - @c irq_frames
- *                                - @c adaptive
- *                                - @c adaptive_low_time
- *                                - @c adaptive_low_frames
- *                                - @c adaptive_high_time
- *                                - @c adaptive_high_frames
- *                                - @c adaptive_rate
- *                                - @c invalid
- * @param per_queue               Whether to set per-queue coalescing.
- *
  * @par Scenario:
  *
  * @author Denis Pryazhennikov <denis.pryazhennikov@oktetlabs.ru>
@@ -342,9 +323,29 @@ main(int argc, char *argv[])
     int profile;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-iut_only");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
+    TEST_PARAM_DOC(profile,
+        "Tx coalescing settings profile:",
+        "- `disabled`: no coalescing (0 usecs, 1 frame)",
+        "- `time_only`: coalesce by time only",
+        "- `frames_only`: coalesce by frame count only",
+        "- `time_frames`: coalesce by both time and frame count",
+        "- `irq`: set both IRQ time and frame count limits",
+        "- `irq_usecs`: set IRQ time limit only",
+        "- `irq_frames`: set IRQ frame count limit only",
+        "- `adaptive`: enable adaptive Tx coalescing",
+        "- `adaptive_low_time`: adaptive with low time limit",
+        "- `adaptive_low_frames`: adaptive with low frame count limit",
+        "- `adaptive_high_time`: adaptive with high time limit",
+        "- `adaptive_high_frames`: adaptive with high frame count limit",
+        "- `adaptive_rate`: adaptive with packet rate thresholds",
+        "- `invalid`: both Tx time and frame limits set to zero");
     TEST_GET_ENUM_PARAM(profile, TEST_PROFILES);
+    TEST_PARAM_DOC(per_queue, "Whether to set per-queue coalescing");
     TEST_GET_BOOL_PARAM(per_queue);
 
     params = profile_params(profile, &params_num);

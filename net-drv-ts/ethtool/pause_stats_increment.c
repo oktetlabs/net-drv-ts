@@ -13,9 +13,6 @@
  * @objective Generate pause frames and check that Rx pause frames
  *            counter on IUT interface increases.
  *
- * @param env            Testing environment:
- *                       - @ref env-peer2peer
- *
  * @author Denis Pryazhennikov <denis.pryazhennikov@oktetlabs.ru>
  *
  * @par Scenario:
@@ -140,6 +137,9 @@ main(int argc, char *argv[])
     int rx_pause_frames_before;
     int rx_pause_frames_after;
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
