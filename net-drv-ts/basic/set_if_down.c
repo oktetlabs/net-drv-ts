@@ -12,11 +12,6 @@
  *
  * @objective Check that network interface can be set DOWN.
  *
- * @param env                 Testing environment:
- *                            - @ref env-peer2peer
- * @param check_socket        Whether to check that data cannot be
- *                            sent and received via a socket.
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-ST06.
@@ -93,11 +88,16 @@ main(int argc, char *argv[])
     te_bool check_socket;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(check_socket,
+        "Whether to check that data cannot be sent and received via a socket.");
     TEST_GET_BOOL_PARAM(check_socket);
 
     if (check_socket)

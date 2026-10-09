@@ -14,10 +14,6 @@
  * @objective Check that the driver still works fine after headroom changes
  *            triggered by usage together with VxLAN tunnel in the bridge.
  *
- * @param env           Testing environment.
- *                      - @ref env-peer2peer
- *                      - @ref env-peer2peer_ipv6
- *
  * @par Scenario:
  *
  * @author Daniil Byshenko <daniil.byshenko@oktetlabs.ru>
@@ -136,6 +132,10 @@ main(int argc, char *argv[])
     int32_t tunnel_vni = rand_range(1, VXLAN_VNI_MAX);
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
@@ -144,6 +144,8 @@ main(int argc, char *argv[])
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_LINK_ADDR(iut_lladdr);
     TEST_GET_LINK_ADDR(tst_lladdr);
+    TEST_PARAM_DOC(if_down_up,
+        "If @c TRUE, set the IUT interface DOWN and UP after configuring the tunnel, before checking traffic.");
     TEST_GET_BOOL_PARAM(if_down_up);
 
     memset(&id, 0, sizeof(id));

@@ -13,14 +13,6 @@
  * @objective Check that multicast packets may be sent and received
  *            over the tested interface.
  *
- * @param env           Testing environment:
- *                      - @ref env-peer2peer_mcast
- *                      - @ref env-peer2peer_mcast_ipv6
- * @param tx            If @c TRUE, send from IUT to Tester,
- *                      else - the other way around.
- * @param sends_num     How many packets to send:
- *                      - @c 100
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-SYS05.
@@ -72,6 +64,10 @@ main(int argc, char *argv[])
     unsigned int lost = 0;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer_mcast",
+        "- @ref env-peer2peer_mcast_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
@@ -79,7 +75,12 @@ main(int argc, char *argv[])
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_ADDR_NO_PORT(mcast_addr);
+    TEST_PARAM_DOC(tx,
+        "If @c TRUE, send from IUT to Tester, else - the other way around.");
     TEST_GET_BOOL_PARAM(tx);
+    TEST_PARAM_DOC(sends_num,
+        "How many packets to send:",
+        "- `100`");
     TEST_GET_INT_PARAM(sends_num);
 
     TEST_STEP("If @p tx is @c TRUE, IUT is sender and Tester is "

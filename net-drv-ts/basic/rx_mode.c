@@ -14,15 +14,6 @@
  *            and packets are received or not depending on configured
  *            Rx mode and destination MAC address.
  *
- * @param env               Testing environment:
- *                          - @ref env-peer2peer
- *                          - @ref env-peer2peer_ipv6
- * @param promisc           If @c true, enable promiscuous mode on the
- *                          IUT interface, otherwise disable it.
- * @param allmulti          If @c true, enable all-multicast mode on the
- *                          IUT interface, otherwise disable it.
- *
- *
  * @par Scenario:
  *
  * @author Andrew Rybchenko <andrew.rybchenko@oktetlabs.ru>
@@ -146,6 +137,10 @@ main(int argc, char *argv[])
     char if_oid[CFG_OID_MAX] = {};
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
@@ -157,7 +152,11 @@ main(int argc, char *argv[])
     TEST_GET_LINK_ADDR(iut_alien_mac);
     TEST_GET_LINK_ADDR(bcast_addr);
     TEST_GET_LINK_ADDR(mcast_addr);
+    TEST_PARAM_DOC(promisc,
+        "If @c true, enable promiscuous mode on the IUT interface, otherwise disable it.");
     TEST_GET_BOOL_PARAM(promisc);
+    TEST_PARAM_DOC(allmulti,
+        "If @c true, enable all-multicast mode on the IUT interface, otherwise disable it.");
     TEST_GET_BOOL_PARAM(allmulti);
 
     TEST_STEP("Enable or disable promiscuous mode on the IUT interface "

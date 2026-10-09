@@ -13,9 +13,6 @@
  * @objective Check that the files in sysfs related to the tested
  *            driver can be read.
  *
- * @param env            Testing environment:
- *                      - @ref env-peer2peer
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-ST08.
@@ -50,6 +47,9 @@ main(int argc, char *argv[])
     rpc_dir_p pdir = RPC_NULL;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
 

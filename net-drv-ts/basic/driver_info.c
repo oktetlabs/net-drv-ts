@@ -12,9 +12,6 @@
  *
  * @objective Check information returned about a driver for an interface.
  *
- * @param env            Testing environment.
- *                       - @ref env-iut_only
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-ET002.
@@ -40,6 +37,9 @@ main(int argc, char *argv[])
     char *exp_drv_name = NULL;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-iut_only");
     TEST_GET_HOST(iut_host);
     TEST_GET_IF(iut_if);
 

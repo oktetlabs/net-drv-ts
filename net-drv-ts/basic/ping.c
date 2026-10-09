@@ -12,14 +12,6 @@
  *
  * @objective Check that @b ping tool can ping Tester address from IUT.
  *
- * @param env               Testing environment:
- *                          - @ref env-peer2peer
- *                          - @ref env-peer2peer_ipv6
- * @param packets           Number of ping packets to send.
- * @param data_size         Number of payload bytes in a ping packet.
- * @param interval          Number of seconds to wait between sending ping
- *                          packets.
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-ST07.
@@ -57,12 +49,20 @@ main(int argc, char *argv[])
     double interval;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(packets, "Number of ping packets to send.");
     TEST_GET_UINT_PARAM(packets);
+    TEST_PARAM_DOC(data_size, "Number of payload bytes in a ping packet.");
     TEST_GET_INT_PARAM(data_size);
+    TEST_PARAM_DOC(interval,
+        "Number of seconds to wait between sending ping packets.");
     TEST_GET_DOUBLE_PARAM(interval);
 
     CHECK_RC(te_sockaddr_h2str(tst_addr, &dst_addr));

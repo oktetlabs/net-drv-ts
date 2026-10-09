@@ -13,12 +13,6 @@
  * @objective Check that MAC address can be changed and it affects source
  *            MAC address of sent packets.
  *
- * @param env               Testing environment:
- *                          - @ref env-peer2peer
- *                          - @ref env-peer2peer_ipv6
- * @param if_down           If @c TRUE, set the interface down before
- *                          changing MAC address on it.
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-SYS17, X3-SYS19.
@@ -146,6 +140,10 @@ main(int argc, char *argv[])
     te_bool if_down;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
@@ -154,6 +152,8 @@ main(int argc, char *argv[])
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_LINK_ADDR(iut_lladdr);
     TEST_GET_LINK_ADDR(iut_alien_mac);
+    TEST_PARAM_DOC(if_down,
+        "If @c TRUE, set the interface down before changing MAC address on it.");
     TEST_GET_BOOL_PARAM(if_down);
 
     if (if_down && iut_addr->sa_family == AF_INET6)

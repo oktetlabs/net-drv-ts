@@ -13,24 +13,6 @@
  * @objective Check that UDP packets of full MTU size are sent
  *            and that jumbo frames are processed correctly.
  *
- * @param env           Testing environment:
- *                      - @ref env-peer2peer
- *                      - @ref env-peer2peer_ipv6
- * @param mtu           MTU to be set:
- *                      - @c 512
- *                      - @c 1280
- *                      - @c 1500
- *                      - @c 1600
- *                      - @c 9000
- * @param tx            If @c TRUE, send from IUT to Tester,
- *                      else - the other way around.
- * @param pkt_size      Data size for @b send() call (in terms of MTUs):
- *                      - @c less
- *                      - @c equal
- *                      - @c more
- * @param sends_num     How many times to send data:
- *                      - @c 100
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-SYS04.
@@ -212,6 +194,10 @@ main(int argc, char *argv[])
     const struct sockaddr *csap_remote_ip_addr = NULL;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
@@ -220,9 +206,26 @@ main(int argc, char *argv[])
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_LINK_ADDR(iut_lladdr);
     TEST_GET_LINK_ADDR(tst_lladdr);
+    TEST_PARAM_DOC(tx,
+        "If @c TRUE, send from IUT to Tester, else - the other way around.");
     TEST_GET_BOOL_PARAM(tx);
+    TEST_PARAM_DOC(mtu,
+        "MTU to be set:",
+        "- `512`",
+        "- `1280`",
+        "- `1500`",
+        "- `1600`",
+        "- `9000`");
     TEST_GET_INT_PARAM(mtu);
+    TEST_PARAM_DOC(pkt_size,
+        "Data size for @b send() call (in terms of MTUs):",
+        "- `less`",
+        "- `equal`",
+        "- `more`");
     TEST_GET_ENUM_PARAM(pkt_size, PKT_SIZES);
+    TEST_PARAM_DOC(sends_num,
+        "How many times to send data:",
+        "- `100`");
     TEST_GET_INT_PARAM(sends_num);
 
     TEST_STEP("Set MTU on IUT and Tester interfaces to @p mtu.");

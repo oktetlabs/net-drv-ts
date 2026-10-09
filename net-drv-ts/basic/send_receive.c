@@ -13,20 +13,6 @@
  * @objective Check that packets can be sent and received over the
  *            tested interface.
  *
- * @param env            Testing environment:
- *                      - @ref env-peer2peer
- *                      - @ref env-peer2peer_ipv6
- * @param sock_type     Socket type:
- *                      - @c SOCK_STREAM
- *                      - @c SOCK_DGRAM
- * @param tx            If @c TRUE, check sending from IUT, otherwise
- *                      check receiving on IUT.
- * @param pkt_size      Packet size:
- *                      - @c 1000
- *                      - @c -1 (random)
- * @param pkts_num      Number of packets to send or receive:
- *                      - @c 100
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-SYS01, X3-SYS02.
@@ -140,14 +126,31 @@ main(int argc, char *argv[])
     int new_packets;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(sock_type,
+        "Socket type:",
+        "- `SOCK_STREAM`",
+        "- `SOCK_DGRAM`");
     TEST_GET_SOCK_TYPE(sock_type);
+    TEST_PARAM_DOC(tx,
+        "If @c TRUE, check sending from IUT, otherwise check receiving on IUT.");
     TEST_GET_BOOL_PARAM(tx);
+    TEST_PARAM_DOC(pkt_size,
+        "Packet size:",
+        "- `1000`",
+        "- `-1`: random");
     TEST_GET_INT_PARAM(pkt_size);
+    TEST_PARAM_DOC(pkts_num,
+        "Number of packets to send or receive:",
+        "- `100`");
     TEST_GET_INT_PARAM(pkts_num);
 
     TEST_STEP("Establish connection between a pair of sockets of "

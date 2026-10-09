@@ -13,13 +13,6 @@
  * @objective Check that MAC address can be changed and after that
  *            packets sent to the new address can be received.
  *
- * @param env               Testing environment:
- *                          - @ref env-peer2peer
- *                          - @ref env-peer2peer_ipv6
- * @param promisc           If @c TRUE, enable promiscuous mode on the
- *                          IUT interface, otherwise disable it.
- *
- *
  * @par Scenario:
  *
  * @author Dmitry Izbitsky <Dmitry.Izbitsky@oktetlabs.ru>
@@ -138,6 +131,10 @@ main(int argc, char *argv[])
     char buf_tmpl[1024];
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
@@ -147,6 +144,8 @@ main(int argc, char *argv[])
     TEST_GET_LINK_ADDR(tst_lladdr);
     TEST_GET_LINK_ADDR(iut_lladdr);
     TEST_GET_LINK_ADDR(iut_alien_mac);
+    TEST_PARAM_DOC(promisc,
+        "If @c TRUE, enable promiscuous mode on the IUT interface, otherwise disable it.");
     TEST_GET_BOOL_PARAM(promisc);
 
     TEST_STEP("Enable or disable promiscuous mode on the IUT interface "

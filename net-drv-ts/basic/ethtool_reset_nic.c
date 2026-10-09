@@ -12,16 +12,6 @@
  *
  * @objective Check what happens when NIC is reset with @c SIOCETHTOOL.
  *
- * @param env           Testing environment:
- *                      - @ref env-peer2peer
- *                      - @ref env-peer2peer_ipv6
- * @param flag          @c ETHTOOL_RESET flag to pass.
- * @param sock_type     Socket type:
- *                      - @c SOCK_STREAM
- *                      - @c SOCK_DGRAM
- * @param if_down       If @c TRUE, interface should be set DOWN before
- *                      resetting it.
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-ST10, X3-ET019, X3-ET020.
@@ -105,14 +95,25 @@ main(int argc, char *argv[])
     te_bool if_down;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_IF(tst_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(flag, "@c ETHTOOL_RESET flag to pass.");
     TEST_GET_BIT_MASK_PARAM(flag, NET_DRV_RESET_FLAGS);
+    TEST_PARAM_DOC(sock_type,
+        "Socket type:",
+        "- `SOCK_STREAM`",
+        "- `SOCK_DGRAM`");
     TEST_GET_SOCK_TYPE(sock_type);
+    TEST_PARAM_DOC(if_down,
+        "If @c TRUE, interface should be set DOWN before resetting it.");
     TEST_GET_BOOL_PARAM(if_down);
 
     TEST_STEP("Establish connection between a pair of sockets of "
