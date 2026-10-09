@@ -13,9 +13,6 @@
  * @objective Check that clock cababilities can be obtained for PTP
  *            device associated with the tested network interface.
  *
- * @param env              Testing environment:
- *                         - @ref env-peer2peer
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-PTP007.
@@ -41,6 +38,9 @@ main(int argc, char *argv[])
     tarpc_ptp_clock_caps caps;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
 

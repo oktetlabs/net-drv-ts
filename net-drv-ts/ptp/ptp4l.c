@@ -14,9 +14,6 @@
  * @objective Check that ptp4l can be used to synchronize clocks
  *            across network.
  *
- * @param env              Testing environment:
- *                         - @ref env-peer2peer
- *
  * @par Scenario:
  */
 
@@ -158,6 +155,9 @@ main(int argc, char *argv[])
     double diff;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);

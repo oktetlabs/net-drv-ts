@@ -13,11 +13,6 @@
  * @objective Check that @c PTP_SYS_OFFSET ioctl can be used to obtain
  *            samples of PTP device time and system time at the same moment.
  *
- * @param env             Testing environment:
- *                        - @ref env-peer2peer
- * @param n_samples       How many samples to request from
- *                        PTP_SYS_OFFSET
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-PTP006.
@@ -47,8 +42,13 @@ main(int argc, char *argv[])
     double avg_diff;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
+    TEST_PARAM_DOC(n_samples,
+        "How many samples to request from `PTP_SYS_OFFSET`");
     TEST_GET_UINT_PARAM(n_samples);
 
     TEST_STEP("Find out PTP device associated with the IUT interface, "

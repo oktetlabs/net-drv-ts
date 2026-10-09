@@ -13,16 +13,6 @@
  * @objective Check that offset can be added to the current time
  *            of PTP device associated with the tested network interface.
  *
- * @param env              Testing environment:
- *                         - @ref env-peer2peer
- * @param time_offset      Time offset to add, in seconds
- * @param min_sleep        Minimum time to sleep between clock_gettime()
- *                         calls when checking how the clock advances,
- *                         seconds
- * @param max_sleep        Maximum time to sleep between clock_gettime()
- *                         calls when checking how the clock advances,
- *                         seconds
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-PTP003.
@@ -143,10 +133,18 @@ main(int argc, char *argv[])
     int max_sleep;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
+    TEST_PARAM_DOC(time_offset, "Time offset to add, in seconds");
     TEST_GET_DOUBLE_PARAM(time_offset);
+    TEST_PARAM_DOC(min_sleep,
+        "Minimum time to sleep between clock_gettime() calls when checking how the clock advances, seconds");
     TEST_GET_INT_PARAM(min_sleep);
+    TEST_PARAM_DOC(max_sleep,
+        "Maximum time to sleep between clock_gettime() calls when checking how the clock advances, seconds");
     TEST_GET_INT_PARAM(max_sleep);
 
     TEST_STEP("Find out PTP device associated with the IUT interface, "

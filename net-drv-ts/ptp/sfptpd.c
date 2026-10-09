@@ -13,11 +13,6 @@
  * @objective Check that sfptpd can be used to synchronize clocks
  *            across network.
  *
- * @param env              Testing environment:
- *                         - @ref env-peer2peer
- * @param master_cfg       Configuration file for sfptpd as a PTP master
- * @param slave_cfg        Configuration file for sfptpd as a PTP slave
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-PTP012.
@@ -269,11 +264,17 @@ main(int argc, char *argv[])
     int64_t stats_after = 0;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_IF(tst_if);
+    TEST_PARAM_DOC(master_cfg,
+        "Configuration file for sfptpd as a PTP master");
     TEST_GET_FILENAME_PARAM(master_cfg);
+    TEST_PARAM_DOC(slave_cfg, "Configuration file for sfptpd as a PTP slave");
     TEST_GET_FILENAME_PARAM(slave_cfg);
 
     TEST_STEP("Find out PTP device associated with the IUT interface, "

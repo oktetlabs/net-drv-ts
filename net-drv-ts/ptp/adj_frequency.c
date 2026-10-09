@@ -13,16 +13,6 @@
  * @objective Check that frequency can be tuned for PTP device
  *            associated with the tested network interface.
  *
- * @param env              Testing environment:
- *                         - @ref env-peer2peer
- * @param freq             Frequency offset, in parts per million
- * @param min_sleep        Minimum time to sleep between clock_gettime()
- *                         calls when checking how the clock advances,
- *                         seconds
- * @param max_sleep        Maximum time to sleep between clock_gettime()
- *                         calls when checking how the clock advances,
- *                         seconds
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-PTP004, X3-PTP005.
@@ -117,10 +107,18 @@ main(int argc, char *argv[])
     te_bool undo_change = FALSE;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
+    TEST_PARAM_DOC(freq, "Frequency offset, in parts per million");
     TEST_GET_DOUBLE_PARAM(freq);
+    TEST_PARAM_DOC(min_sleep,
+        "Minimum time to sleep between clock_gettime() calls when checking how the clock advances, seconds");
     TEST_GET_INT_PARAM(min_sleep);
+    TEST_PARAM_DOC(max_sleep,
+        "Maximum time to sleep between clock_gettime() calls when checking how the clock advances, seconds");
     TEST_GET_INT_PARAM(max_sleep);
 
     TEST_STEP("Find out PTP device associated with the IUT interface, "

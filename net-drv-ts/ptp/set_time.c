@@ -13,15 +13,6 @@
  * @objective Check that time can be set for PTP device associated with
  *            the tested network interface.
  *
- * @param env              Testing environment:
- *                         - @ref env-peer2peer
- * @param ts               Timestamp to set, in seconds
- *                         (negative value means current time)
- * @param min_sleep        Minimum time to sleep between clock_gettime()
- *                         calls, seconds
- * @param max_sleep        Maximum time to sleep between clock_gettime()
- *                         calls, seconds
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-PTP001.
@@ -54,10 +45,19 @@ main(int argc, char *argv[])
     tarpc_timespec ts_got;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
+    TEST_PARAM_DOC(ts,
+        "Timestamp to set, in seconds (negative value means current time)");
     TEST_GET_DOUBLE_PARAM(ts);
+    TEST_PARAM_DOC(min_sleep,
+        "Minimum time to sleep between clock_gettime() calls, seconds");
     TEST_GET_INT_PARAM(min_sleep);
+    TEST_PARAM_DOC(max_sleep,
+        "Maximum time to sleep between clock_gettime() calls, seconds");
     TEST_GET_INT_PARAM(max_sleep);
 
     TEST_STEP("Find out PTP device associated with the IUT interface, "
