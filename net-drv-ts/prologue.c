@@ -7,9 +7,6 @@
  *
  * @objective Prepare configuration.
  *
- * @param env               Testing environment:
- *                          - @ref env-peer2peer
- *
  * @par Scenario:
  *
  * @author Dmitry Izbitsky <Dmitry.Izbitsky@oktetlabs.ru>
@@ -549,6 +546,9 @@ main(int argc, char **argv)
 #define TEST_END_SPECIFIC
 
     TEST_START_ENV_VARS;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_START;
 
     UNUSED(env);
