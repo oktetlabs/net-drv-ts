@@ -13,16 +13,6 @@
  * @objective Check that when @b rx_coalesce_usecs is set to a specific value,
  *            Rx interrupts coalescing works accordingly.
  *
- * @param env             Testing environment:
- *                        - @ref env-peer2peer
- *                        - @ref env-peer2peer_ipv6
- * @param coalesce_usecs  Value to set for @b rx_coalesce_usecs:
- *                        - @c 0 (interrupt moderation is disabled)
- *                        - @c 300
- *                        - @c 800
- * @param per_queue       If TRUE, test per queue interrupt coalescing
- *                        configuration.
- *
  * @par Scenario:
  *
  * @author Dmitry Izbitsky <Dmitry.Izbitsky@oktetlabs.ru>
@@ -405,13 +395,24 @@ main(int argc, char *argv[])
     te_errno te_rc;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_IF(tst_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(coalesce_usecs,
+        "Value to set for @b rx_coalesce_usecs:",
+        "- `0`: interrupt moderation is disabled",
+        "- `300`",
+        "- `800`");
     TEST_GET_INT_PARAM(coalesce_usecs);
+    TEST_PARAM_DOC(per_queue,
+        "If @c TRUE, test per queue interrupt coalescing configuration.");
     TEST_GET_BOOL_PARAM(per_queue);
 
     if (per_queue)

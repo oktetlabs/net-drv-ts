@@ -14,25 +14,6 @@
  * @objective Check that when @b rx_max_coalesced_frames is set to a specific
  *            value, Rx interrupts coalescing works accordingly.
  *
- * @param env             Testing environment:
- *                        - @ref env-peer2peer
- *                        - @ref env-peer2peer_ipv6
- * @param coalesce_frames Value to set for @b rx_max_coalesced_frames:
- *                        - @c 1
- *                        - @c 10
- *                        - @c 16
- *                        - @c 32
- *                        - @c 60
- *                        - @c 80
- * @param send_delay      Delay between periodically sent packets
- *                        (one per @p coalesce_frames):
- *                        - @c 200
- *                        - @c 90
- *                        - @c 40
- *                        - @c 28
- *                        - @c 15
- *                        - @c 10
- *
  * @par Scenario:
  *
  * @author Andrew Rybchenko <andrew.rybchenko@oktetlabs.ru>
@@ -377,13 +358,33 @@ main(int argc, char *argv[])
     double dev_err;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_IF(tst_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(coalesce_frames,
+        "Value to set for @b rx_max_coalesced_frames:",
+        "- `1`",
+        "- `10`",
+        "- `16`",
+        "- `32`",
+        "- `60`",
+        "- `80`");
     TEST_GET_INT_PARAM(coalesce_frames);
+    TEST_PARAM_DOC(send_delay,
+        "Delay between periodically sent packets (one per @p coalesce_frames):",
+        "- `200`",
+        "- `90`",
+        "- `40`",
+        "- `28`",
+        "- `15`",
+        "- `10`");
     TEST_GET_INT_PARAM(send_delay);
 
     if (send_delay < MIN_SEND_DELAY)

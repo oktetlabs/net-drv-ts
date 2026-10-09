@@ -12,17 +12,6 @@
  *
  * @objective Check that FCS forwarding can be enabled or disabled.
  *
- * @param env           Testing environment:
- *                      - @ref env-peer2peer
- *                      - @ref env-peer2peer_ipv6
- * @param sock_type     Socket type:
- *                      - @c SOCK_STREAM
- *                      - @c SOCK_DGRAM
- * @param rx_fcs        If @c TRUE, rx-fcs feature is enabled, else -
- *                      disabled
- * @param small_frame   If @c TRUE, send so small Ethernet frame that
- *                      padding will be inserted in it.
- *
  * @par Scenario:
  *
  * @author Dmitry Izbitsky <Dmitry.Izbitsky@oktetlabs.ru>
@@ -269,6 +258,10 @@ main(int argc, char *argv[])
     char recv_buf[MAX_PKT_LEN];
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
@@ -277,8 +270,16 @@ main(int argc, char *argv[])
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_LINK_ADDR(iut_lladdr);
     TEST_GET_LINK_ADDR(tst_lladdr);
+    TEST_PARAM_DOC(sock_type,
+        "Socket type:",
+        "- `SOCK_STREAM`",
+        "- `SOCK_DGRAM`");
     TEST_GET_SOCK_TYPE(sock_type);
+    TEST_PARAM_DOC(rx_fcs,
+        "If @c TRUE, rx-fcs feature is enabled, else - disabled");
     TEST_GET_BOOL_PARAM(rx_fcs);
+    TEST_PARAM_DOC(small_frame,
+        "If @c TRUE, send so small Ethernet frame that padding will be inserted in it.");
     TEST_GET_BOOL_PARAM(small_frame);
 
     TEST_STEP("Enable or disable @b rx-fcs feature on the IUT interface "
