@@ -13,15 +13,6 @@
  * @objective Check that when LRO or GRO is enabled, received TCP packets
  *            are coalesced into bigger ones before they reach OS.
  *
- * @param env           Testing environment:
- *                      - @ref env-peer2peer
- *                      - @ref env-peer2peer_ipv6
- * @param rx_csum_on    If @c TRUE, Rx checksum offload is enabled.
- * @param lro_on        If @c TRUE, LRO is enabled.
- * @param gro_on        If @c TRUE, GRO is enabled.
- * @param gro_hw_on     If @c TRUE, Hardware GRO is enabled.
- * @param rx_vlan_strip_on If @c TRUE, VLAN strip is enabled.
- *
  * @par Scenario:
  *
  * @author Dmitry Izbitsky <Dmitry.Izbitsky@oktetlabs.ru>
@@ -160,16 +151,25 @@ main(int argc, char *argv[])
     char *iut_drv_name = NULL;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_IF(tst_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(rx_csum_on, "If @c TRUE, Rx checksum offload is enabled.");
     TEST_GET_BOOL_PARAM(rx_csum_on);
+    TEST_PARAM_DOC(lro_on, "If @c TRUE, LRO is enabled.");
     TEST_GET_BOOL_PARAM(lro_on);
+    TEST_PARAM_DOC(gro_on, "If @c TRUE, GRO is enabled.");
     TEST_GET_BOOL_PARAM(gro_on);
+    TEST_PARAM_DOC(gro_hw_on, "If @c TRUE, Hardware GRO is enabled.");
     TEST_GET_BOOL_PARAM(gro_hw_on);
+    TEST_PARAM_DOC(rx_vlan_strip_on, "If @c TRUE, VLAN strip is enabled.");
     TEST_GET_BOOL_PARAM(rx_vlan_strip_on);
 
     TEST_STEP("Set @b rx-checksum, @b rx-lro, @b rx-gro and @b rx-gro-hw "

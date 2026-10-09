@@ -13,14 +13,6 @@
  * @objective Check that data can be sent or received after changing
  *            checksum offloading settings.
  *
- * @param env           Testing environment.
- *                      - @ref env-peer2peer
- *                      - @ref env-peer2peer_ipv6
- * @param sock_type     Socket type:
- *                      - @ref sock_stream_dgram
- * @param rx_csum       If @c TRUE, Rx checksum offloading is checked;
- *                      otherwise Tx is checked.
- *
  * @par Scenario:
  *
  * @author Dmitry Izbitsky <Dmitry.Izbitsky@oktetlabs.ru>
@@ -56,12 +48,21 @@ main(int argc, char *argv[])
     int s_receiver = -1;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(sock_type,
+        "Socket type:",
+        "- @ref sock_stream_dgram");
     TEST_GET_SOCK_TYPE(sock_type);
+    TEST_PARAM_DOC(rx_csum,
+        "If @c TRUE, Rx checksum offloading is checked; otherwise Tx is checked.");
     TEST_GET_BOOL_PARAM(rx_csum);
 
     if (rx_csum)

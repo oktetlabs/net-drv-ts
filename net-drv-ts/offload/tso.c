@@ -13,19 +13,6 @@
  * @objective Check that when TSO is enabled, larger-than-MSS packets are
  *            passed to NIC and split into MSS-sized ones by it.
  *
- * @param env           Testing environment:
- *                      - @ref env-peer2peer
- *                      - @ref env-peer2peer_ipv6
- * @param tso_on        Should TCP Segmentation Offload be enabled?
- * @param min_size      Minimum size of data passed to send() call, in
- *                      MTU units:
- *                      - @c 2
- * @param max_size      Maximum size of data passed to send() call, in
- *                      MTU units:
- *                      - @c 5
- * @param send_calls    Number of send() calls:
- *                      - @c 3
- *
  * @par Scenario:
  *
  * @author Dmitry Izbitsky <Dmitry.Izbitsky@oktetlabs.ru>
@@ -317,16 +304,32 @@ main(int argc, char *argv[])
     int i;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_IF(tst_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(tso_on, "Should TCP Segmentation Offload be enabled?");
     TEST_GET_BOOL_PARAM(tso_on);
+    TEST_PARAM_DOC(vlan_hw_insert_on,
+        "If @c TRUE, enable Tx VLAN HW insertion on IUT and check traffic over a VLAN, otherwise disable it.");
     TEST_GET_BOOL_PARAM(vlan_hw_insert_on);
+    TEST_PARAM_DOC(min_size,
+        "Minimum size of data passed to send() call, in MTU units:",
+        "- `2`");
     TEST_GET_INT_PARAM(min_size);
+    TEST_PARAM_DOC(max_size,
+        "Maximum size of data passed to send() call, in MTU units:",
+        "- `5`");
     TEST_GET_INT_PARAM(max_size);
+    TEST_PARAM_DOC(send_calls,
+        "Number of send() calls:",
+        "- `3`");
     TEST_GET_INT_PARAM(send_calls);
 
     if (iut_addr->sa_family == AF_INET)

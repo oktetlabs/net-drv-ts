@@ -12,12 +12,6 @@
  *
  * @objective Check VLAN filter offload functionality.
  *
- * @param env               Testing environment:
- *                          - @ref env-peer2peer
- *                          - @ref env-peer2peer_ipv6
- * @param vlan_filter_on    If @c true, enable VLAN filter offload on
- *                          IUT interface, otherwise disable it.
- *
  * @par Scenario:
  *
  * @author Andrew Rybchenko <andrew.rybchenko@oktetlabs.ru>
@@ -138,6 +132,10 @@ main(int argc, char *argv[])
     char *vlan_b_if = NULL;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
@@ -146,6 +144,8 @@ main(int argc, char *argv[])
     TEST_GET_ADDR(tst_rpcs, tst_addr);
     TEST_GET_LINK_ADDR(tst_lladdr);
     TEST_GET_LINK_ADDR(iut_lladdr);
+    TEST_PARAM_DOC(vlan_filter_on,
+        "If @c true, enable VLAN filter offload on IUT interface, otherwise disable it.");
     TEST_GET_BOOL_PARAM(vlan_filter_on);
 
     TEST_STEP("Set @b rx-vlan-filter feature on the IUT interface according "
