@@ -13,16 +13,6 @@
  * @objective Check that if Rx rules table is overfilled, nothing bad
  *            happens.
  *
- * @param env            Testing environment:
- *                       - @ref env-peer2peer
- *                       - @ref env-peer2peer_ipv6
- * @param sock_type      Socket type (determines whether TCP or
- *                       UDP Rx rules are created):
- *                       - @c SOCK_STREAM
- *                       - @c SOCK_DGRAM
- * @param iters          How many times to fill rules table and
- *                       remove all the added rules
- *
  * @par Scenario:
  */
 
@@ -61,12 +51,22 @@ main(int argc, char *argv[])
     cfg_handle *rules_handles = NULL;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(sock_type,
+        "Socket type (determines whether TCP or UDP Rx rules are created):",
+        "- `SOCK_STREAM`",
+        "- `SOCK_DGRAM`");
     TEST_GET_SOCK_TYPE(sock_type);
+    TEST_PARAM_DOC(iters,
+        "How many times to fill rules table and remove all the added rules");
     TEST_GET_INT_PARAM(iters);
 
     TEST_STEP("Check that there is no Rx rules on IUT interface.");

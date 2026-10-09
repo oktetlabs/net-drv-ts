@@ -314,6 +314,8 @@ main(int argc, char **argv)
     TEST_GET_IF(tst_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(multi_seg,
+        "Whether to use multi-segment packets (MTU is increased so that packets do not fit in a single buffer)");
     TEST_GET_BOOL_PARAM(multi_seg);
 
     /*

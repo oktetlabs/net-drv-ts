@@ -13,15 +13,6 @@
  *
  * @objective Check that AF_XDP sockets can receive and send packets.
  *
- * @param env            Testing environment:
- *                       - @ref env-peer2peer
- *                       - @ref env-peer2peer_ipv6
- * @param copy_mode      XDP copy mode:
- *                       - @c none (kernel tries zero-copy, falls back to
- *                         copy mode if it fails)
- *                       - @c copy
- *                       - @c zerocopy
- *
  * @par Scenario:
  */
 
@@ -65,12 +56,23 @@ main(int argc, char **argv)
     int map_fd = -1;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(multi_seg,
+        "Whether to use multi-segment packets (MTU is increased so that packets do not fit in a single buffer)");
     TEST_GET_BOOL_PARAM(multi_seg);
+    TEST_PARAM_DOC(copy_mode,
+        "XDP copy mode:",
+        "- `none`: kernel tries zero-copy, falls back to copy mode if it fails",
+        "- `copy`",
+        "- `zerocopy`");
     TEST_GET_ENUM_PARAM(copy_mode, NET_DRV_XDP_COPY_MODE);
 
     CHECK_RC(net_drv_xdp_adjust_rx_size(iut_rpcs->ta, iut_if->if_name,

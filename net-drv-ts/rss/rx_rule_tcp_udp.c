@@ -13,23 +13,6 @@
  * @objective Check that Rx classification rule can redirect matching
  *            TCP/UDP traffic to a different Rx queue.
  *
- * @param env            Testing environment:
- *                       - @ref env-peer2peer
- *                       - @ref env-peer2peer_ipv6
- * @param sock_type      Socket type:
- *                       - @c SOCK_STREAM
- *                       - @c SOCK_DGRAM
- * @param match_src      If @c FALSE, source address/port should be omitted
- *                       in Rx rule
- * @param match_dst      If @c FALSE, destination address/port should be
- *                       omitted in Rx rule
- * @param location       Location for the added rule:
- *                       - @c first
- *                       - @c last
- *                       - @c any
- *                       - @c specific (request specific place in rules
- *                         table)
- *
  * @par Scenario:
  */
 
@@ -85,15 +68,35 @@ main(int argc, char *argv[])
     net_drv_rss_ctx rss_ctx = NET_DRV_RSS_CTX_INIT;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer",
+        "- @ref env-peer2peer_ipv6");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
     TEST_GET_ADDR(iut_rpcs, iut_addr);
     TEST_GET_ADDR(tst_rpcs, tst_addr);
+    TEST_PARAM_DOC(multi_seg,
+        "Whether to use multi-segment packets (MTU is increased so that packets do not fit in a single buffer)");
     TEST_GET_BOOL_PARAM(multi_seg);
+    TEST_PARAM_DOC(sock_type,
+        "Socket type:",
+        "- `SOCK_STREAM`",
+        "- `SOCK_DGRAM`");
     TEST_GET_SOCK_TYPE(sock_type);
+    TEST_PARAM_DOC(match_src,
+        "If @c FALSE, source address/port should be omitted in Rx rule");
     TEST_GET_BOOL_PARAM(match_src);
+    TEST_PARAM_DOC(match_dst,
+        "If @c FALSE, destination address/port should be omitted in Rx rule");
     TEST_GET_BOOL_PARAM(match_dst);
+    TEST_PARAM_DOC(location,
+        "Location for the added rule:",
+        "- `first`",
+        "- `last`",
+        "- `any`",
+        "- `specific`: request specific place in rules table");
     TEST_GET_ENUM_PARAM(location, NET_DRV_RX_RULE_LOC);
 
     net_drv_rx_rules_check_table_size(iut_rpcs->ta, iut_if->if_name,
