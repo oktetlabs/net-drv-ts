@@ -12,55 +12,6 @@
  *
  * @objective Report TCP or UDP performance
  *
- * @param perf_bench        Performance benchmark type
- * @param dual_mode         Run benchmark in bidirectional mode
- * @param protocol          Use TCP or UDP protocol
- * @param n_perf_insts      Number of performance apps to run
- * @param n_streams         Number of parallel streams to run
- * @param bandwidth         Target bandwidth in Mbps, negative means
- *                          some internal tool value for UDP,
- *                          unlimited for TCP
- * @param rx_csum           Enable, disable Rx checksum offload or
- *                          preserve default
- * @param rx_gro            Enable, disable Rx GRO offload or
- *                          preserve default
- * @param rx_vlan_strip     Enable, disable Rx VLAN stripping offload or
- *                          preserve default
- * @param tx_csum           Enable, disable Tx checksum offload or
- *                          preserve default
- * @param tx_gso            Enable, disable Tx GSO offload or
- *                          preserve default
- * @param tso               Enable, disable TSO offload or
- *                          preserve default
- * @param tx_vlan_insert    Enable, disable Tx VLAN insertion offload or
- *                          preserve default
- * @param rx_coalesce_usecs Value to set for @b rx_coalesce_usecs:
- *                           - @c -1 (keep default settings)
- *                           - @c 0 (interrupt moderation is disabled)
- *                           - @c 30
- *                           - @c 150
- * @param rx_max_coalesced_frames   Value to set @b  rx_max_coalesced_frames:
- *                                   - @c -1 (keep default settings)
- *                                   - @c 0 (do not coalesce based on it)
- *                                   - @c 1 (interrupt moderation is disabled)
- * @param rx_ring           Rx rings size:
- *                           - @c -1 (keep default)
- *                           - @c 0 (maximum)
- *                           - @c 64
- *                           - @c 512
- *                           - @c 1024
- * @param tx_ring           Tx rings size:
- *                           - @c -1 (keep default)
- *                           - @c 0 (maximum)
- *                           - @c 64
- *                           - @c 512
- *                           - @c 1024
- * @param channels          Number of combined channels to use:
- *                           - @c -1 (keep default)
- *                           - @c 1
- *                           - @c 2
- *                           - @c 4
- *
  * @type performance
  *
  * @author Igor Romanov <Igor.Romanov@oktetlabs.ru>
@@ -307,25 +258,77 @@ main(int argc, char *argv[])
 
     TEST_START;
     TEST_GET_PCO(iut_rpcs);
+    TEST_PARAM_DOC(rx_csum,
+        "Enable (`TRUE`), disable (`FALSE`) Rx checksum offload or preserve default (`DEFAULT`)");
     TEST_GET_BOOL_WITH_DEFAULT(rx_csum);
+    TEST_PARAM_DOC(rx_gro,
+        "Enable (`TRUE`), disable (`FALSE`) Rx GRO offload or preserve default (`DEFAULT`)");
     TEST_GET_BOOL_WITH_DEFAULT(rx_gro);
+    TEST_PARAM_DOC(rx_vlan_strip,
+        "Enable (`TRUE`), disable (`FALSE`) Rx VLAN stripping offload or preserve default (`DEFAULT`)");
     TEST_GET_BOOL_WITH_DEFAULT(rx_vlan_strip);
+    TEST_PARAM_DOC(tx_csum,
+        "Enable (`TRUE`), disable (`FALSE`) Tx checksum offload or preserve default (`DEFAULT`)");
     TEST_GET_BOOL_WITH_DEFAULT(tx_csum);
+    TEST_PARAM_DOC(tx_gso,
+        "Enable (`TRUE`), disable (`FALSE`) Tx GSO offload or preserve default (`DEFAULT`)");
     TEST_GET_BOOL_WITH_DEFAULT(tx_gso);
+    TEST_PARAM_DOC(tso,
+        "Enable (`TRUE`), disable (`FALSE`) TSO offload or preserve default (`DEFAULT`)");
     TEST_GET_BOOL_WITH_DEFAULT(tso);
+    TEST_PARAM_DOC(tx_vlan_insert,
+        "Enable (`TRUE`), disable (`FALSE`) Tx VLAN insertion offload or preserve default (`DEFAULT`)");
     TEST_GET_BOOL_WITH_DEFAULT(tx_vlan_insert);
+    TEST_PARAM_DOC(rx_coalesce_usecs,
+        "Value to set for @b rx_coalesce_usecs:",
+        "- `-1`: keep default settings",
+        "- `0`: interrupt moderation is disabled",
+        "- `30`",
+        "- `150`");
     TEST_GET_INT_PARAM(rx_coalesce_usecs);
+    TEST_PARAM_DOC(rx_max_coalesced_frames,
+        "Value to set for @b rx_max_coalesced_frames:",
+        "- `-1`: keep default settings",
+        "- `0`: do not coalesce based on it",
+        "- `1`: interrupt moderation is disabled");
     TEST_GET_INT_PARAM(rx_max_coalesced_frames);
+    TEST_PARAM_DOC(rx_ring,
+        "Rx rings size:",
+        "- `-1`: keep default",
+        "- `0`: maximum",
+        "- `64`",
+        "- `512`",
+        "- `1024`");
     TEST_GET_INT_PARAM(rx_ring);
+    TEST_PARAM_DOC(tx_ring,
+        "Tx rings size:",
+        "- `-1`: keep default",
+        "- `0`: maximum",
+        "- `64`",
+        "- `512`",
+        "- `1024`");
     TEST_GET_INT_PARAM(tx_ring);
+    TEST_PARAM_DOC(channels,
+        "Number of combined channels to use:",
+        "- `-1`: keep default",
+        "- `1`",
+        "- `2`",
+        "- `4`");
     TEST_GET_INT_PARAM(channels);
     TEST_GET_PCO(server_rpcs);
     TEST_GET_PCO(client_rpcs);
+    TEST_PARAM_DOC(perf_bench, "Performance benchmark type");
     TEST_GET_PERF_BENCH(perf_bench);
+    TEST_PARAM_DOC(dual_mode, "Run benchmark in bidirectional mode");
     TEST_GET_BOOL_PARAM(dual_mode);
+    TEST_PARAM_DOC(n_perf_insts, "Number of performance apps to run");
     TEST_GET_UINT_PARAM(n_perf_insts);
+    TEST_PARAM_DOC(n_streams, "Number of parallel streams to run");
     TEST_GET_UINT_PARAM(n_streams);
+    TEST_PARAM_DOC(bandwidth,
+        "Target bandwidth in Mbps, negative means some internal tool value for UDP, unlimited for TCP");
     TEST_GET_INT64_PARAM(bandwidth);
+    TEST_PARAM_DOC(protocol, "Use TCP or UDP protocol");
     TEST_GET_PROTOCOL(protocol);
 
     for (i = 0; i < TE_ARRAY_LEN(iut_ifs); ++i, ++n_iut_ports)

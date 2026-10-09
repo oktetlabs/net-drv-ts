@@ -7,9 +7,6 @@
  *
  * @objective Convert two parallel links configuration to non-parallel
  *
- * @param env               Testing environment:
- *                          - @ref env-peer2peerX2
- *
  * @par Scenario:
  */
 
@@ -43,6 +40,9 @@ main(int argc, char **argv)
     char *tst_ta_ns1 = NULL;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peerX2");
     TEST_GET_IF(iut_if0);
     TEST_GET_IF(iut_if1);
     TEST_GET_ENV_IF(tst_if1);

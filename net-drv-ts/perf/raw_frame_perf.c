@@ -12,29 +12,6 @@
  *
  * @objective Measure Ethernet performance with CSAP/TAD.
  *
- * @param env               Testing environment:
- *                          - @ref env.peer2peer.iut_server
- *                          - @ref env.peer2peer.iut_client
- *                          - @ref env.peer2peerX2.iut_server
- *                          - @ref env.peer2peerX2.iut_client
- *                          - @ref env.peer2peerX3.iut_server
- *                          - @ref env.peer2peerX3.iut_client
- *                          - @ref env.peer2peerX4.iut_server
- *                          - @ref env.peer2peerX4.iut_client
- * @param frame_size        Ethernet frame size in bytes, including Ethernet.
- *                          header and FCS:
- *                          - @c 64
- *                          - @c 128
- *                          - @c 256
- *                          - @c 512
- *                          - @c 1024
- *                          - @c 1518
- * @param load_duration     Desired load duration in seconds.
- *                          Number of transmitted packets is calculated
- *                          from link speed and this duration.
- * @param max_loss_pct      Maximum acceptable frame loss percent.
- * @param tmpl              Traffic template.
- *
  * @type performance
  *
  * @author Denis Pryazhennikov <denis.pryazhennikov@oktetlabs.ru>
@@ -366,12 +343,35 @@ main(int argc, char *argv[])
     }
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env.peer2peer.iut_server",
+        "- @ref env.peer2peer.iut_client",
+        "- @ref env.peer2peerX2.iut_server",
+        "- @ref env.peer2peerX2.iut_client",
+        "- @ref env.peer2peerX3.iut_server",
+        "- @ref env.peer2peerX3.iut_client",
+        "- @ref env.peer2peerX4.iut_server",
+        "- @ref env.peer2peerX4.iut_client");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(server_rpcs);
     TEST_GET_PCO(client_rpcs);
+    TEST_PARAM_DOC(frame_size,
+        "Ethernet frame size in bytes, including Ethernet header and FCS:",
+        "- `64`",
+        "- `128`",
+        "- `256`",
+        "- `512`",
+        "- `1024`",
+        "- `1518`");
     TEST_GET_INT_PARAM(frame_size);
+    TEST_PARAM_DOC(load_duration,
+        "Desired load duration in seconds.",
+        "Number of transmitted packets is calculated from link speed and this duration.");
     TEST_GET_INT_PARAM(load_duration);
+    TEST_PARAM_DOC(max_loss_pct, "Maximum acceptable frame loss percent.");
     TEST_GET_DOUBLE_PARAM(max_loss_pct);
+    TEST_PARAM_DOC(tmpl, "Traffic template.");
     TEST_GET_NDN_TRAFFIC_TEMPLATE(tmpl);
 
     sender_rpcs = client_rpcs;
