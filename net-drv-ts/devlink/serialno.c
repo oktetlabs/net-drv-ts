@@ -12,9 +12,6 @@
  *
  * @objective Check that device serial number is non-empty string.
  *
- * @param env           Testing environment:
- *                      - @ref env-peer2peer
- *
  * @par Scenario:
  *
  * @author Yurij Plotnikov <Yurij.Plotnikov@arknetworks.am>
@@ -36,6 +33,9 @@ main(int argc, char *argv[])
     char *val_str = NULL;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
 

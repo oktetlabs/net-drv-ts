@@ -13,11 +13,6 @@
  * @objective Check that dist_layout device parameter can be retrieved
  *            and changed via devlink API.
  *
- * @param env           Testing environment:
- *                      - @ref env-peer2peer
- * @param if_down       If @c TRUE, set IUT interface down before
- *                      checking the parameter
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-DVL004, X3-DVL006.
@@ -43,8 +38,13 @@ main(int argc, char *argv[])
     te_bool present;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_IF(iut_if);
+    TEST_PARAM_DOC(if_down,
+        "If @c TRUE, set IUT interface down before checking the parameter");
     TEST_GET_BOOL_PARAM(if_down);
 
     rc = tapi_cfg_pci_oid_by_net_if(iut_rpcs->ta, iut_if->if_name,

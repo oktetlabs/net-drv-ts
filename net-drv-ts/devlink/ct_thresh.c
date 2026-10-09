@@ -13,9 +13,6 @@
  * @objective Check that ct_thresh device parameter can be retrieved
  *            and changed via devlink API.
  *
- * @param env           Testing environment:
- *                      - @ref env-peer2peer
- *
  * @par Scenario:
  *
  * @note Scenarios: X3-DVL002, X3-DVL003.
@@ -81,6 +78,9 @@ main(int argc, char *argv[])
     uint64_t new_val;
 
     TEST_START;
+    TEST_PARAM_DOC(env,
+        "Testing environment:",
+        "- @ref env-peer2peer");
     TEST_GET_PCO(iut_rpcs);
     TEST_GET_PCO(tst_rpcs);
     TEST_GET_IF(iut_if);
