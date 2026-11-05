@@ -223,8 +223,8 @@
         </results>
         <results tags="virtio-pci">
           <result value="PASSED">
-            <verdict>Current ring sizes RX: 256, TX: 256</verdict>
-            <verdict>Preset maximums RX: 256, TX: 256</verdict>
+            <verdict>Current ring sizes RX: 1024, TX: 1024</verdict>
+            <verdict>Preset maximums RX: 1024, TX: 1024</verdict>
           </result>
         </results>
         <results tags="i40e">
