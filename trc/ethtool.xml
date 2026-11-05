@@ -361,7 +361,7 @@
         </results>
         <results tags="virtio-pci" key="NO-ETHTOOL-PAUSE">
           <result value="SKIPPED">
-            <verdict>Ethtool command is not supported</verdict>
+            <verdict>Interface flow control parameters are not supported</verdict>
           </result>
         </results>
       </iter>
