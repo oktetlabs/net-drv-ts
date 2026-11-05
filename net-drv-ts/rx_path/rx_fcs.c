@@ -48,6 +48,12 @@
 /** Maximum length of TCP or UDP payload */
 #define MAX_PKT_LEN 1024
 
+/* Next header field offset within IPv6 header */
+#define NEXTHDR_OFFS    6
+
+/* Next header field value for ICMPv6 */
+#define NEXTHDR_ICMP    58
+
 /** Data related to incoming packet */
 typedef struct pkt_in_data {
     int payload_len;        /**< Payload length */
@@ -68,6 +74,30 @@ typedef struct pkts_info {
                          failed */
 } pkts_info;
 
+static bool
+is_packet_icmpv6(asn_value *pkt)
+{
+    size_t field_len;
+    uint32_t length_type;
+    uint8_t payload[1500];
+    te_errno rc;
+
+    rc = asn_read_uint32(pkt, &length_type,
+                         "pdus.0.#eth.length-type.#plain");
+    if (rc != 0 || length_type != ETHERTYPE_IPV6)
+        return false;
+
+    field_len = sizeof(payload);
+    rc = asn_read_value_field(pkt, payload, &field_len,
+                              "payload.#bytes");
+    if (rc == 0 && payload[NEXTHDR_OFFS] == NEXTHDR_ICMP)
+    {
+        RING("ICMPv6 packet was catched.");
+        return true;
+    }
+    return false;
+}
+
 /** CSAP callback for processing outgoing packets on Tester */
 static void
 process_out(asn_value *pkt, void *arg)
@@ -75,6 +105,9 @@ process_out(asn_value *pkt, void *arg)
     te_errno rc;
     pkts_info *info = (pkts_info *)arg;
     int pld_len;
+
+    if (is_packet_icmpv6(pkt))
+        goto cleanup;
 
     pld_len = asn_get_length(pkt, "payload.#bytes");
     if (pld_len < 0)
@@ -118,6 +151,9 @@ process_in(asn_value *pkt, void *arg)
     pkt_in_data data;
 
     pkts_info *info = (pkts_info *)arg;
+
+    if (is_packet_icmpv6(pkt))
+        goto cleanup;
 
     pld_len = asn_get_length(pkt, "payload.#bytes");
     if (pld_len < 0)
