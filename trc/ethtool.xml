@@ -547,6 +547,11 @@
         <arg name="profile">irq</arg>
         <arg name="per_queue">FALSE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-IRQ-USECS" notes="mlx5 does not support tx_coalesce_usecs_irq">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-IRQ-USECS" notes="ice does not support tx_coalesce_usecs_irq">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -568,6 +573,11 @@
         <arg name="profile">irq</arg>
         <arg name="per_queue">TRUE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-IRQ-USECS" notes="mlx5 does not support tx_coalesce_usecs_irq">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-IRQ-USECS" notes="ice does not support tx_coalesce_usecs_irq">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -589,6 +599,11 @@
         <arg name="profile">irq_usecs</arg>
         <arg name="per_queue">FALSE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-IRQ-USECS" notes="mlx5 does not support tx_coalesce_usecs_irq">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-IRQ-USECS" notes="ice does not support tx_coalesce_usecs_irq">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -610,6 +625,11 @@
         <arg name="profile">irq_usecs</arg>
         <arg name="per_queue">TRUE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-IRQ-USECS" notes="mlx5 does not support tx_coalesce_usecs_irq">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-IRQ-USECS" notes="ice does not support tx_coalesce_usecs_irq">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -631,6 +651,11 @@
         <arg name="profile">irq_frames</arg>
         <arg name="per_queue">FALSE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-IRQ-FRAMES" notes="mlx5 does not support tx_coalesce_frames_irq">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-IRQ-FRAMES" notes="ice does not support tx_max_coalesced_frames_irq">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -647,6 +672,11 @@
         <arg name="profile">irq_frames</arg>
         <arg name="per_queue">TRUE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-IRQ-FRAMES" notes="mlx5 does not support tx_coalesce_frames_irq">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-IRQ-FRAMES" notes="ice does not support tx_max_coalesced_frames_irq">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -690,6 +720,11 @@
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
           </result>
         </results>
+        <results tags="mlx5_core" key="TX-COAL-NO-ADAPTIVE-LOW-TIME" notes="mlx5 does not support tx_coalesce_usecs_low">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="i40e" key="TX-COAL-NO-ADAPTIVE-LOW-TIME" notes="i40e does not support tx_coalesce_usecs_low">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -706,6 +741,11 @@
         <arg name="profile">adaptive_low_time</arg>
         <arg name="per_queue">TRUE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-ADAPTIVE-LOW-TIME" notes="mlx5 does not support tx_coalesce_usecs_low">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-ADAPTIVE-LOW-TIME" notes="ice does not support tx_coalesce_usecs_low">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -727,6 +767,11 @@
         <arg name="profile">adaptive_low_frames</arg>
         <arg name="per_queue">FALSE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-ADAPTIVE-LOW-FRAMES" notes="mlx5 does not support tx_max_coalesced_frames_low">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-ADAPTIVE-LOW-FRAMES" notes="ice does not support tx_max_coalesced_frames_low">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -748,6 +793,11 @@
         <arg name="profile">adaptive_low_frames</arg>
         <arg name="per_queue">TRUE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-ADAPTIVE-LOW-FRAMES" notes="mlx5 does not support tx_max_coalesced_frames_low">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-ADAPTIVE-LOW-FRAMES" notes="ice does not support tx_max_coalesced_frames_low">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -769,6 +819,11 @@
         <arg name="profile">adaptive_high_time</arg>
         <arg name="per_queue">FALSE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-ADAPTIVE-HIGH-TIME" notes="mlx5 does not support tx_coalesce_usecs_high">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-ADAPTIVE-HIGH-TIME" notes="ice does not support tx_coalesce_usecs_high">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -790,6 +845,11 @@
         <arg name="profile">adaptive_high_time</arg>
         <arg name="per_queue">TRUE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-ADAPTIVE-HIGH-TIME" notes="mlx5 does not support tx_coalesce_usecs_high">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-ADAPTIVE-HIGH-TIME" notes="ice does not support tx_coalesce_usecs_high">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -811,6 +871,11 @@
         <arg name="profile">adaptive_high_frames</arg>
         <arg name="per_queue">FALSE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-ADAPTIVE-HIGH-FRAMES" notes="mlx5 does not support tx_max_coalesced_frames_high">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-ADAPTIVE-HIGH-FRAMES" notes="ice does not support tx_max_coalesced_frames_high">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -832,6 +897,11 @@
         <arg name="profile">adaptive_high_frames</arg>
         <arg name="per_queue">TRUE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-ADAPTIVE-HIGH-FRAMES" notes="mlx5 does not support tx_max_coalesced_frames_high">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-ADAPTIVE-HIGH-FRAMES" notes="ice does not support tx_max_coalesced_frames_high">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -853,6 +923,11 @@
         <arg name="profile">adaptive_rate</arg>
         <arg name="per_queue">FALSE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-ADAPTIVE-RATE" notes="mlx5 does not support TX adaptive rate parameters">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-ADAPTIVE-RATE" notes="ice does not support TX adaptive rate parameters">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -874,6 +949,11 @@
         <arg name="profile">adaptive_rate</arg>
         <arg name="per_queue">TRUE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-NO-ADAPTIVE-RATE" notes="mlx5 does not support TX adaptive rate parameters">
+          <result value="FAILED">
+            <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-NO-ADAPTIVE-RATE" notes="ice does not support TX adaptive rate parameters">
           <result value="FAILED">
             <verdict>Failed to set Tx coalescing settings, rc=EOPNOTSUPP</verdict>
@@ -895,6 +975,11 @@
         <arg name="profile">invalid</arg>
         <arg name="per_queue">FALSE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-ZERO-LIMITS" notes="mlx5 accepts zero TX time and frame limits">
+          <result value="FAILED">
+            <verdict>Zero Tx time and frame limits unexpectedly succeeded</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-ZERO-LIMITS" notes="ice accepts zero TX time and frame limits">
           <result value="FAILED">
             <verdict>Zero Tx time and frame limits unexpectedly succeeded</verdict>
@@ -916,6 +1001,11 @@
         <arg name="profile">invalid</arg>
         <arg name="per_queue">TRUE</arg>
         <notes/>
+        <results tags="mlx5_core" key="TX-COAL-ZERO-LIMITS" notes="mlx5 accepts zero TX time and frame limits">
+          <result value="FAILED">
+            <verdict>Zero Tx time and frame limits unexpectedly succeeded</verdict>
+          </result>
+        </results>
         <results tags="ice" key="TX-COAL-ZERO-LIMITS" notes="ice accepts zero TX time and frame limits">
           <result value="FAILED">
             <verdict>Zero Tx time and frame limits unexpectedly succeeded</verdict>
