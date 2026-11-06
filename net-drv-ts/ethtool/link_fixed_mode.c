@@ -261,6 +261,7 @@ cleanup:
     CLEANUP_RPC_CLOSE(tst_rpcs, tst_s);
     if (iut_saved.saved || tst_saved.saved)
     {
+        NET_DRV_WAIT_PHY_CHANGE;
         net_drv_wait_up_gen(iut_rpcs->ta, iut_if->if_name, true);
         net_drv_wait_up_gen(tst_rpcs->ta, tst_if->if_name, true);
     }

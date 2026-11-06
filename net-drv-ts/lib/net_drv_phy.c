@@ -238,10 +238,13 @@ net_drv_phy_state_restore(const char *ta, const char *if_name,
 
     if (state->autoneg == TE_PHY_AUTONEG_OFF)
     {
-        rc = tapi_cfg_phy_speed_admin_set(ta, if_name,
-                                          state->speed_admin);
-        if (rc != 0)
-            return rc;
+        if (state->speed_admin >= 0)
+        {
+            rc = tapi_cfg_phy_speed_admin_set(ta, if_name,
+                                              state->speed_admin);
+            if (rc != 0)
+                return rc;
+        }
 
         rc = tapi_cfg_phy_duplex_admin_set(ta, if_name,
                                            state->duplex_admin);
