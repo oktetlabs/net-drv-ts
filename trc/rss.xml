@@ -208,7 +208,17 @@
             <verdict>Less than 3 different Rx queues is available</verdict>
           </result>
         </results>
-        <results tags="ice|i40e" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
+        <results tags="i40e" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
+          <result value="FAILED">
+            <verdict>Failed to add the second Rx rule: TA_UNIX-EOPNOTSUPP</verdict>
+          </result>
+        </results>
+        <results tags="ice&amp;linux-mm&lt;700" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
+          <result value="FAILED">
+            <verdict>Failed to add the second Rx rule: TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="ice" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
           <result value="FAILED">
             <verdict>Failed to add the second Rx rule: TA_UNIX-EOPNOTSUPP</verdict>
           </result>
@@ -231,7 +241,22 @@
             <verdict>Failed to add the second Rx rule: TA_UNIX-EPROTONOSUPPORT</verdict>
           </result>
         </results>
-        <results tags="ice|i40e" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
+        <results tags="i40e" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
+          <result value="FAILED">
+            <verdict>Failed to add the second Rx rule: TA_UNIX-EOPNOTSUPP</verdict>
+          </result>
+        </results>
+        <results tags="ice&amp;linux-mm&lt;700" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
+          <result value="FAILED">
+            <verdict>Failed to add the second Rx rule: TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="rx-queues&lt;3&amp;ice&amp;linux-mm&gt;=700" key="TOO-FEW-RX-QUEUES">
+          <result value="SKIPPED">
+            <verdict>Less than 3 different Rx queues is available</verdict>
+          </result>
+        </results>
+        <results tags="ice" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
           <result value="FAILED">
             <verdict>Failed to add the second Rx rule: TA_UNIX-EOPNOTSUPP</verdict>
           </result>
@@ -254,7 +279,22 @@
             <verdict>Failed to add the first Rx rule: TA_UNIX-EPROTONOSUPPORT</verdict>
           </result>
         </results>
-        <results tags="ice|i40e" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
+        <results tags="i40e" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
+          <result value="FAILED">
+            <verdict>Failed to add the second Rx rule: TA_UNIX-EOPNOTSUPP</verdict>
+          </result>
+        </results>
+        <results tags="ice&amp;linux-mm&lt;700" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
+          <result value="FAILED">
+            <verdict>Failed to add the second Rx rule: TA_UNIX-EINVAL</verdict>
+          </result>
+        </results>
+        <results tags="rx-queues&lt;3&amp;ice&amp;linux-mm&gt;=700" key="TOO-FEW-RX-QUEUES">
+          <result value="SKIPPED">
+            <verdict>Less than 3 different Rx queues is available</verdict>
+          </result>
+        </results>
+        <results tags="ice" key="RX-RULE-NO-TWO-SIMILAR" notes="Intel NICs do not support adding two rules of the same type">
           <result value="FAILED">
             <verdict>Failed to add the second Rx rule: TA_UNIX-EOPNOTSUPP</verdict>
           </result>
