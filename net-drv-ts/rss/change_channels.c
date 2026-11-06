@@ -356,6 +356,8 @@ cleanup:
 
     if (combined_init > 0)
     {
+        CHECK_RC(tapi_cfg_if_rss_indir_default_set(iut_rpcs->ta,
+                                                   iut_if->if_name));
         CLEANUP_CHECK_RC(tapi_cfg_if_chan_cur_set(
                                           iut_rpcs->ta, iut_if->if_name,
                                           TAPI_CFG_IF_CHAN_COMBINED,
