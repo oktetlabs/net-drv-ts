@@ -98,6 +98,22 @@ is_packet_icmpv6(asn_value *pkt)
     return false;
 }
 
+static bool
+is_packet_arp(asn_value *pkt)
+{
+    uint32_t length_type;
+    te_errno rc;
+
+    rc = asn_read_uint32(pkt, &length_type,
+                         "pdus.0.#eth.length-type.#plain");
+
+    if (rc != 0 || length_type != ETHERTYPE_ARP)
+        return false;
+
+    RING("ARP packet was catched.");
+    return true;
+}
+
 /** CSAP callback for processing outgoing packets on Tester */
 static void
 process_out(asn_value *pkt, void *arg)
@@ -106,7 +122,7 @@ process_out(asn_value *pkt, void *arg)
     pkts_info *info = (pkts_info *)arg;
     int pld_len;
 
-    if (is_packet_icmpv6(pkt))
+    if (is_packet_icmpv6(pkt) || is_packet_arp(pkt))
         goto cleanup;
 
     pld_len = asn_get_length(pkt, "payload.#bytes");
@@ -152,7 +168,7 @@ process_in(asn_value *pkt, void *arg)
 
     pkts_info *info = (pkts_info *)arg;
 
-    if (is_packet_icmpv6(pkt))
+    if (is_packet_icmpv6(pkt) || is_packet_arp(pkt))
         goto cleanup;
 
     pld_len = asn_get_length(pkt, "payload.#bytes");
