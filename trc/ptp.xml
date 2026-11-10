@@ -58,7 +58,53 @@
       <notes/>
       <iter result="PASSED">
         <arg name="env"/>
-        <arg name="freq"/>
+        <arg name="freq">-100000</arg>
+        <arg name="min_sleep"/>
+        <arg name="max_sleep"/>
+        <notes/>
+        <results tags="mlx5_core" notes="mlx5_core doesn't support 100000 frequency">
+          <result value="FAILED">
+            <verdict>Setting frequency offset: clock_adjtime() failed unexpectedly with error RPC-ERANGE</verdict>
+          </result>
+        </results>
+        <results tags="iut-no-ptp" key="NO-PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="freq">-49999</arg>
+        <arg name="min_sleep"/>
+        <arg name="max_sleep"/>
+        <notes/>
+        <results tags="iut-no-ptp" key="NO-PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="freq">100000</arg>
+        <arg name="min_sleep"/>
+        <arg name="max_sleep"/>
+        <notes/>
+        <results tags="mlx5_core" notes="mlx5_core doesn't support 100000 frequency">
+          <result value="FAILED">
+            <verdict>Setting frequency offset: clock_adjtime() failed unexpectedly with error RPC-ERANGE</verdict>
+          </result>
+        </results>
+        <results tags="iut-no-ptp" key="NO-PTP">
+          <result value="SKIPPED">
+            <verdict>PTP device index is not known</verdict>
+          </result>
+        </results>
+      </iter>
+      <iter result="PASSED">
+        <arg name="env"/>
+        <arg name="freq">49999</arg>
         <arg name="min_sleep"/>
         <arg name="max_sleep"/>
         <notes/>
