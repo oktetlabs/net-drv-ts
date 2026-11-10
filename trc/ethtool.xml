@@ -1191,7 +1191,7 @@
       </iter>
     </test>
     <test name="autoneg_advertise" type="script">
-      <objective>Check autonegotiation and advertised modes.</objective>
+      <objective>Check that autonegotiation selects the preferred common exact PHY mode and renegotiates to a lower-priority common mode after advertised modes are changed on one side.</objective>
       <notes/>
       <iter result="PASSED">
         <arg name="env"/>
@@ -1206,7 +1206,18 @@
             <verdict>Changing advertised PHY modes is not supported on one of sides</verdict>
           </result>
         </results>
-        <results key="TOO-FEW-COMMON-PHY-MODES" notes="Setup exposes fewer than two common advertised PHY modes with different priorities">
+        <results tags="mlx5_core&amp;peer-mlx5_core" notes="mlx5_core does not exposes link partner PHY advertised modes">
+          <result value="PASSED">
+            <verdict>IUT initial partner preferred PHY: link partner does not advertise requested mode</verdict>
+            <verdict>IUT initial partner lower-priority PHY: link partner does not advertise requested mode</verdict>
+            <verdict>Tester initial partner preferred PHY: link partner does not advertise requested mode</verdict>
+            <verdict>Tester initial partner lower-priority PHY: link partner does not advertise requested mode</verdict>
+            <verdict>Changed side partner preferred PHY: link partner does not advertise requested mode</verdict>
+            <verdict>Changed side partner lower-priority PHY: link partner does not advertise requested mode</verdict>
+            <verdict>Peer side partner lower-priority PHY: link partner does not advertise requested mode</verdict>
+          </result>
+        </results>
+        <results tags="!((mlx5_core&amp;peer-mlx5_core)|(ice&amp;peer-ice))" key="TOO-FEW-COMMON-PHY-MODES" notes="Setup exposes fewer than two common advertised PHY modes with different priorities">
           <result value="PASSED"/>
           <result value="SKIPPED">
             <verdict>At least two common advertised PHY modes with different priorities are required</verdict>

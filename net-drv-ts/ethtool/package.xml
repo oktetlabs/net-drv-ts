@@ -209,7 +209,7 @@
         </run>
 
         <run>
-            <script name="autoneg_advertise"/>
+            <script name="autoneg_advertise" track_conf="nohistory"/>
             <arg name="env">
                 <value ref="env.peer2peer.an_iut_change"/>
                 <value ref="env.peer2peer.an_tst_change"/>

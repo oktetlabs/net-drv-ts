@@ -251,6 +251,12 @@ net_drv_phy_state_restore(const char *ta, const char *if_name,
         if (rc != 0)
             return rc;
     }
+    else
+    {
+        rc = tapi_cfg_phy_speed_admin_set(ta, if_name, 0);
+        if (rc != 0)
+            return rc;
+    }
 
     for (i = 0; i < state->modes_num; i++)
     {
@@ -378,6 +384,10 @@ net_drv_phy_apply_autoneg_modes(const char *ta, const char *if_name,
     }
 
     rc = tapi_cfg_phy_autoneg_set(ta, if_name, TE_PHY_AUTONEG_ON);
+    if (rc != 0)
+        return rc;
+
+    rc = tapi_cfg_phy_speed_admin_set(ta, if_name, 0);
     if (rc != 0)
         return rc;
 
